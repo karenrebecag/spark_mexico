@@ -1,0 +1,54 @@
+/* Spark Design System Fonts
+   4-tier typography hierarchy: Inter (body), Grift (display), Interval (accent), Gantol (decorative).
+   Self-hosted via jsDelivr. URLs relative to dist/landing.css. */
+
+/* Inter — body text, UI elements (system fallback: sans-serif) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Grift — display / headings / section titles (geometric, bold) */
+@font-face {
+  font-family: 'Grift';
+  src: url('./fonts/grift/Grift-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Grift';
+  src: url('./fonts/grift/Grift-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Grift';
+  src: url('./fonts/grift/Grift-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Interval — accent / eyebrows / labels / data (monospace) */
+@font-face {
+  font-family: 'Interval';
+  src: url('./fonts/interval/TBJInterval-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Interval';
+  src: url('./fonts/interval/TBJInterval-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Gantol — decorative / handwritten accents (rare use) */
+@font-face {
+  font-family: 'Gantol';
+  src: url('./fonts/gantol/Gantol-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

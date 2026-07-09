@@ -1,0 +1,117 @@
+/* Spark Design System Typography
+   4-tier: Sans (Inter) for body, Display (Grift) for heads, Accent (Interval) for labels,
+   Handwritten (Gantol) for decorative. Semantic classes + type scale hierarchy. */
+
+/* ──────────────────────────────────────────────────────────────────────────
+   BASE FONT FAMILY & SIZING
+   ────────────────────────────────────────────────────────────────────────── */
+.aa-landing {
+  font-family: var(--aa-font-sans);
+  font-size: calc(var(--aa-size-font) * 1px);
+  font-weight: var(--aa-weight-regular);
+  line-height: var(--aa-leading-normal);
+  color: var(--aa-fg);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   HEADINGS — Display font (Grift) with character
+   ────────────────────────────────────────────────────────────────────────── */
+.aa-landing :is(.aa-h-xxl, .aa-h-xl, .aa-h-l, .aa-h-ml, .aa-h-m, h1, h2, h3, h4, h5, h6) {
+  font-family: var(--aa-font-display);
+  font-weight: var(--aa-weight-bold);
+  text-wrap: balance;
+}
+
+.aa-landing .aa-h-xxl,
+.aa-landing h1 {
+  font-size: var(--aa-text-xxl);
+  font-weight: var(--aa-weight-extrabold);
+  line-height: var(--aa-leading-tight);
+  letter-spacing: -0.03em;
+}
+
+.aa-landing .aa-h-xl,
+.aa-landing h2 {
+  font-size: var(--aa-text-xl);
+  font-weight: var(--aa-weight-bold);
+  line-height: var(--aa-leading-tight);
+  letter-spacing: -0.02em;
+}
+
+.aa-landing .aa-h-l,
+.aa-landing h3 {
+  font-size: var(--aa-text-l);
+  font-weight: var(--aa-weight-bold);
+  line-height: var(--aa-leading-snug);
+  letter-spacing: -0.02em;
+}
+
+.aa-landing .aa-h-ml,
+.aa-landing h4 {
+  font-size: var(--aa-text-ml);
+  font-weight: var(--aa-weight-semibold);
+  line-height: var(--aa-leading-snug);
+  letter-spacing: -0.01em;
+}
+
+.aa-landing .aa-h-m,
+.aa-landing h5 {
+  font-size: var(--aa-text-m);
+  font-weight: var(--aa-weight-semibold);
+  line-height: var(--aa-leading-snug);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   BODY TEXT
+   ────────────────────────────────────────────────────────────────────────── */
+.aa-landing .aa-p-l,
+.aa-landing p {
+  font-size: var(--aa-text-s);
+  line-height: var(--aa-leading-normal);
+  color: var(--aa-fg);
+  max-width: 65ch;
+}
+
+.aa-landing .aa-p-m {
+  font-size: var(--aa-text-xs);
+  line-height: var(--aa-leading-normal);
+  color: var(--aa-fg-secondary);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ACCENT / LABELS — Interval (mono) with visual distinction
+   ────────────────────────────────────────────────────────────────────────── */
+.aa-landing .aa-eyebrow,
+.aa-landing .aa-label {
+  font-family: var(--aa-font-accent);
+  font-size: var(--aa-text-xxs);
+  font-weight: var(--aa-weight-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--aa-accent-secondary);
+  display: block;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   DECORATIVE / HANDWRITTEN — Gantol (rare, intentional use)
+   ────────────────────────────────────────────────────────────────────────── */
+.aa-landing .aa-handwritten {
+  font-family: 'Gantol', var(--aa-font-sans);
+  font-size: calc(var(--aa-text-s) * 1.2);
+  font-weight: 400;
+  color: var(--aa-accent);
+  letter-spacing: 0.02em;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   UTILITIES
+   ────────────────────────────────────────────────────────────────────────── */
+/* Clip wrapper para reveal de headings (SplitText sube las words desde abajo) */
+.aa-landing .aa-split-wrap {
+  overflow: hidden;
+}
+
+/* Smooth transitions for theme changes */
+.aa-landing {
+  transition: var(--aa-transition-colors);
+}
