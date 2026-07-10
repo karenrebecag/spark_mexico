@@ -145,14 +145,10 @@
 }
 
 /* ── Efecto hover (solo desktop con puntero fino) ─────────────────────────────
-   Al pasar sobre la lista se atenúan todos los ítems; el ítem bajo el cursor vuelve a
-   opacidad plena y barre en x (guiño al MWG 105, ahora hover-driven, no scroll). */
+   El ítem bajo el cursor barre en x (guiño al MWG 105). Sin dimming: todos los ítems
+   mantienen opacidad plena siempre. */
 @media (hover: hover) and (pointer: fine) {
-  .aa-landing .aa-aud__list:hover .aa-aud__item {
-    opacity: 0.35;
-  }
   .aa-landing .aa-aud__list .aa-aud__item:hover {
-    opacity: 1;
     transform: translateX(var(--aa-aud-sweep));
   }
 }
