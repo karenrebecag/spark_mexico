@@ -1,0 +1,156 @@
+/* spark-mexico · Flick Cards Slider (Osmo Vault) — baraja de cards en abanico, draggable.
+   Portado del snippet a tokens .aa-*. Todo en em: el font-size de .aa-flick escala el
+   slider completo para caber en su columna (y en mobile). Estados por
+   [data-aa-flick-status] (active / 2-before / 2-after / 3-* / hidden). */
+
+.aa-flick {
+  position: relative;
+  /* Escala global del slider: 47em (ancho del spacer) ≈ ancho de la columna derecha. */
+  font-size: clamp(8px, 1.35vw, 12px);
+}
+
+/* Spacer invisible que da el alto del grupo (ancho * ratio). */
+.aa-flick__spacer {
+  position: relative;
+  width: 47em;
+  max-width: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+.aa-flick__spacer-before { padding-top: 75%; }
+
+.aa-flick__collection {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.aa-flick__list {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.aa-flick__item {
+  position: absolute;
+  will-change: transform;
+}
+
+/* ── Card ─────────────────────────────────────────────────────────────────────── */
+.aa-flick-card {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 23.5em;
+  overflow: hidden;
+  border-radius: 1em;
+  background-color: var(--aa-navy-950);
+  color: #ffffff;
+  user-select: none;
+  -webkit-user-select: none;
+  box-shadow: 0 1.2em 3em -1.2em rgba(0, 0, 0, 0.6);
+}
+.aa-flick-card__before { padding-top: 150%; }
+
+.aa-flick-card__media {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* Avatar = foto cover + iniciales de fondo (fallback si la img falla o mientras carga). */
+.aa-flick-card__avatar {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(140deg, var(--aa-navy-600), var(--aa-navy-900));
+  font-family: var(--aa-font-accent);
+  font-size: 4em;
+  font-weight: var(--aa-weight-bold);
+  letter-spacing: 0.03em;
+  color: color-mix(in srgb, #ffffff 70%, transparent);
+}
+.aa-flick-card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.aa-flick-card__img.is--broken { display: none; } /* revela las iniciales */
+
+/* Scrim inferior para legibilidad del nombre/rol sobre la foto. */
+.aa-flick-card__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8, 16, 29, 0.85) 0%, rgba(8, 16, 29, 0) 55%);
+}
+
+/* Jerarquía (arriba→abajo): empresa (eyebrow uppercase) · nombre (display XL) · rol (muted).
+   Orden en el DOM = mismo (ver flick-cards.ts) para que el cascade del SplitText baje. */
+.aa-flick-card__info {
+  position: absolute;
+  left: 2em;
+  right: 2em;
+  bottom: 2em;
+  display: flex;
+  flex-direction: column;
+}
+/* Empresa = chip .aa-pill; font-size en em (no el token rem de .aa-pill) para que escale
+   con la card. align-self flex-start → el chip envuelve solo su texto, no toda la fila. */
+.aa-flick-card__company.aa-pill {
+  align-self: flex-start;
+  margin-bottom: 0.85em;
+  font-size: 0.85em;
+}
+.aa-flick-card__name {
+  margin: 0;
+  font-family: var(--aa-font-display);
+  font-size: 2.3em;
+  font-weight: var(--aa-weight-extrabold);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.aa-flick-card__role {
+  margin-top: 0.5em;
+  font-size: 1.15em;
+  font-weight: var(--aa-weight-medium);
+  line-height: 1.25;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+/* ── Dragger (capa transparente que captura el gesto) ───────────────────────────── */
+[data-aa-flick-dragger] {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: auto;
+  touch-action: pan-y;
+}
+.aa-flick[data-aa-flick-drag='grab'] { cursor: grab; }
+.aa-flick[data-aa-flick-drag='grabbing'] { cursor: grabbing; }
+
+/* ── Estados: la foto se atenúa según la profundidad; el info se revela en la activa ── */
+.aa-flick-card__media { transition: opacity 0.2s ease; }
+[data-aa-flick-status] .aa-flick-card__media { opacity: 0.5; }
+[data-aa-flick-status='2-before'] .aa-flick-card__media,
+[data-aa-flick-status='2-after'] .aa-flick-card__media { opacity: 0.75; }
+[data-aa-flick-status='active'] .aa-flick-card__media { opacity: 1; }
+
+/* El info solo se muestra en la card activa; el movimiento del texto lo hace SplitText
+   (words escalonadas, ver initFlickCards). Aquí solo la compuerta de visibilidad. */
+[data-aa-flick-status] .aa-flick-card__info {
+  transition: opacity 0.3s var(--aa-ease);
+  opacity: 0;
+}
+[data-aa-flick-status='active'] .aa-flick-card__info {
+  opacity: 1;
+}

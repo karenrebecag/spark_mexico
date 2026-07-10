@@ -1,0 +1,93 @@
+/* atfx-peru · countdown section. Replica el ProgramaWrapper de Spark: overlap sobre
+   el hero + esquinas superiores redondeadas + theming light. Tokens --aa-* de OSMO. */
+
+/* Bloque de registro (countdown + form) — overlap sobre el hero + esquinas redondeadas.
+   Usa el dark profundo por defecto (bg blue-990); sin override que lo aclare. */
+.aa-landing .aa-form-section {
+  position: relative;
+  z-index: 1;
+  margin-top: calc(-1 * var(--aa-padding-l)); /* overlap sobre el hero (Spark -mt-16 ≈ 4rem) */
+  padding-block: var(--aa-padding-xl);
+  border-radius: 2.5em 2.5em 0 0; /* spec de Spark; sin token equivalente */
+  overflow: hidden;
+}
+/* El ProgramaWrapper SIEMPRE pinta su strip opaco (bg del tema) para que el overlap
+   redondeado sobre el hero se vea aunque su tema coincida con el root — si no, la
+   optimización de pintado de section-theme.css lo volvería transparente. Especificidad
+   (0,4,0) para ganarle a esa regla sin !important. */
+.aa-landing[data-aa-theme] .aa-form-section[data-aa-section-theme] {
+  background-color: var(--aa-bg);
+}
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-form-section { border-radius: 0; }
+}
+
+.aa-landing .aa-countdown-section__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--aa-gap-m);
+  text-align: center;
+}
+
+.aa-landing .aa-countdown-section__label {
+  font-size: var(--aa-text-m);
+  font-weight: var(--aa-weight-semibold);
+  color: var(--aa-fg);
+}
+
+.aa-landing .aa-countdown-section__note {
+  max-width: 32em;
+  font-size: var(--aa-text-s);
+  line-height: var(--aa-leading-normal);
+  color: var(--aa-fg-muted);
+}
+
+/* Countdown: 4 unidades en cajas. Grid de columnas iguales (minmax(0,1fr)) para que
+   los 4 squares midan exactamente lo mismo sin depender del ancho del label. */
+.aa-landing .aa-countdown {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: center;
+  gap: var(--aa-gap-s);
+  width: 100%;
+  max-width: 30em;
+  margin-inline: auto;
+}
+.aa-landing .aa-countdown__unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--aa-gap-xxs);
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  padding: var(--aa-padding-s) var(--aa-padding-xs);
+  background: var(--aa-bg-subtle);
+  border: 1px solid var(--aa-border);
+  border-radius: var(--aa-radius-l);
+}
+@media screen and (max-width: 479px) {
+  .aa-landing .aa-countdown {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 18em;
+  }
+}
+.aa-landing .aa-countdown__num {
+  font-size: var(--aa-text-l);
+  font-weight: var(--aa-weight-extrabold);
+  line-height: 1;
+  color: var(--aa-fg);
+  font-variant-numeric: tabular-nums;
+}
+.aa-landing .aa-countdown__label {
+  font-size: var(--aa-text-xxs);
+  font-weight: var(--aa-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--aa-fg-muted);
+}
+
+/* El form embebido (atfx-forms, CSS externo) no debe empujar el ancho */
+.aa-landing .aa-form-section { overflow-x: clip; }
+.aa-landing .aa-form-section [data-atfx-form-mount] { max-width: 100%; }

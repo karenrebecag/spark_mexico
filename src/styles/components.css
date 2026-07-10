@@ -1,0 +1,228 @@
+/* atom-academy · components. Button (patrón 038 OSMO), card, divider. */
+
+/* ─── Button 004 (flip 3D de caracteres en hover) — portado de ATOM ─────────────── */
+.aa-landing .aa-button {
+  --aa-btn-radius: var(--aa-radius-pill);
+  --aa-btn-padding: 0.95em 1.5em;
+  --aa-btn-translate-y: 1.25em;
+  --aa-btn-focus-inset: -0.125em;
+  --aa-btn-click-scale: 0.955 0.925;
+  --aa-btn-ease-hover: cubic-bezier(0.675, 0.15, 0.1, 1);
+  --aa-btn-ease-click: cubic-bezier(0.4, 0, 0.2, 1);
+  --aa-btn-ease-focus: cubic-bezier(0.32, 0.72, 0, 1);
+  --aa-btn-color: var(--aa-accent-fg);
+  --aa-btn-bg: var(--aa-gradient-bg); /* fondo de marca: rosa → naranja */
+  --aa-btn-focus: var(--aa-focus-ring); /* anillo de foco = electric coral */
+
+  color: var(--aa-btn-color);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: var(--aa-weight-bold);
+  line-height: 1;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+  outline: none;
+  padding: 0;
+  display: inline-grid;
+  position: relative;
+  cursor: pointer;
+  transition: scale 0.15s var(--aa-btn-ease-click);
+}
+.aa-landing .aa-button--sm { --aa-btn-padding: 0.72em 1.15em; font-size: 0.875em; }
+
+.aa-landing .aa-button:hover,
+.aa-landing .aa-button:focus,
+.aa-landing .aa-button:active,
+.aa-landing .aa-button:visited {
+  color: var(--aa-btn-color);
+}
+
+/* Variantes por color (mapeadas a tokens del DS) */
+.aa-landing .aa-button--secondary { --aa-btn-color: var(--aa-bg); --aa-btn-bg: var(--aa-fg); }
+.aa-landing .aa-button--ghost { --aa-btn-color: var(--aa-fg); --aa-btn-bg: transparent; }
+.aa-landing .aa-button--ghost .aa-button__bg { border: 1.5px solid var(--aa-border); }
+
+/* Anillo de focus accesible */
+.aa-landing .aa-button::after {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: var(--aa-btn-focus-inset);
+  border-radius: var(--aa-btn-radius);
+  transition: box-shadow 0.3s var(--aa-btn-ease-focus);
+  pointer-events: none;
+  z-index: 1;
+}
+.aa-landing .aa-button:focus-visible::after { box-shadow: 0 0 0 0.125em var(--aa-btn-focus); }
+.aa-landing .aa-button:active { scale: var(--aa-btn-click-scale); }
+
+.aa-landing .aa-button__inner {
+  pointer-events: none;
+  border-radius: var(--aa-btn-radius);
+  z-index: 1;
+  padding: var(--aa-btn-padding);
+  grid-area: 1 / 1;
+  display: grid;
+  justify-items: center;
+}
+.aa-landing .aa-button__text {
+  perspective: 10em;
+  transform-style: preserve-3d;
+  grid-area: 1 / 1;
+  white-space: nowrap;
+}
+.aa-landing .aa-button__split-char {
+  --base-delay: 0.05s;
+  --max-extra: 2.9s;
+  --t: calc(var(--index) / max(var(--max-index), 1));
+  --curve: sin(calc(var(--t) * 1.5deg));
+  --delay: calc(var(--base-delay) + (var(--curve) * var(--max-extra)));
+  --rot-t: calc(var(--index) / max(var(--max-index), 1));
+  --rot-curve: sin(calc(var(--rot-t) * 30deg));
+  --rot-sign: clamp(-1, var(--signed-index), 1);
+  --rot-max: 36deg;
+  display: inline-block;
+}
+.aa-landing .aa-button__text.is--default .aa-button__split-char {
+  transition: transform 0.325s var(--aa-btn-ease-hover), translate 0.425s var(--aa-btn-ease-hover),
+    rotate 0.45s var(--aa-btn-ease-hover), opacity 0.15s ease-out;
+}
+.aa-landing .aa-button__text.is--hover .aa-button__split-char {
+  transition: transform 0.35s var(--aa-btn-ease-hover), translate 0.35s var(--aa-btn-ease-hover),
+    rotate 0.35s var(--aa-btn-ease-hover), opacity 0.15s 0.1s ease-out;
+  rotate: 1 0 0 -72deg;
+  transform: rotateZ(calc(var(--rot-sign) * var(--rot-curve) * var(--rot-max) * -1)) scale(0.65);
+  translate: calc(var(--signed-index) * 0.125em) calc(var(--aa-btn-translate-y) * 1) 0;
+  opacity: 0;
+}
+.aa-landing .aa-button__bg {
+  background: var(--aa-btn-bg); /* shorthand → admite gradiente o color sólido (variantes) */
+  border-radius: var(--aa-btn-radius);
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  transition: background-color var(--aa-duration-s) var(--aa-btn-ease-hover);
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .aa-landing .aa-button__split-char { will-change: transform, translate, rotate, opacity; }
+
+  .aa-landing .aa-button:is(:hover, :focus-visible) .aa-button__text.is--default .aa-button__split-char {
+    translate: calc(var(--signed-index) * 0.125em) calc(var(--aa-btn-translate-y) * -1) 0;
+    rotate: 1 0 0 72deg;
+    transform: rotateZ(calc(var(--rot-sign) * var(--rot-curve) * var(--rot-max) * -1)) scale(0.65);
+    opacity: 0;
+    transition: transform 0.35s var(--delay) var(--aa-btn-ease-hover),
+      translate 0.35s var(--delay) var(--aa-btn-ease-hover),
+      rotate 0.35s var(--delay) var(--aa-btn-ease-hover),
+      opacity 0.15s calc(var(--delay) + 0.1s) ease-out;
+  }
+  .aa-landing .aa-button:is(:hover, :focus-visible) .aa-button__text.is--hover .aa-button__split-char {
+    translate: 0 0 0;
+    rotate: 1 0 0 0deg;
+    transform: rotateZ(0deg) scale(1);
+    opacity: 1;
+    transition: transform 0.325s calc(var(--delay) + 0.05s) var(--aa-btn-ease-hover),
+      translate 0.425s calc(var(--delay) + 0.05s) var(--aa-btn-ease-hover),
+      rotate 0.45s calc(var(--delay) + 0.05s) var(--aa-btn-ease-hover),
+      opacity 0.15s calc(var(--delay) + 0.075s) ease-out;
+  }
+}
+
+/* ─── Card ────────────────────────────────────────────────────────────────────── */
+.aa-landing .aa-card {
+  background: var(--aa-bg-subtle);
+  border: 1px solid var(--aa-border);
+  border-radius: var(--aa-radius-l);
+  padding: var(--aa-padding-m);
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-s);
+}
+
+/* ─── Divider ─────────────────────────────────────────────────────────────────── */
+.aa-landing .aa-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--aa-border);
+}
+
+/* ─── Module card — product-card de OSMO (portada de ATOM). Variantes ATFX ──────── */
+/* Valores OSMO: radius 1em, __before 130%, __content padding 2.5em, todo centrado. */
+.aa-landing .aa-mod-card {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-radius: 1em;
+  overflow: hidden;
+  background: var(--aa-navy-850); /* default */
+  color: #ffffff;
+}
+.aa-landing .aa-mod-card--accent   { background: var(--aa-color-cyan);     color: var(--aa-navy-900); }
+.aa-landing .aa-mod-card--gradient { background: var(--aa-blue-700); color: #ffffff; }
+.aa-landing .aa-mod-card--light    { background: var(--aa-neutral-100);    color: var(--aa-navy-900); }
+
+/* Spacer que fija el aspect ratio (padding-% resuelve contra el ancho de la card) */
+.aa-landing .aa-mod-card__before { padding-top: 130%; }
+
+/* Capa de contenido sobre el color */
+.aa-landing .aa-mod-card__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5em;
+}
+.aa-landing .aa-mod-card__tags {
+  display: flex;
+  justify-content: center;
+  gap: 0.5em;
+}
+.aa-landing .aa-mod-card__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35em 0.7em;
+  border-radius: var(--aa-radius-pill);
+  background: color-mix(in srgb, currentColor 12%, transparent);
+  font-family: var(--aa-font-mono);
+  font-size: var(--aa-text-xxs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Región central centrada (OSMO __center-content: flex 1, justify center, gap 1.25em) */
+.aa-landing .aa-mod-card__center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25em;
+  text-align: center;
+}
+.aa-landing .aa-mod-card__h {
+  margin: 0;
+  font-size: var(--aa-text-l);
+  font-weight: var(--aa-weight-bold);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.aa-landing .aa-mod-card__p {
+  margin: 0;
+  font-size: var(--aa-text-xs);
+  line-height: 1.35;
+  text-wrap: balance;
+  opacity: 0.82;
+}
+
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-mod-card__content { padding: 1.5em; }
+}

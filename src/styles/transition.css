@@ -1,0 +1,32 @@
+/* Column Wipe intro overlay (portado de Portfolio2026). 5 columnas navy que cubren el
+   viewport al montar y se retiran en stagger. z-index sobre el grain (9999) dentro del
+   stacking context de .aa-landing. Color de marca navy → cierra limpio sobre el hero. */
+
+.aa-landing .aa-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  pointer-events: none;
+}
+
+.aa-landing .aa-transition__column {
+  flex: 1 1 0;
+  background: var(--aa-navy-950);
+  will-change: transform;
+}
+
+/* Líneas verticales tenues entre columnas (acento cyan de marca, muy sutil) */
+.aa-landing .aa-transition__lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent calc(20% - 1px),
+    var(--aa-accent-electric) calc(20% - 1px),
+    var(--aa-accent-electric) 20%
+  );
+}

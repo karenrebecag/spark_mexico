@@ -1,0 +1,157 @@
+/* spark-mexico · Radial Cards Slider (GSAP). Port del componente Osmo con clases .aa-*
+   y colores mapeados a tokens del DS. El offscreen del círculo lo contiene el
+   overflow-x: clip del root .aa-landing. */
+
+/* Strip contenedor: light en snow-50 + textura topográfica al 5% (mismo recipe que el
+   fondo fijo). NO puede ir transparente: solapa el hero oscuro (margin-top negativo +
+   corners redondeados) → necesita fondo opaco propio, si no se ve el hero por el overlap.
+   Pinta explícito para ganarle a la optimización de pintado; (0,4,0). */
+.aa-landing .aa-radial-section {
+  position: relative;
+  z-index: 1;
+  /* Overlap sobre el hero + esquinas superiores redondeadas (ProgramaWrapper de Spark;
+     antes vivía en la strip del form, ahora oculta). */
+  margin-top: calc(-1 * var(--aa-padding-l));
+  border-radius: 2.5em 2.5em 0 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* Bottom extra generoso: el arco de la órbita baja bastante las cards laterales;
+     sin este colchón se pisaban con la sección siguiente. */
+  padding-block: var(--aa-padding-xxl) var(--aa-padding-xl);
+}
+@media screen and (max-width: 767px) {
+  /* Sin overlap en mobile: el margin-top negativo servía para solapar el hero (desktop),
+     pero aquí el marquee de patrocinadores queda entre el hero y el radial → el overlap
+     se comía el fondo de los logos. Sin radio tampoco hay curva que justificarlo. */
+  .aa-landing .aa-radial-section {
+    border-radius: 0;
+    margin-top: 0;
+  }
+}
+.aa-landing[data-aa-theme] .aa-radial-section[data-aa-section-theme] {
+  background-color: var(--aa-snow-50);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--aa-snow-50) 95%, transparent),
+                    color-mix(in srgb, var(--aa-snow-50) 95%, transparent)),
+    url('https://pub-c8d801a0ff204d758910633021fa302b.r2.dev/contour.jpg');
+  background-repeat: no-repeat, repeat;
+  background-size: auto, 620px auto;
+}
+.aa-landing .aa-radial-section__head { text-align: center; }
+/* Líneas parejas sin split (el heading usa highlight → fade, no SplitText). */
+.aa-landing .aa-radial-section__head .aa-h-l { text-wrap: balance; }
+
+/* Underline de la FeatureCard: se revela cuando su item está activo en la órbita. */
+.aa-landing .aa-radial-slider__item[data-radial-slider-item-status='active'] .aa-fcard__underline {
+  transform: scaleX(1);
+}
+
+.aa-landing .aa-radial-slider {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-top: 5em;
+  gap: 5em;
+  /* Geometría del círculo (ajustable por breakpoint) */
+  --slider-rotate: 18deg;
+  --slider-radius: 375%;
+}
+.aa-landing .aa-radial-slider[data-radial-slider-drag-status='grab'] { cursor: grab; }
+.aa-landing .aa-radial-slider[data-radial-slider-drag-status='grabbing'] { cursor: grabbing; }
+
+.aa-landing .aa-radial-slider__collection {
+  position: relative;
+  max-width: 100%;
+}
+
+.aa-landing .aa-radial-slider__list {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  will-change: transform;
+  touch-action: pan-y;
+  backface-visibility: hidden;
+}
+.aa-landing .aa-radial-slider__list > :first-child { position: relative; }
+
+.aa-landing .aa-radial-slider__item {
+  position: absolute;
+  flex: none;
+  width: 20em;
+  transform-origin: 50% var(--slider-radius);
+}
+
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-radial-slider {
+    --slider-rotate: 12deg;
+    --slider-radius: 475%;
+  }
+  /* 15em dejaba el texto (tags+heading+párrafo) al límite del card (altura ligada al
+     ancho vía aspect-ratio 130% en .aa-fcard::before) — se recortaba abajo. Se ensancha
+     el card, no la tipografía: más alto (proporcional) y menos wrap por línea. */
+  .aa-landing .aa-radial-slider__item { width: 19em; }
+}
+
+/* La card usada dentro del slider es el componente FeatureCard (ver feature-card.css). */
+
+/* ─── Controles ────────────────────────────────────────────────────────────── */
+.aa-landing .aa-radial-slider__controls {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  padding: 3em;
+}
+.aa-landing .aa-radial-slider__control-btn {
+  position: relative;
+  z-index: 1;
+  height: 3em;
+  padding: 0 1.5em;
+  font-size: 1em;
+  font-weight: var(--aa-weight-semibold);
+  letter-spacing: -0.02em;
+  color: var(--aa-fg);
+  background-color: var(--aa-bg-subtle);
+  border: 0;
+  border-radius: var(--aa-radius-pill);
+  cursor: pointer;
+}
+/* Prev = acento; Next = superficie clara (jerarquía del doc, con paleta Spark). */
+.aa-landing .aa-radial-slider__control-btn:not(.is--next) {
+  color: var(--aa-accent-fg);
+  background-color: var(--aa-accent);
+}
+
+.aa-landing .aa-radial-slider__dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.aa-landing .aa-radial-slider__control-dot {
+  position: relative;
+  z-index: 1;
+  width: 0.875em;
+  height: 0.875em;
+  padding: 0;
+  color: var(--aa-fg-subtle);
+  background-color: currentColor;
+  border: 0.1875em solid var(--aa-bg);
+  border-radius: var(--aa-radius-pill);
+  cursor: pointer;
+  overflow: hidden;
+  transition: color 0.15s ease;
+  outline: 0 !important;
+  box-shadow: 0 0 #0000 !important;
+}
+.aa-landing .aa-radial-slider__control-dot[data-radial-slider-control-status='active'] {
+  color: var(--aa-accent);
+}

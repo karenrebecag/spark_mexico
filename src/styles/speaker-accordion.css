@@ -1,0 +1,81 @@
+/* spark-mexico · Speakers (ref. Relume Team 1): header centrado + un marquee horizontal
+   de avatar circular + nombre/rol/compañía. Gradiente de marca (--aa-gradient-bg) de
+   fondo; theme="dark" es solo para que --aa-fg/--aa-fg-muted salgan claros (texto legible
+   sobre el coral/naranja) — no implica navy. */
+
+/* Alta especificidad: gana a la optimización de pintado de section-theme.css, que
+   volvería transparente un dark dentro de un root dark (mismo patrón que #speakers
+   usaba antes para el panel de marquees). */
+.aa-landing[data-aa-theme] .aa-speakers[data-aa-section-theme="dark"] {
+  background: var(--aa-gradient-bg);
+}
+
+.aa-landing .aa-speakers__marquee {
+  margin-top: var(--aa-gap-xl);
+}
+/* Pausa el desplazamiento al hover (deja leer las cards). */
+@media (hover: hover) {
+  .aa-landing .aa-speakers__marquee:hover .aa-marquee__track {
+    animation-play-state: paused;
+  }
+}
+
+/* ── Speaker card: centrada, sin caja — igual que Team 1 de Relume; ancho fijo (flex
+   item del track del marquee, ya no columna de grid). ─────────────────────────────── */
+.aa-landing .aa-speaker-card {
+  flex: none;
+  width: 16em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--aa-gap-xs);
+  text-align: center;
+}
+
+/* Avatar: círculo con iniciales de fondo; la foto (absolute) lo cubre si carga. Si
+   falla, .is--initials oculta la img y quedan las iniciales. */
+.aa-landing .aa-speaker-card__avatar {
+  position: relative;
+  flex: none;
+  width: 6em;
+  height: 6em;
+  overflow: hidden;
+  border-radius: var(--aa-radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--aa-gap-xs);
+  background: linear-gradient(140deg, var(--aa-navy-600), var(--aa-navy-900));
+  font-family: var(--aa-font-accent);
+  font-size: var(--aa-text-m);
+  font-weight: var(--aa-weight-bold);
+  letter-spacing: 0.03em;
+  color: color-mix(in srgb, #ffffff 80%, transparent);
+}
+.aa-landing .aa-speaker-card__avatar-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.aa-landing .aa-speaker-card__avatar.is--initials .aa-speaker-card__avatar-img {
+  display: none;
+}
+
+.aa-landing .aa-speaker-card__name {
+  font-family: var(--aa-font-display);
+  font-size: var(--aa-text-m);
+  font-weight: var(--aa-weight-bold);
+  line-height: var(--aa-leading-snug);
+  color: var(--aa-fg);
+}
+.aa-landing .aa-speaker-card__role {
+  font-size: var(--aa-text-s);
+  line-height: var(--aa-leading-snug);
+  color: var(--aa-fg-muted);
+}
+/* Compañía: .aa-pill (chip ya declarado) — solo separación respecto al nombre. */
+.aa-landing .aa-speaker-card__company {
+  margin-bottom: var(--aa-gap-xxs);
+}

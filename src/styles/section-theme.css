@@ -1,0 +1,89 @@
+/* Section-level theme overrides (data-aa-section-theme)
+   Allows nested light/dark sections within a global theme. All components read tokens,
+   so they adapt automatically. */
+
+/* ─── Light section ───────────────────────────────────────────────────────────── */
+.aa-landing [data-aa-section-theme="light"] {
+  --aa-bg:              var(--aa-snow-50);
+  --aa-bg-subtle:       #faf7f2;
+  --aa-bg-hover:        var(--aa-snow-100);
+
+  --aa-fg:              var(--aa-navy-950);
+  --aa-fg-secondary:    rgba(8, 16, 29, 0.80);
+  --aa-fg-muted:        rgba(8, 16, 29, 0.65);
+  --aa-fg-subtle:       rgba(8, 16, 29, 0.40);
+
+  --aa-surface:         #faf7f2;
+  --aa-surface-fg:      var(--aa-navy-950);
+  --aa-surface-hover:   var(--aa-gray-100);
+
+  --aa-accent:          var(--aa-coral-500);
+  --aa-accent-secondary: var(--aa-accent-electric);
+
+  --aa-border:          rgba(8, 16, 29, 0.12);
+  --aa-border-hover:    rgba(8, 16, 29, 0.20);
+
+  --aa-input-bg:        var(--aa-gray-100);
+}
+
+/* ─── Dark section ────────────────────────────────────────────────────────────── */
+.aa-landing [data-aa-section-theme="dark"] {
+  --aa-bg:              var(--aa-navy-950);
+  --aa-bg-subtle:       var(--aa-navy-950);
+  --aa-bg-hover:        var(--aa-navy-900);
+
+  --aa-fg:              #ffffff;
+  --aa-fg-secondary:    rgba(255, 255, 255, 0.75);
+  --aa-fg-muted:        rgba(255, 255, 255, 0.55);
+  --aa-fg-subtle:       rgba(255, 255, 255, 0.40);
+
+  --aa-surface:         var(--aa-navy-950);
+  --aa-surface-fg:      #ffffff;
+  --aa-surface-hover:   var(--aa-navy-900);
+
+  --aa-accent:          var(--aa-coral-500);
+  --aa-accent-secondary: var(--aa-accent-electric);
+
+  --aa-border:          rgba(255, 255, 255, 0.12);
+  --aa-border-hover:    rgba(255, 255, 255, 0.20);
+
+  --aa-input-bg:        var(--aa-navy-900);
+}
+
+/* ─── Dark high-contrast section (accessibility) ──────────────────────────────── */
+.aa-landing [data-aa-section-theme="dark-hc"] {
+  --aa-bg:              #000000;
+  --aa-bg-subtle:       #0a0f1a;
+  --aa-bg-hover:        #141b28;
+
+  --aa-fg:              #ffffff;
+  --aa-fg-secondary:    #e0e0e0;
+  --aa-fg-muted:        #b0b0b0;
+  --aa-fg-subtle:       #808080;
+
+  --aa-surface:         #0a0f1a;
+  --aa-surface-fg:      #ffffff;
+  --aa-surface-hover:   #141b28;
+
+  --aa-accent:          #ff1744;
+  --aa-accent-secondary: var(--aa-accent-electric);
+
+  --aa-border:          rgba(255, 255, 255, 0.30);
+  --aa-border-hover:    rgba(255, 255, 255, 0.50);
+
+  --aa-input-bg:        #0a0f1a;
+}
+
+/* ─── Apply theme ────────────────────────────────────────────────────────────── */
+.aa-landing [data-aa-section-theme] {
+  background-color: var(--aa-bg);
+  color: var(--aa-fg);
+  transition: var(--aa-transition-colors);
+}
+
+/* Optimization: sections matching root theme use transparent bg,
+   letting fixed .aa-landing::before paint them (saves overdraw) */
+.aa-landing[data-aa-theme="dark"] [data-aa-section-theme="dark"],
+.aa-landing[data-aa-theme="light"] [data-aa-section-theme="light"] {
+  background-color: transparent;
+}

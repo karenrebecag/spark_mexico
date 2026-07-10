@@ -1,0 +1,70 @@
+/* Edición 2025 — header centrado (renderSectionHeader) + bento grid (fotos + stats
+   intercaladas, patrón Relume Stats 30). Strip light. */
+
+/* Strip más alta: respiro vertical (mismo patrón que #problema/#speakers/#faq/cta) —
+   reduce la carga cognitiva de encadenar strips muy compactas una tras otra. */
+.aa-landing .aa-edition {
+  padding-block: var(--aa-padding-xxl);
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ─── Bento grid (fotos + stats intercaladas) ─────────────────────────────────── */
+.aa-landing .aa-edition__bento {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--aa-gap-m);
+  margin-block: var(--aa-gap-xl);
+  padding-inline: var(--aa-container-pad);
+}
+
+.aa-landing .aa-edition__bento-cell {
+  aspect-ratio: 1;
+  border-radius: var(--aa-radius-l);
+  overflow: hidden;
+}
+
+.aa-landing .aa-edition__bento-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aa-landing .aa-edition__bento-cell--stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--aa-gap-xxs);
+  padding: var(--aa-gap-m);
+  text-align: center;
+  background: var(--aa-bg-subtle);
+  border: 1px solid var(--aa-border);
+}
+
+@media screen and (max-width: 991px) {
+  .aa-landing .aa-edition__bento { grid-template-columns: repeat(2, 1fr); }
+}
+@media screen and (max-width: 479px) {
+  .aa-landing .aa-edition__bento {
+    grid-template-columns: 1fr;
+    gap: var(--aa-gap-s);
+  }
+}
+
+/* Tipografía de las stat cards (reusada dentro del bento). */
+.aa-landing .aa-edition__stat-num {
+  font-family: var(--aa-font-display);
+  font-size: var(--aa-text-xl);
+  font-weight: var(--aa-weight-extrabold);
+  line-height: var(--aa-leading-tight);
+  letter-spacing: -0.02em;
+}
+
+.aa-landing .aa-edition__stat-label {
+  font-size: var(--aa-text-s);
+  color: var(--aa-fg-muted);
+}

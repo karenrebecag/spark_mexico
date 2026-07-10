@@ -1,0 +1,191 @@
+/* spark-mexico · Button 036 (Osmo) — CTA principal. Reveal escalonado + flip de texto.
+   Variables scopeadas en .aa-btn036 (no :root) y mapeadas a tokens del DS.
+   Default: coral + texto claro → hover: navy + texto claro (el reveal cambia el fondo). */
+
+.aa-landing .aa-btn036 {
+  --b036-color:            #ffffff;                  /* texto default = blanco (sobre el gradiente) */
+  --b036-bg:               #ffffff;                  /* reveal hover = blanco */
+  --b036-hover-color:      var(--aa-navy-950);       /* base texto hover (el label va en gradiente) */
+  --b036-grad:             linear-gradient(to right, var(--aa-coral-500), var(--aa-orange-400)); /* gradiente de marca */
+  --b036-focus:            var(--aa-accent-electric);/* anillo de foco = electric coral */
+  --b036-padding:          0.9em 1.5em;
+  --b036-radius:           var(--aa-radius-pill);
+  --b036-focus-inset:      -0.125em;
+  --b036-hover-scale:      1.065 1.095;
+  --b036-click-scale:      0.955 0.925;
+  --b036-ease-click:       cubic-bezier(0.4, 0, 0.2, 1);
+  --b036-ease-hover:       var(--aa-ease);           /* = cubic(0.625,0.05,0,1) exacto */
+  --b036-ease-focus:       cubic-bezier(0.32, 0.72, 0, 1);
+
+  -webkit-user-select: none;
+  user-select: none;
+  color: var(--b036-color);
+  background-color: transparent;
+  outline-style: none;
+  padding: 0;
+  line-height: 1;
+  font-family: inherit;
+  font-size: var(--aa-text-s);
+  font-weight: var(--aa-weight-bold);
+  text-decoration: none;
+  display: inline-grid;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  transition: scale 0.15s var(--b036-ease-click);
+}
+
+/* Variante compacta (navbar): mismo efecto, menor padding/tipografía. */
+.aa-landing .aa-btn036--sm {
+  --b036-padding: 0.55em 1.05em;
+  font-size: var(--aa-text-xs);
+}
+
+/* Variante secondary (invertida) — para strips con bg gradient: reposo = blanco, hover =
+   gradiente. Misma animación (reveal escalonado); solo se intercambian los dos colores
+   (base blanca ↔ reveal gradiente) y el texto/ícono (label en gradiente en reposo, blanco
+   en hover). El reveal usa background-size 500% + position por índice → gradiente CONTINUO
+   a lo ancho del botón (si no, cada uno de los 5 spans repetiría el gradiente = costuras). */
+.aa-landing .aa-btn036--secondary {
+  --b036-color: var(--aa-navy-950); /* texto reposo (base bajo el label en gradiente) */
+  --b036-hover-color: #ffffff;      /* texto hover = blanco (sobre el gradiente) */
+}
+.aa-landing .aa-btn036--secondary .aa-btn036__bg {
+  background: #ffffff; /* fill reposo = blanco */
+}
+.aa-landing .aa-btn036--secondary .aa-btn036__bg-span::after {
+  background: var(--b036-grad);
+  background-size: 500% 100%;
+  background-position: calc(var(--index) / 4 * 100%) 0;
+}
+/* Texto: en reposo el label va en gradiente (sobre blanco); en hover, blanco (sobre el
+   gradiente). Invierte el clip del primary (que lo pone en la capa hover). */
+.aa-landing .aa-btn036--secondary .aa-btn036__text.is--default .aa-btn036__label {
+  background: var(--b036-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.aa-landing .aa-btn036--secondary .aa-btn036__text.is--hover .aa-btn036__label {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: currentColor;
+}
+
+.aa-landing .aa-btn036::after {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: var(--b036-focus-inset);
+  border-radius: var(--b036-radius);
+  transition: box-shadow 0.3s var(--b036-ease-focus), scale 0.45s var(--b036-ease-hover);
+  pointer-events: none;
+  z-index: 1;
+}
+.aa-landing .aa-btn036:focus-visible::after {
+  box-shadow: 0 0 0 0.125em var(--b036-focus);
+  scale: var(--b036-hover-scale);
+}
+.aa-landing .aa-btn036:active { scale: var(--b036-click-scale); }
+
+/* Fondo (default) + spans de reveal (hover). */
+.aa-landing .aa-btn036__bg {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--b036-radius);
+  background: var(--b036-grad); /* fondo default = gradiente de marca */
+  border: 1px solid var(--aa-border); /* define el reveal blanco sobre fondos claros */
+  display: flex;
+  overflow: clip;
+  transition: scale 0.45s var(--b036-ease-hover);
+}
+.aa-landing .aa-btn036__bg-span {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  position: relative;
+  will-change: transform;
+  transform-origin: center bottom;
+  transition: scale 0.4s calc(var(--index) * 0.036s) var(--b036-ease-hover);
+  scale: 1 0;
+}
+/* Reveal en hover = blanco (las 5 barras suben escalonadas cubriendo el gradiente). */
+.aa-landing .aa-btn036__bg-span::after {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: -1px;
+  background-color: var(--b036-bg);
+}
+
+/* Capas de texto (flip). */
+.aa-landing .aa-btn036__inner {
+  z-index: 1;
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--b036-radius);
+  display: grid;
+  overflow: clip;
+}
+.aa-landing .aa-btn036__text {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  padding: var(--b036-padding);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  white-space: nowrap;
+  will-change: transform;
+}
+.aa-landing .aa-btn036__icon { display: inline-flex; }
+.aa-landing .aa-btn036__icon svg { width: 1.15em; height: 1.15em; display: block; stroke-width: 2; }
+
+/* Reposo: label + ícono en blanco (sobre el gradiente). Hover: el label pasa a gradiente
+   de marca (sobre el reveal blanco); el ícono usa su <linearGradient> en la capa hover. */
+.aa-landing .aa-btn036__text.is--hover .aa-btn036__label {
+  background: var(--b036-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.aa-landing .aa-btn036__text.is--default {
+  transform-origin: top center;
+  transition: transform 0.45s 0.1s var(--b036-ease-hover), opacity 0.1s 0.125s ease-out;
+}
+.aa-landing .aa-btn036__text.is--hover {
+  color: var(--b036-hover-color);
+  transform-origin: bottom center;
+  transform: perspective(10em) scale(0.75) rotateX(-90deg) translate3d(0, 50%, 0);
+  transition: transform 0.45s 0.05s var(--b036-ease-hover), opacity 0.1s 0.15s ease-out;
+  opacity: 0;
+}
+
+/* Sin gate de (hover:hover)/(pointer:fine): en algunos entornos (emulación, híbridos)
+   el puntero se reporta no-fino y el efecto no disparaba. Se mantiene el respeto a
+   prefers-reduced-motion. El hover/focus dispara el reveal + flip. */
+@media (prefers-reduced-motion: no-preference) {
+  .aa-landing .aa-btn036:is(:hover, :focus-visible) .aa-btn036__bg {
+    scale: var(--b036-hover-scale);
+    transition-delay: 0.05s;
+  }
+  .aa-landing .aa-btn036:is(:hover, :focus-visible) .aa-btn036__bg-span {
+    scale: 1 1;
+    transition: scale 0.525s calc(var(--index) * 0.049s + 0.05s) var(--b036-ease-hover);
+  }
+  .aa-landing .aa-btn036:is(:hover, :focus-visible) .aa-btn036__text.is--default {
+    transform: perspective(10em) scale(0.75) rotateX(90deg) translate3d(0, -50%, 0);
+    opacity: 0;
+    transition: transform 0.475s 0.1s var(--b036-ease-hover), opacity 0.1s 0.2s ease-out;
+  }
+  .aa-landing .aa-btn036:is(:hover, :focus-visible) .aa-btn036__text.is--hover {
+    transform: perspective(10em) scale(1) rotateX(0deg) translate3d(0, 0, 0);
+    opacity: 1;
+    transition: transform 0.475s 0.15s var(--b036-ease-hover), opacity 0.1s 0.175s ease-out;
+  }
+}

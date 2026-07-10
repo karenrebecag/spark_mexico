@@ -1,0 +1,102 @@
+/* atfx-peru · pillar slider (carrusel rotario) + pillar card. Trasladado de Spark.
+   Tokens --aa-* de OSMO. */
+
+.aa-landing .aa-pslider { position: relative; margin-top: var(--aa-gap-l); }
+.aa-landing .aa-pslider__viewport {
+  position: relative;
+  overflow: hidden;
+  /* Más aire abajo (≈16rem): el arco de rotación hace que las cards bajen */
+  padding-block: var(--aa-padding-l) calc(var(--aa-padding-xxl) * 2);
+}
+.aa-landing .aa-pslider__collection {
+  --slider-spv: 3;
+  width: 82.5em;
+  max-width: 100%;
+  margin-inline: auto;
+  cursor: grab;
+}
+.aa-landing .aa-pslider__collection[data-drag="grabbing"] { cursor: grabbing; }
+.aa-landing .aa-pslider__track {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  user-select: none;
+  touch-action: pan-y;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.aa-landing .aa-pslider__item {
+  width: calc((100% - 1px) / var(--slider-spv));
+  flex-shrink: 0;
+  transform-origin: 50% 375%;
+  transition: opacity var(--aa-duration-s);
+}
+.aa-landing .aa-pslider__item[data-status="active"] { opacity: 1; }
+.aa-landing .aa-pslider__item[data-status="inview"] { opacity: 0.6; }
+.aa-landing .aa-pslider__item[data-status="not-active"] { opacity: 0.3; }
+
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-pslider__viewport { padding-block: var(--aa-padding-m); }
+  .aa-landing .aa-pslider__collection { width: 90vw; --slider-spv: 1; }
+  .aa-landing .aa-pslider__item { transform-origin: 50% 325%; }
+}
+
+/* ─── Pillar card ──────────────────────────────────────────────────────────────── */
+.aa-landing .aa-pcard {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--aa-radius-xl);
+}
+.aa-landing .aa-pcard::before { content: ''; display: block; padding-top: 130%; }
+.aa-landing .aa-pcard__inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--aa-gap-s);
+  padding: var(--aa-padding-m);
+  text-align: center;
+}
+.aa-landing .aa-pcard--dark { background: var(--aa-navy-950); color: #ffffff; }
+.aa-landing .aa-pcard--light { background: #ffffff; color: var(--aa-navy-900); }
+.aa-landing .aa-pcard--gradient { background: var(--aa-blue-700); color: #fff; }
+
+.aa-landing .aa-pcard__tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--aa-gap-xxs);
+}
+.aa-landing .aa-pcard__tag {
+  padding: 0.25em 0.75em;
+  font-size: var(--aa-text-xxs);
+  font-weight: var(--aa-weight-semibold);
+  border-radius: var(--aa-radius-pill);
+  background: rgba(255, 255, 255, 0.15);
+}
+.aa-landing .aa-pcard--light .aa-pcard__tag { background: rgba(0, 0, 0, 0.06); }
+
+.aa-landing .aa-pcard__title {
+  font-size: var(--aa-text-l);
+  font-weight: var(--aa-weight-extrabold);
+  line-height: 1;
+}
+.aa-landing .aa-pcard__underline {
+  width: 2.5em;
+  height: 3px;
+  border-radius: var(--aa-radius-pill);
+  background: currentColor;
+  opacity: 0.85;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--aa-duration-m) var(--aa-ease);
+}
+.aa-landing .aa-pslider__item[data-status="active"] .aa-pcard__underline { transform: scaleX(1); }
+.aa-landing .aa-pcard__text {
+  font-size: var(--aa-text-xs);
+  line-height: var(--aa-leading-normal);
+  opacity: 0.85;
+}

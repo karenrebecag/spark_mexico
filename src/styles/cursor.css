@@ -1,0 +1,74 @@
+/* atfx-peru · cursor personalizado (portado de ATOM). La flecha es fixed y sigue el
+   mouse vía GSAP; color e inversión de stroke se adaptan al tema de la sección bajo
+   el puntero (data-aa-cursor-theme, seteado por initCursor en .aa-landing). */
+
+.aa-landing .aa-cursor {
+  position: fixed;
+  inset: 0% auto auto 0%;
+  z-index: 1201;
+  opacity: 0;
+  pointer-events: none;
+  will-change: left, top, opacity, transform;
+  color: var(--aa-neutral-950);
+  --aa-cursor-stroke: var(--aa-neutral-50);
+}
+
+/* Sección oscura bajo el puntero: invierte para contrastar con el bg oscuro. */
+.aa-landing[data-aa-cursor-theme="dark"] .aa-cursor {
+  color: var(--aa-neutral-50);
+  --aa-cursor-stroke: var(--aa-neutral-950);
+}
+
+.aa-landing .aa-cursor svg {
+  display: block;
+}
+
+/* Modo arrastre (↔): sobre .aa-slider__track. Disco negro con doble flecha
+   horizontal blanca, centrado en el punto del cursor. */
+.aa-landing .aa-cursor__drag {
+  display: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--aa-neutral-950);
+  color: var(--aa-neutral-50);
+  /* Compensa el offset de la punta (x:-4,y:-2) y centra el disco en el mouse. */
+  transform: translate(calc(-50% + 4px), calc(-50% + 2px));
+}
+.aa-landing .aa-cursor__drag svg {
+  width: 30px;
+  height: auto;
+}
+.aa-landing .aa-cursor--drag .aa-cursor__arrow {
+  display: none;
+}
+.aa-landing .aa-cursor--drag .aa-cursor__drag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Oculta el cursor nativo mientras el personalizado está activo. */
+.aa-landing.is-cursor-active,
+.aa-landing.is-cursor-active a,
+.aa-landing.is-cursor-active button,
+.aa-landing.is-cursor-active [role="button"],
+.aa-landing.is-cursor-active input,
+.aa-landing.is-cursor-active textarea,
+.aa-landing.is-cursor-active select {
+  cursor: none !important;
+}
+
+/* Touch y reduced-motion: el cursor no se inicializa, pero ocultamos por si acaso. */
+@media (hover: none) and (pointer: coarse) {
+  .aa-landing .aa-cursor { display: none !important; }
+}
+
+/* Mobile (incluye load en desktop y luego resize a mobile): bloquea el cursor personalizado. */
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-cursor { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aa-landing .aa-cursor { display: none !important; }
+}

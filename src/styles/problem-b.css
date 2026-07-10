@@ -1,0 +1,75 @@
+/* spark-mexico · variante B de "¿Para quién es Spark AI Summit?" (ref. Relume Layout 609):
+   header centrado + lista de una columna angosta (fila = badge numerado + rol + desc,
+   separadas por línea) + CTA centrado. Strip temporal para comparar contra #problema
+   (split 2-col) antes de decidir con cuál quedarse — mismo contenido, otra maquetación. */
+
+/* max-width compartido por header + lista + CTA — mismo valor que .aa-section-header
+   (48em), para que la card no quede más angosta que el párrafo de arriba. */
+.aa-landing .aa-aud-b__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--aa-gap-l);
+  max-width: 48em;
+  margin-inline: auto;
+}
+
+/* Lista: card rosada (mismo patrón que la lista dark de #problema — data-aa-section-theme
+   remapea --aa-fg/--aa-border a claro, aa-topo aporta la textura), contenida con radio en
+   vez de banda full-bleed. Filas separadas por línea superior (incl. la primera). */
+.aa-landing .aa-aud-b__list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--aa-radius-xl);
+  padding-inline: var(--aa-padding-m);
+}
+.aa-landing .aa-aud-b__list[data-aa-section-theme="dark"] {
+  --aa-bg: var(--aa-coral-500);
+  background: var(--aa-gradient-bg);
+}
+
+.aa-landing .aa-aud-b__row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--aa-gap-xs);
+  padding-block: var(--aa-gap-m);
+  border-top: 1px solid var(--aa-border);
+}
+.aa-landing .aa-aud-b__row:first-child {
+  border-top: none;
+}
+
+.aa-landing .aa-aud-b__badge {
+  flex: none;
+  font-family: var(--aa-font-display);
+  font-size: var(--aa-text-ml);
+  font-weight: var(--aa-weight-extrabold);
+  line-height: 1;
+}
+
+.aa-landing .aa-aud-b__row-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--aa-gap-xs);
+  text-align: center;
+}
+
+.aa-landing .aa-aud-b__desc {
+  color: var(--aa-fg-muted);
+}
+
+.aa-landing .aa-aud-b__cta {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .aa-landing .aa-aud-b__row {
+    gap: var(--aa-gap-s);
+  }
+}

@@ -1,0 +1,48 @@
+/* spark-mexico · Speakers variante B (ref. Relume Layout 637): grid 2-col — head (izq) +
+   Flick Cards Slider (der). La sección va sobre el gradiente de marca (las cards navy
+   resaltan sobre el cálido) y el head es un panel LIGHT contrastante. */
+
+/* Fondo gradiente de la sección (alta especificidad: gana al background-color por defecto
+   de section-theme.css; la optimización de pintado no aplica — root light, sección dark). */
+.aa-landing[data-aa-theme] .aa-speakers-b[data-aa-section-theme="dark"] {
+  background: var(--aa-gradient-bg);
+}
+
+.aa-landing .aa-speakers-b__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--aa-gap-xl);
+}
+
+/* Head: transparente (hereda el tema dark de la sección → texto claro sobre el gradiente),
+   sin panel ni fondo. */
+.aa-landing .aa-speakers-b__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--aa-gap-m);
+}
+.aa-landing .aa-speakers-b__sub {
+  color: var(--aa-fg-muted);
+  max-width: 34em;
+}
+.aa-landing .aa-speakers-b__cta { margin-top: var(--aa-gap-xs); }
+
+/* Columna del slider: centra el grupo; el overflow visible deja que las cards laterales
+   del abanico se salgan un poco de la columna sin recortarse. */
+.aa-landing .aa-speakers-b__slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+}
+
+@media screen and (max-width: 991px) {
+  .aa-landing .aa-speakers-b__grid {
+    grid-template-columns: 1fr;
+    gap: var(--aa-gap-l);
+  }
+  .aa-landing .aa-speakers-b__head { align-items: center; text-align: center; }
+  .aa-landing .aa-speakers-b__sub { margin-inline: auto; }
+}

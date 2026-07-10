@@ -1,0 +1,59 @@
+/* atfx-peru · Beneficios (efecto MWG 087). Header normal arriba + tira de cards pinneada
+   que se traslada con el scroll (init en benefits-scroll.ts). */
+
+.aa-landing .aa-benefits {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Container pinneado: header + tira centrados vertical como bloque. */
+.aa-landing .aa-benefits__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+
+/* Header fijo encima de las cards (se pinea junto con ellas). El padding-bottom del
+   subheading separa el conjunto de la tira. */
+.aa-landing .aa-benefits__head {
+  flex: none;
+}
+.aa-landing .aa-benefits__head .aa-section-header__sub {
+  padding-bottom: var(--aa-padding-l);
+}
+
+/* Tira horizontal: padding generoso para que sobrepase el viewport durante el scrub. */
+.aa-landing .aa-benefits__cards {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: var(--aa-gap-m);
+  padding: 0 calc(100vw + 1px);
+  will-change: transform;
+}
+.aa-landing .aa-benefits__card {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(360px, 78vw);
+}
+/* La cara (mod-card) es la que recibe la inercia de entrada; el slot no se mueve. */
+.aa-landing .aa-benefits__card > .aa-mod-card {
+  will-change: transform;
+}
+
+/* Reduced-motion / sin scroll horizontal posible: tira scrolleable, sin pin. */
+@media (prefers-reduced-motion: reduce) {
+  .aa-landing .aa-benefits__container {
+    height: auto;
+    padding-block: var(--aa-padding-l);
+  }
+  .aa-landing .aa-benefits__cards {
+    width: auto;
+    padding: 0 var(--aa-container-pad);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+  .aa-landing .aa-benefits__card { scroll-snap-align: start; }
+}

@@ -1,0 +1,58 @@
+/* atom-academy · layout. Container (con variantes OSMO is--m/sm/s), section, grid. */
+
+/* ─── Container — un solo .aa-container + modificadores por multiplicador ─────── */
+.aa-landing .aa-container {
+  width: 100%;
+  max-width: var(--aa-container-max);
+  margin-inline: auto;
+  padding-inline: var(--aa-container-pad);
+}
+.aa-landing .aa-container.is--m  { max-width: calc(var(--aa-container-max) * 0.825); }
+.aa-landing .aa-container.is--sm { max-width: calc(var(--aa-container-max) * 0.65); }
+.aa-landing .aa-container.is--s  { max-width: calc(var(--aa-container-max) * 0.5); }
+
+/* ─── Card container — superficie flotante (patrón "card" de ATOM). El color de
+   fondo lo define cada sección (cada FAQ lo recolorea a navy). En <768px se vuelve
+   strip: full-bleed, sin radio. */
+.aa-landing .aa-container--card {
+  background: var(--aa-bg-subtle);
+  border-radius: clamp(20px, 3vw, 32px);
+  padding: clamp(2rem, 5vw, 4.5rem);
+}
+@media (max-width: 767px) {
+  .aa-landing .aa-container--card {
+    max-width: none;
+    border-radius: 0;
+    padding-inline: var(--aa-container-pad);
+  }
+}
+
+/* ─── Section — espaciado vertical por padding tokens ─────────────────────────── */
+.aa-landing .aa-section {
+  padding-block: var(--aa-padding-xl);
+}
+.aa-landing .aa-section--hero {
+  padding-block: var(--aa-padding-xxl);
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+}
+.aa-landing .aa-section--sm { padding-block: var(--aa-padding-l); }
+
+/* ─── Grid ────────────────────────────────────────────────────────────────────── */
+.aa-landing .aa-grid {
+  display: grid;
+  gap: var(--aa-gap-m);
+}
+.aa-landing .aa-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.aa-landing .aa-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.aa-landing .aa-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 991px) {
+  .aa-landing .aa-grid--4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 767px) {
+  .aa-landing .aa-grid--2,
+  .aa-landing .aa-grid--3,
+  .aa-landing .aa-grid--4 { grid-template-columns: 1fr; }
+}

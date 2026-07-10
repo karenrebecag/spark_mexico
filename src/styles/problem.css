@@ -1,0 +1,235 @@
+/* spark-mexico · "¿Para quién es Spark AI Summit?" (AudienceStrip). Layout split 2-col
+   (ref. Relume Layout 617): izq eyebrow+heading+CTA, der lista de segmentos con ícono.
+   Tokens semánticos --aa-*. */
+
+/* Sin padding vertical en el strip: los hijos aportan su propio padding. */
+.aa-landing .aa-audience {
+  padding-block: 0;
+}
+
+/* Descanso visual entre strips claras: aire + divisor de acento (· ─── ·) centrado. */
+.aa-landing .aa-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  padding-block: var(--aa-padding-l) var(--aa-padding-m);
+}
+.aa-landing .aa-divider__line {
+  width: 3.5em;
+  height: 2px;
+  border-radius: var(--aa-radius-pill);
+  background: var(--aa-accent);
+}
+.aa-landing .aa-divider__dot {
+  width: 0.4em;
+  height: 0.4em;
+  border-radius: 50%;
+  background: var(--aa-accent);
+  opacity: 0.5;
+}
+
+/* Maquetación 2-col (40/60), sin gap. Ambos paneles se estiran a la misma altura
+   (bandas de color a tope) y el strip sigue 100% del viewport — el "max-width" se
+   simula con padding lateral (--aa-aud-edge-pad) en vez de acotar el grid, así el
+   fondo de cada panel no se corta en pantallas anchas. */
+.aa-landing .aa-aud__grid {
+  --aa-aud-edge-pad: max(var(--aa-container-pad), calc((100vw - var(--aa-container-max)) / 2));
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 0;
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Columna izquierda: panel claro con globe sutil detrás; contenido apilado. Padding-left
+   simula el max-width del contenido (marquees incl.) sin acotar el fondo del panel. */
+.aa-landing .aa-aud__head {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--aa-gap-m);
+  padding-block: var(--aa-padding-l);
+  padding-left: var(--aa-aud-edge-pad);
+  background: #f3efeb;
+}
+/* Solo padding-right: el izquierdo ya lo aporta .aa-aud__head. */
+.aa-landing .aa-aud__head-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--aa-gap-m);
+  width: 100%;
+  padding-right: var(--aa-padding-m);
+}
+.aa-landing .aa-aud__head-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--aa-gap-xs);
+}
+.aa-landing .aa-aud__head-body {
+  max-width: 34em;
+  color: var(--aa-fg-muted);
+}
+.aa-landing .aa-aud__head-cta { margin-top: var(--aa-gap-s); }
+
+/* Globe: ink a muy baja opacidad → apenas más oscuro que el fondo, súper sutil. */
+/* Globe: pequeño, rotado, anclado a la esquina inferior derecha del head. El translate
+   lo empuja fuera del corner → se recorta con el overflow:hidden del head. */
+.aa-landing .aa-aud__globe {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  color: var(--aa-fg);
+  opacity: 0.07;
+  transform: translate(22%, 28%) rotate(-20deg);
+  transform-origin: bottom right;
+}
+.aa-landing .aa-aud__globe .aa-globe { width: 20em; }
+.aa-landing .aa-aud__head > :not(.aa-aud__globe) { position: relative; z-index: 1; }
+
+
+/* Índice de segmentos: panel rosado dark full-width. Padding vertical generoso → los
+   overflow-x hidden contiene el barrido horizontal del hover. El token --aa-bg se
+   sobreescribe al acento (rosado) — gana en especificidad al background-color del
+   data-aa-section-theme="dark". --aa-aud-sweep = desplazamiento horizontal en hover. */
+.aa-landing .aa-aud__list {
+  --aa-aud-sweep: 2em;
+  list-style: none;
+  margin: 0;
+  padding-block: var(--aa-padding-xxl);
+  padding-inline-start: var(--aa-container-pad);
+  padding-inline-end: var(--aa-aud-edge-pad); /* simula el max-width, fondo sigue 100% */
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--aa-gap-l);
+  overflow-x: hidden;
+}
+.aa-landing .aa-aud__list[data-aa-section-theme="dark"] {
+  --aa-bg: var(--aa-coral-500); /* token para hijos = tono base del gradiente */
+  background: var(--aa-gradient-bg); /* gradiente de marca (mismo patrón que #speakers) */
+}
+
+/* Ítem índice: rol en texto grande (display) + descripción. Opacidad full por defecto
+   (mobile/touch los deja legibles, sin efecto). El barrido/dim vive en el hover de abajo. */
+.aa-landing .aa-aud__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-xs);
+  min-width: 0; /* permite que la descripción haga wrap dentro de la columna */
+  opacity: 1;
+  transition: opacity var(--aa-duration-s) var(--aa-ease-out),
+              transform var(--aa-duration-m) var(--aa-ease-out);
+}
+/* Rol: por debajo del heading (h-l) de la col izq → jerarquía H2 > H3 correcta. */
+.aa-landing .aa-aud__item-role {
+  font-family: var(--aa-font-display);
+  font-size: var(--aa-text-ml);
+  font-weight: var(--aa-weight-extrabold);
+  line-height: var(--aa-leading-tight);
+  letter-spacing: -0.02em;
+}
+.aa-landing .aa-aud__item-desc {
+  font-size: var(--aa-text-s);
+  line-height: var(--aa-leading-normal);
+  color: var(--aa-fg-muted);
+  max-width: min(42em, 100%); /* nunca excede la columna → hace wrap, no overflow */
+  overflow-wrap: break-word;
+}
+
+/* ── Efecto hover (solo desktop con puntero fino) ─────────────────────────────
+   Al pasar sobre la lista se atenúan todos los ítems; el ítem bajo el cursor vuelve a
+   opacidad plena y barre en x (guiño al MWG 105, ahora hover-driven, no scroll). */
+@media (hover: hover) and (pointer: fine) {
+  .aa-landing .aa-aud__list:hover .aa-aud__item {
+    opacity: 0.35;
+  }
+  .aa-landing .aa-aud__list .aa-aud__item:hover {
+    opacity: 1;
+    transform: translateX(var(--aa-aud-sweep));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aa-landing .aa-aud__item { transition: opacity var(--aa-duration-s) linear; }
+  .aa-landing .aa-aud__list .aa-aud__item:hover { transform: none; }
+}
+
+
+/* ─── Fotos (marquees de credibilidad) dentro de la columna izquierda ─────────── */
+.aa-landing .aa-aud__logos-wrap {
+  width: 100%;
+  margin-top: var(--aa-gap-l);
+  padding-top: var(--aa-gap-l);
+  border-top: 1px solid var(--aa-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-s);
+}
+.aa-landing .aa-aud__logos-label {
+  font-family: var(--aa-font-mono);
+  font-size: var(--aa-text-xxs);
+  font-weight: var(--aa-weight-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--aa-fg-subtle);
+}
+/* Miniatura de foto real (edición 2025) — cover, sin caja blanca (no es un logo). */
+.aa-landing .aa-aud__photo {
+  flex: none;
+  width: 10.5em;
+  height: 7em;
+  overflow: hidden;
+  border-radius: var(--aa-radius-l);
+  box-shadow: 0 8px 24px -16px rgba(8, 16, 29, 0.5);
+}
+.aa-landing .aa-aud__photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ─── Responsive: apila (head arriba, índice abajo) ───────────────────────────── */
+@media screen and (max-width: 991px) {
+  .aa-landing .aa-aud__grid {
+    grid-template-columns: 1fr;
+  }
+  .aa-landing .aa-aud__list {
+    padding-block: var(--aa-padding-xl);
+    gap: var(--aa-gap-m);
+  }
+  .aa-landing .aa-aud__item-role {
+    font-size: var(--aa-text-m);
+  }
+}
+
+/* Mobile: la lista pierde el min-height:90vh (con pocos ítems queda demasiado aire
+   arriba/abajo por el justify-content:center) y el texto sube de tamaño — a este ancho
+   ya no compite con la columna del head, puede ser más grande sin verse forzado. */
+@media screen and (max-width: 767px) {
+  /* Borde superior blanco: al apilarse head (claro) + list (rosado) pierden el continuo
+     visual del grid 2-col — la línea marca el arranque del conjunto como una sola sección. */
+  .aa-landing .aa-aud__head {
+    border-top: 1px solid #fff;
+  }
+  .aa-landing .aa-aud__logos-wrap {
+    display: none;
+  }
+  .aa-landing .aa-aud__list {
+    min-height: auto;
+    padding-block: var(--aa-padding-l);
+  }
+  .aa-landing .aa-aud__item-role {
+    font-size: var(--aa-text-l);
+  }
+  .aa-landing .aa-aud__item-desc {
+    font-size: var(--aa-text-m);
+  }
+}

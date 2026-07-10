@@ -1,0 +1,59 @@
+/* spark-mexico · Accelerating Globe (port Osmo). Anillos con border currentColor; el
+   color/tamaño se controlan desde el contenedor. Scoped .aa-*. */
+
+.aa-landing .aa-globe {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 37.5vw;
+  color: currentColor;
+}
+.aa-landing .aa-globe__before { padding-top: 100%; }
+
+.aa-landing .aa-globe__back {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.aa-landing .aa-globe__back-circle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid;
+  border-radius: 50%;
+}
+.aa-landing .aa-globe__back-circle.is--1 { width: 50%;   height: 16%; top: 0%; }
+.aa-landing .aa-globe__back-circle.is--2 { width: 87.5%; height: 24%; top: 14%; }
+.aa-landing .aa-globe__back-circle.is--3 { width: 100%;  height: 28%; top: 36%; border-radius: 50%; }
+.aa-landing .aa-globe__back-circle.is--4 { width: 87.5%; height: 24%; top: 62%; }
+.aa-landing .aa-globe__back-circle.is--5 { width: 50%;   height: 16%; top: 84%; }
+
+.aa-landing .aa-globe__front,
+.aa-landing .aa-globe__mirror {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.aa-landing .aa-globe__mirror.is--duplicate { transform: scaleX(-1); }
+
+.aa-landing .aa-globe__circle {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: auto;
+  right: 50%;
+  overflow: hidden;
+}
+.aa-landing .aa-globe__circle-inner {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  border: 1px solid;
+  border-radius: 50%;
+}

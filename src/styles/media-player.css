@@ -1,0 +1,63 @@
+/* spark-mexico · MediaPlayer 16:9 (port del reproductor de Spark). Frame redondeado con
+   poster, scrim y botón play centrado (patrón Relume Header3). Tokens --aa-*. */
+
+.aa-landing .aa-mediaplayer {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--aa-radius-xl);
+  background: #000;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.6);
+}
+.aa-landing .aa-mediaplayer__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Scrim: oscurece el poster para contrastar el botón play. */
+.aa-landing .aa-mediaplayer__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 16, 29, 0.45);
+  pointer-events: none;
+  transition: opacity var(--aa-duration-s) var(--aa-ease-out);
+}
+
+/* Botón play: círculo de acento, escala en hover. */
+.aa-landing .aa-mediaplayer__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5em;
+  height: 4.5em;
+  padding: 0;
+  border: 0;
+  border-radius: var(--aa-radius-pill);
+  background: var(--aa-accent);
+  color: var(--aa-accent-fg);
+  cursor: pointer;
+  transition: transform var(--aa-duration-s) var(--aa-ease-out);
+}
+.aa-landing .aa-mediaplayer__play:hover { transform: translate(-50%, -50%) scale(1.08); }
+.aa-landing .aa-mediaplayer__play svg {
+  width: 1.75em;
+  height: 1.75em;
+  margin-left: 0.15em; /* centrado óptico del triángulo */
+}
+
+/* Reproduciendo: oculta scrim + botón, deja los controles nativos. */
+.aa-landing .aa-mediaplayer.is-playing .aa-mediaplayer__scrim,
+.aa-landing .aa-mediaplayer.is-playing .aa-mediaplayer__play {
+  opacity: 0;
+  pointer-events: none;
+}

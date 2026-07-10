@@ -1,0 +1,418 @@
+/* Spark Design System · Semantic tokens + 3 themes (light, dark, dark-hc)
+   Palette: Navy (primary), Snow (bg-light), Cyan + Coral (accents).
+   Typography: Inter (sans), Grift (display), Interval (accent/mono).
+   All tokens prefixed --aa-* for scoping in Elementor contexts. */
+
+:root {
+  /* ──────────────────────────────────────────────────────────────────────────
+     FLUID SCALING (responsive base font size)
+     ────────────────────────────────────────────────────────────────────────── */
+  --aa-size-unit: 16;
+  --aa-size-container-ideal: 1440;
+  --aa-size-container-min: 992px;
+  --aa-size-container-max: 1440px;
+  --aa-size-container: clamp(var(--aa-size-container-min), 100vw, var(--aa-size-container-max));
+  --aa-size-font: calc(var(--aa-size-container) / (var(--aa-size-container-ideal) / var(--aa-size-unit)));
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     COLOR PALETTE — Spark brand
+     ────────────────────────────────────────────────────────────────────────── */
+  /* Navy cluster */
+  --aa-navy-950:  #08101d;
+  --aa-navy-900:  #0d1a2c;
+  --aa-navy-800:  #12233a;
+  --aa-navy-600:  #1e3a52;
+
+  /* Snow / warm neutrals */
+  --aa-snow-50:   #efece6;
+  --aa-snow-100:  #e2ddd3;
+  --aa-snow-200:  #d4ccc0;
+
+  /* Gray scale (supporting neutrals for hierarchy) */
+  --aa-gray-100:  #f5f3f0;
+  --aa-gray-200:  #e8e5df;
+  --aa-gray-400:  #a1a09b;
+  --aa-gray-600:  #5a5652;
+  --aa-gray-800:  #2a2724;
+
+  /* Accent colors */
+  --aa-cyan-500:  #22d3ee;
+  --aa-cyan-400:  #0dd9e1;
+  --aa-coral-400: #ff5c74;  /* electric — bright step del coral (+L, misma familia cálida) */
+  --aa-coral-500: #e73b58;  /* base */
+  --aa-coral-600: #c1203c;  /* deep — pressed / énfasis */
+  --aa-orange-400: #e37c51; /* naranja cálido — extremo del gradiente de fondo */
+
+  /* Highlight gradients (Spark real) — accent (red→orange) para text-gradient/botones,
+     hero (orange→magenta). */
+  --aa-grad-accent-from: #e73b58;
+  --aa-grad-accent-to:   #eb5e31;
+  --aa-grad-hero-from:   #be6235;
+  --aa-grad-hero-to:     #c52b66;
+
+  /* Gradiente de FONDO: rosa (coral base) → naranja cálido. Misma familia, hues cercanos
+     → transición limpia sin zona muerta. La utility .aa-bg-gradient añade oklch + fallback. */
+  --aa-gradient-bg: linear-gradient(135deg, var(--aa-coral-500) 0%, var(--aa-orange-400) 100%);
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     SEMANTIC COLOR TOKENS — LIGHT THEME (default)
+     ────────────────────────────────────────────────────────────────────────── */
+  /* Backgrounds */
+  --aa-bg:              var(--aa-snow-50);
+  --aa-bg-subtle:       #faf7f2;
+  --aa-bg-hover:        var(--aa-snow-100);
+
+  /* Foreground / Text */
+  --aa-fg:              var(--aa-navy-950);
+  --aa-fg-secondary:    rgba(8, 16, 29, 0.80);
+  --aa-fg-muted:        rgba(8, 16, 29, 0.65);
+  --aa-fg-subtle:       rgba(8, 16, 29, 0.40);
+
+  /* Surface / Cards / Elevated */
+  --aa-surface:         #faf7f2;
+  --aa-surface-fg:      var(--aa-navy-950);
+  --aa-surface-hover:   var(--aa-gray-100);
+
+  /* Primary (brand) */
+  --aa-primary:         var(--aa-navy-950);
+  --aa-primary-fg:      var(--aa-snow-50);
+  --aa-primary-hover:   var(--aa-navy-900);
+
+  /* Accent — jerarquía derivada del coral (UNA familia cálida).
+     base (CTA/texto) · on (contenido) · deep (pressed) · electric (energía/estados). */
+  --aa-accent:          var(--aa-coral-500);   /* base */
+  --aa-accent-fg:       #ffffff;               /* on-accent */
+  --aa-accent-hover:    var(--aa-coral-600);
+  --aa-accent-deep:     var(--aa-coral-600);   /* pressed / énfasis */
+  --aa-accent-electric: var(--aa-coral-400);   /* bright step — focus/active/energía */
+
+  /* Secondary = el mismo electric coral (sin cyan invitado). Solo dots/progress/data-viz. */
+  --aa-accent-secondary:    var(--aa-accent-electric);
+  --aa-accent-secondary-fg: #ffffff;
+
+  /* State layers — overlays del accent-electric a opacidad fija (patrón M3). Se aplican
+     SOBRE la surface: la energía viene del overlay, no de pintar todo el elemento.
+     focus-ring = electric al 100% (borde/outline). */
+  --aa-state-hover:    color-mix(in oklab, var(--aa-accent-electric) 8%, transparent);
+  --aa-state-pressed:  color-mix(in oklab, var(--aa-accent-electric) 12%, transparent);
+  --aa-state-selected: color-mix(in oklab, var(--aa-accent-electric) 12%, transparent);
+  --aa-focus-ring:     var(--aa-accent-electric);
+
+  /* Borders */
+  --aa-border:          rgba(8, 16, 29, 0.12);
+  --aa-border-hover:    rgba(8, 16, 29, 0.20);
+
+  /* Muted (disabled, secondary, subtle) */
+  --aa-muted:           var(--aa-gray-100);
+  --aa-muted-fg:        var(--aa-gray-600);
+
+  /* Status colors */
+  --aa-error:           #f84131;
+  --aa-warning:         #f59e0b;
+  --aa-success:         #10b981;
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     TYPOGRAPHY
+     ────────────────────────────────────────────────────────────────────────── */
+  --aa-font-sans:       'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --aa-font-display:    'Grift', var(--aa-font-sans);
+  --aa-font-accent:     'Interval', var(--aa-font-sans);
+  --aa-font-mono:       'Interval', ui-monospace, 'Courier New', monospace;
+
+  /* Type scale (fluid, clamped between desktop and mobile breakpoints) */
+  --aa-text-xxl:  clamp(calc(var(--aa-size-font) * 3),    5vw,   calc(var(--aa-size-font) * 5.5));
+  --aa-text-xl:   clamp(calc(var(--aa-size-font) * 2.25), 4vw,   calc(var(--aa-size-font) * 4));
+  --aa-text-l:    clamp(calc(var(--aa-size-font) * 1.75), 3vw,   calc(var(--aa-size-font) * 2.75));
+  --aa-text-ml:   clamp(calc(var(--aa-size-font) * 1.5),  2.5vw, calc(var(--aa-size-font) * 2.25));
+  --aa-text-m:    clamp(calc(var(--aa-size-font) * 1.25), 2vw,   calc(var(--aa-size-font) * 1.75));
+  --aa-text-s:    clamp(calc(var(--aa-size-font) * 1),    1.5vw, calc(var(--aa-size-font) * 1.25));
+  --aa-text-xs:   calc(var(--aa-size-font) * 0.875);
+  --aa-text-xxs:  calc(var(--aa-size-font) * 0.75);
+
+  /* Line heights */
+  --aa-leading-tight:   1.1;
+  --aa-leading-snug:    1.25;
+  --aa-leading-normal:  1.5;
+  --aa-leading-loose:   1.75;
+
+  /* Font weights */
+  --aa-weight-regular:  400;
+  --aa-weight-medium:   500;
+  --aa-weight-semibold: 600;
+  --aa-weight-bold:     700;
+  --aa-weight-extrabold: 800;
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     SPACING
+     ────────────────────────────────────────────────────────────────────────── */
+  /* Section-level padding (full bleed sections) */
+  --aa-padding-xxl: 8rem;
+  --aa-padding-xl:  6rem;
+  --aa-padding-l:   4rem;
+  --aa-padding-m:   2.5rem;
+  --aa-padding-s:   1.5rem;
+  --aa-padding-xs:  1rem;
+  --aa-padding-xxs: 0.5rem;
+
+  /* Component-level gap (internal spacing) */
+  --aa-gap-xxl: 5rem;
+  --aa-gap-xl:  3.5rem;
+  --aa-gap-l:   2.5rem;
+  --aa-gap-m:   1.5rem;
+  --aa-gap-s:   1rem;
+  --aa-gap-xs:  0.75rem;
+  --aa-gap-xxs: 0.5rem;
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     BORDERS & RADIUS
+     ────────────────────────────────────────────────────────────────────────── */
+  --aa-radius-s:    4px;
+  --aa-radius-m:    8px;
+  --aa-radius-l:    16px;
+  --aa-radius-xl:   24px;
+  --aa-radius-pill: 999px;
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     ANIMATION (GSAP + CSS easing)
+     ────────────────────────────────────────────────────────────────────────── */
+  /* Easing functions (OSMO-inspired) */
+  --aa-ease:        cubic-bezier(0.625, 0.05, 0, 1);
+  --aa-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --aa-ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --aa-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Durations */
+  --aa-duration-xs: 0.15s;
+  --aa-duration-s:  0.3s;
+  --aa-duration-m:  0.6s;
+  --aa-duration-l:  1.2s;
+  --aa-duration-xl: 1.8s;
+
+  /* Stagger (for sequenced animations) */
+  --aa-stagger: 0.05s;
+
+  /* Smooth theme transition */
+  --aa-transition-colors: background-color 0.3s var(--aa-ease-out),
+                           color 0.3s var(--aa-ease-out),
+                           border-color 0.3s var(--aa-ease-out);
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     LAYOUT
+     ────────────────────────────────────────────────────────────────────────── */
+  --aa-container-max: 1280px;
+  --aa-container-pad: var(--aa-padding-m);
+  --aa-nav-height: 4.625em;
+  --aa-topbar-height: 2.25em;
+
+  /* Form elements */
+  --aa-input-height: 3em;
+  --aa-input-bg:     var(--aa-gray-100);
+  --aa-input-radius: var(--aa-radius-s);
+
+  /* Visual effects */
+  --aa-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --aa-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --aa-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+  /* ──────────────────────────────────────────────────────────────────────────
+     BACKWARD COMPATIBILITY — Old token names (legacy CSS files)
+     ────────────────────────────────────────────────────────────────────────── */
+  /* Old color scale (mapped to new system) */
+  --aa-blue-50:      var(--aa-snow-50);
+  --aa-blue-100:     var(--aa-snow-100);
+  --aa-blue-200:     var(--aa-snow-200);
+  --aa-blue-500:     var(--aa-coral-400);   /* legacy 'cyan' → electric coral (cyan eliminado) */
+  --aa-blue-600:     var(--aa-coral-500);
+  --aa-blue-700:     var(--aa-coral-500);
+  --aa-blue-800:     var(--aa-navy-800);
+  --aa-blue-900:     var(--aa-navy-900);
+  --aa-blue-950:     var(--aa-navy-950);
+  --aa-blue-975:     #070d17;
+  --aa-blue-990:     #050a12;
+
+  /* Old neutral scale (mapped to gray) */
+  --aa-neutral-50:   #fafafa;
+  --aa-neutral-100:  var(--aa-gray-100);
+  --aa-neutral-150:  #efefef;
+  --aa-neutral-200:  var(--aa-gray-200);
+  --aa-neutral-300:  #d4d4d4;
+  --aa-neutral-400:  var(--aa-gray-400);
+  --aa-neutral-500:  #737373;
+  --aa-neutral-600:  var(--aa-gray-600);
+  --aa-neutral-700:  #404040;
+  --aa-neutral-800:  var(--aa-gray-800);
+  --aa-neutral-850:  #1a1a1a;
+  --aa-neutral-900:  #171717;
+  --aa-neutral-950:  #0a0a0a;
+
+  /* Old navy-850 alias (only value missing from the new palette; navy-950/900/800/600
+     are already defined above — do NOT redefine here or circular refs invalidate them). */
+  --aa-navy-850:     #0d1a2c;
+
+  /* Old semantic tokens (mapped to new) */
+  --aa-color-coral:  var(--aa-coral-500);
+  --aa-color-cyan:   var(--aa-coral-400);   /* legacy 'cyan' → electric coral (cyan eliminado) */
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+   DARK THEME
+   ──────────────────────────────────────────────────────────────────────────── */
+/* DARK THEME — autoritativo por el mount (data-aa-theme) y por el toggle (:root[data-theme]).
+   Sin @media prefers-color-scheme: el embed decide el tema (un embed light NO debe
+   volverse dark por el SO del visitante). */
+.aa-landing[data-aa-theme="dark"],
+:root[data-theme="dark"] {
+  /* Backgrounds (Spark real) — navy PLANO en todo; la elevación la dan los bordes
+     blancos (white/12), no azules más claros. */
+  --aa-bg:              var(--aa-navy-950);
+  --aa-bg-subtle:       var(--aa-navy-950);
+  --aa-bg-hover:        var(--aa-navy-900);
+
+  /* Foreground (Spark real) — texto blanco puro con opacidades .75 / .55 */
+  --aa-fg:              #ffffff;
+  --aa-fg-secondary:    rgba(255, 255, 255, 0.75);
+  --aa-fg-muted:        rgba(255, 255, 255, 0.55);
+  --aa-fg-subtle:       rgba(255, 255, 255, 0.40);
+
+  /* Surface (navy plano + borde blanco, como las cards de Spark) */
+  --aa-surface:         var(--aa-navy-950);
+  --aa-surface-fg:      #ffffff;
+  --aa-surface-hover:   var(--aa-navy-900);
+
+  /* Primary (inverted) */
+  --aa-primary:         #ffffff;
+  --aa-primary-fg:      var(--aa-navy-950);
+  --aa-primary-hover:   var(--aa-snow-100);
+
+  /* Accent (Spark real — mismo coral que light, no boosted) */
+  --aa-accent:          var(--aa-coral-500);
+  --aa-accent-fg:       #ffffff;
+  --aa-accent-hover:    var(--aa-coral-600);
+
+  /* Secondary accent (cyan, mismo que Spark) */
+  --aa-accent-secondary: var(--aa-accent-electric);
+  --aa-accent-secondary-fg: #ffffff;
+
+  /* Borders (blancos translúcidos, como Spark: white/12 · white/20) */
+  --aa-border:          rgba(255, 255, 255, 0.12);
+  --aa-border-hover:    rgba(255, 255, 255, 0.20);
+
+  /* Muted (inverted) */
+  --aa-muted:           var(--aa-navy-900);
+  --aa-muted-fg:        rgba(255, 255, 255, 0.55);
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+   DARK HIGH-CONTRAST THEME (accessibility)
+   ──────────────────────────────────────────────────────────────────────────── */
+.aa-landing[data-aa-theme="dark-hc"],
+:root[data-theme="dark-hc"] {
+  /* Backgrounds (pure black-ish for max contrast) */
+  --aa-bg:              #000000;
+  --aa-bg-subtle:       #0a0f1a;
+  --aa-bg-hover:        #141b28;
+
+  /* Foreground (pure white for max contrast) */
+  --aa-fg:              #ffffff;
+  --aa-fg-secondary:    #e0e0e0;
+  --aa-fg-muted:        #b0b0b0;
+  --aa-fg-subtle:       #808080;
+
+  /* Surface */
+  --aa-surface:         #0a0f1a;
+  --aa-surface-fg:      #ffffff;
+  --aa-surface-hover:   #141b28;
+
+  /* Primary */
+  --aa-primary:         #ffffff;
+  --aa-primary-fg:      #000000;
+  --aa-primary-hover:   #f0f0f0;
+
+  /* Accent (maximum saturation for visibility) */
+  --aa-accent:          #ff1744;
+  --aa-accent-fg:       #ffffff;
+  --aa-accent-hover:    #ff3d5a;
+
+  /* Secondary accent (bright cyan) */
+  --aa-accent-secondary: var(--aa-accent-electric);
+  --aa-accent-secondary-fg: #ffffff;
+
+  /* Borders (high contrast) */
+  --aa-border:          rgba(255, 255, 255, 0.30);
+  --aa-border-hover:    rgba(255, 255, 255, 0.50);
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+   LIGHT THEME OVERRIDE (via data-theme attribute)
+   ──────────────────────────────────────────────────────────────────────────── */
+.aa-landing[data-aa-theme="light"],
+:root[data-theme="light"] {
+  /* Light values — autoritativo por el mount (data-aa-theme) y el toggle. Un embed
+     light se mantiene light aunque el SO esté en dark. */
+  --aa-bg:              var(--aa-snow-50);
+  --aa-bg-subtle:       #faf7f2;
+  --aa-bg-hover:        var(--aa-snow-100);
+
+  --aa-fg:              var(--aa-navy-950);
+  --aa-fg-secondary:    rgba(8, 16, 29, 0.80);
+  --aa-fg-muted:        rgba(8, 16, 29, 0.65);
+  --aa-fg-subtle:       rgba(8, 16, 29, 0.40);
+
+  --aa-surface:         #faf7f2;
+  --aa-surface-fg:      var(--aa-navy-950);
+  --aa-surface-hover:   var(--aa-gray-100);
+
+  --aa-primary:         var(--aa-navy-950);
+  --aa-primary-fg:      var(--aa-snow-50);
+  --aa-primary-hover:   var(--aa-navy-900);
+
+  --aa-accent:          var(--aa-coral-500);
+  --aa-accent-fg:       #ffffff;
+  --aa-accent-hover:    var(--aa-coral-600);
+
+  --aa-accent-secondary: var(--aa-accent-electric);
+  --aa-accent-secondary-fg: #ffffff;
+
+  --aa-border:          rgba(8, 16, 29, 0.12);
+  --aa-border-hover:    rgba(8, 16, 29, 0.20);
+
+  --aa-muted:           var(--aa-gray-100);
+  --aa-muted-fg:        var(--aa-gray-600);
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+   RESPONSIVE SCALING (mobile breakpoints)
+   ──────────────────────────────────────────────────────────────────────────── */
+@media screen and (max-width: 991px) {
+  :root {
+    --aa-size-container-ideal: 834;
+    --aa-size-container-min: 768px;
+    --aa-size-container-max: 991px;
+    --aa-container-pad: var(--aa-padding-s);
+    --aa-padding-xxl: 5rem;
+    --aa-padding-xl:  4rem;
+    --aa-padding-l:   3rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  :root {
+    --aa-size-container-ideal: 720;
+    --aa-size-container-min: 480px;
+    --aa-size-container-max: 767px;
+    --aa-container-pad: var(--aa-padding-xs);
+    --aa-padding-xxl: 4rem;
+    --aa-padding-xl:  3rem;
+    --aa-padding-l:   2rem;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  :root {
+    --aa-size-container-ideal: 500;
+    --aa-size-container-min: 320px;
+    --aa-size-container-max: 479px;
+    --aa-padding-xxl: 3rem;
+    --aa-padding-xl:  2.5rem;
+  }
+}

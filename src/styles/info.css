@@ -1,0 +1,77 @@
+/* atfx-peru · sección info (portada de ATOM). Statement grande a la izquierda
+   (eyebrow + heading rotativo + sub) + lista de filas título/párrafo a la derecha
+   (split editorial). Colapsa a una sola columna en <=991px. */
+
+.aa-landing .aa-info__wrap {
+  display: flex;
+  justify-content: center;
+}
+
+/* Grid 2 columnas: head (izq, acotado) | lista de items (der, resto del ancho).
+   El gap de fila gobierna la separación head/lista cuando colapsa a 1 columna. */
+.aa-landing .aa-info__large-col {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(13em, 20em) minmax(0, 1fr);
+  gap: var(--aa-gap-l) var(--aa-gap-xxl);
+  align-items: start;
+}
+
+.aa-landing .aa-info__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--aa-gap-s);
+}
+.aa-landing .aa-info__title {
+  max-width: none; /* la columna gobierna el ancho del heading */
+}
+.aa-landing .aa-info__sub {
+  color: var(--aa-fg-muted);
+}
+
+.aa-landing .aa-info__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-l);
+}
+
+.aa-landing .aa-info__li {
+  display: flex;
+  gap: var(--aa-gap-l);
+  align-items: flex-start;
+  padding-top: var(--aa-gap-m);
+  border-top: 1px solid var(--aa-border);
+}
+
+.aa-landing .aa-info__li-title {
+  flex: none;
+  width: 13em;
+}
+
+.aa-landing .aa-info__li-desc {
+  margin: 0;
+  max-width: 30em;
+  font-size: var(--aa-text-s);
+  line-height: 1.55;
+  color: var(--aa-fg-muted);
+}
+
+@media screen and (max-width: 991px) {
+  .aa-landing .aa-info__large-col {
+    grid-template-columns: 1fr;
+    max-width: 62em;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-info__li {
+    flex-direction: column;
+    gap: var(--aa-gap-xs);
+  }
+  .aa-landing .aa-info__li-title { width: auto; }
+  .aa-landing .aa-info__li-desc { max-width: none; }
+}

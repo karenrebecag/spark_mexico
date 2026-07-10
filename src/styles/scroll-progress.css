@@ -1,0 +1,18 @@
+/* atfx-peru · scroll progress bar (barra superior fija). Trasladada de la página de
+   referencia de ATFX. Tokens --aa-* de OSMO. */
+
+.aa-landing .aa-progress-bar-wrap {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  width: 100%;
+  height: 3px;
+  pointer-events: none;
+}
+.aa-landing .aa-progress-bar {
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: 0% 50%;
+  background: var(--aa-accent);
+}

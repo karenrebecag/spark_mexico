@@ -1,0 +1,86 @@
+/* spark-mexico · sección de contacto (intro). Minimalista y MUY espaciada: el aire
+   vertical baja la carga cognitiva y da respiro antes del form (pendiente). */
+
+.aa-landing .aa-contact {
+  /* Mismo criterio que #problema (.aa-aud__grid): strip full-width, el ancho del contenido
+     se simula con este padding lateral → en pantallas anchas cae donde caería un
+     max-width:1280 centrado; en angostas equivale al container-pad normal. Uniforme entre
+     ambas secciones. */
+  --aa-aud-edge-pad: max(var(--aa-container-pad), calc((100vw - var(--aa-container-max)) / 2));
+  padding-block: var(--aa-padding-xxl);
+}
+/* Fondo propio de la strip. Pinta explícito (0,4,0) para ganarle a la optimización de
+   pintado que la volvería transparente al coincidir con el root light. */
+.aa-landing[data-aa-theme] .aa-contact[data-aa-section-theme] {
+  background-color: #f3f1eb;
+}
+
+/* Separador horizontal centrado (no full-width) — transición radial → contacto. */
+.aa-landing .aa-contact__rule {
+  width: 3.5em;
+  height: 2px;
+  margin: 0 auto var(--aa-gap-xl);
+  border-radius: var(--aa-radius-pill);
+  background: var(--aa-accent);
+}
+/* Intro + form apilados, alineados a la izquierda. El ancho lo da el padding lateral
+   (edge-pad), no un max-width — así iguala el ancho de contenido de #problema. */
+.aa-landing .aa-contact__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--aa-gap-m);
+  padding-inline: var(--aa-aud-edge-pad);
+}
+.aa-landing .aa-contact__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: var(--aa-gap-m);
+  width: 100%;
+}
+/* Heading + subheading lado a lado (row), alineados a la izquierda. */
+.aa-landing .aa-contact__head-row {
+  display: flex;
+  gap: var(--aa-gap-l);
+  align-items: flex-start;
+  width: 100%;
+  text-align: left;
+}
+.aa-landing .aa-contact__head-row > * { flex: 1; min-width: 0; }
+.aa-landing .aa-contact__sub {
+  color: var(--aa-fg-muted);
+}
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-contact__head-row { flex-direction: column; gap: var(--aa-gap-s); }
+}
+
+/* Form: ancho legible, centrado. */
+.aa-landing .aa-contact__form {
+  width: 100%;
+  max-width: 34em;
+}
+
+/* Placeholder del form (mientras se reintegra el widget): caja punteada full-width. */
+.aa-landing .aa-contact__form--placeholder {
+  max-width: none; /* ocupa todo el ancho del inner (no el 34em legible del form real) */
+  aspect-ratio: 16 / 9;
+  border: 1px dashed var(--aa-border);
+  border-radius: var(--aa-radius-l);
+  background: var(--aa-bg-subtle);
+}
+
+/* Theming del widget atfx-forms vía sus custom props → tokens del DS (inputs planos,
+   sin el efecto cristal; misma receta que el registro). */
+.aa-landing .aa-contact .atfx-form {
+  --atfx-font:        var(--aa-font-sans);
+  --atfx-bg:          var(--aa-input-bg);
+  --atfx-text:        var(--aa-fg);
+  --atfx-label:       var(--aa-fg-muted);
+  --atfx-placeholder: var(--aa-fg-subtle);
+  --atfx-border:      var(--aa-border);
+  --atfx-radius:      var(--aa-input-radius);
+  --atfx-glass-inset: none;
+  --atfx-panel-bg:    var(--aa-bg-subtle);
+}

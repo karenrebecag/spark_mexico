@@ -1,0 +1,69 @@
+/* atfx-peru · topbar fijo (botón de registro permanente). Barra fina con dos filas
+   apiladas: loop horizontal infinito + roll vertical en scroll. Portado de ATOM. */
+
+.aa-landing .aa-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 90; /* bajo el navbar (500) y el scroll-progress (100); sobre el contenido */
+  height: var(--aa-topbar-height);
+  overflow: hidden;
+  background: var(--aa-navy-950); /* base: barra navy (surface primaria) */
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--aa-duration-s) var(--aa-ease),
+    color var(--aa-duration-s) var(--aa-ease);
+}
+
+/* Hover: el electric coral aparece como STATE (no como base) */
+.aa-landing .aa-topbar:hover {
+  background: var(--aa-accent-electric);
+  color: var(--aa-navy-950);
+}
+
+.aa-landing .aa-topbar__rows {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.aa-landing .aa-topbar__row {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  will-change: transform;
+}
+
+.aa-landing .aa-topbar__track {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: max-content;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.aa-landing .aa-topbar__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 1em;
+  padding-inline: 0.5em; /* mitad del gap a cada lado → separación uniforme con el glyph */
+}
+
+.aa-landing .aa-topbar__text {
+  font-family: var(--aa-font-mono);
+  font-size: var(--aa-text-xxs);
+  font-weight: var(--aa-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.aa-landing .aa-topbar__dot {
+  width: 0.35em;
+  height: 0.35em;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}

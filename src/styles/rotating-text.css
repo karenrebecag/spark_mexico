@@ -1,0 +1,51 @@
+/* atfx-peru · rotating text (recurso de OSMO, portado de ATOM). Clases generadas por
+   rotating-text.ts. Modo inline (palabras sueltas, máscara de línea vía SplitText) y
+   modo block (frases largas, propia línea full-width, máscara propia que recorta en Y). */
+
+.aa-landing [data-aa-rotating-words] {
+  position: relative;
+}
+.aa-landing .aa-rotating__highlight {
+  color: var(--aa-accent);
+}
+
+/* ── Inline: la palabra se queda en el flujo del texto ───────────────────────── */
+.aa-landing [data-aa-rotating-words]:not(.aa-rotating__block) {
+  display: inline-block;
+}
+.aa-landing .aa-rotating__inner {
+  display: inline-block;
+}
+.aa-landing [data-aa-rotating-words]:not(.aa-rotating__block) .aa-rotating__word {
+  display: block;
+  white-space: nowrap;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Línea del SplitText (linesClass) — la máscara recorta en Y, libre en X */
+.aa-landing .aa-rotating-line {
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+  white-space: nowrap;
+}
+.aa-landing .aa-rotating-line-mask {
+  overflow-x: visible !important;
+  overflow-y: clip !important;
+}
+
+/* ── Block: frase larga en su propia línea full-width (puede envolver) ─────────── */
+.aa-landing .aa-rotating__block {
+  display: block;
+  width: 100%;
+  overflow-x: visible;
+  overflow-y: clip;
+  padding-bottom: 0.1em; /* aire para descenders sin que el clip los corte */
+}
+.aa-landing .aa-rotating__block .aa-rotating__word {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}

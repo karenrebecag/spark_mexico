@@ -1,0 +1,154 @@
+/* atfx-peru · marquee genérico (usado por #problema y otros) + estilos heredados de la
+   sección "Aliados" (ATFX Perú, no se renderiza en Spark México — sin caller en index.ts).
+   La speaker card vive en speaker-accordion.css. Tokens --aa-* de OSMO. */
+
+/* ─── Marquee (loop infinito, CSS-only) ────────────────────────────────────────── */
+@keyframes aa-marquee-forward {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes aa-marquee-reverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+.aa-landing .aa-marquee {
+  width: 100%;
+  overflow: hidden;
+}
+.aa-landing .aa-marquee__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.aa-landing .aa-marquee__track--forward {
+  animation: aa-marquee-forward var(--aa-marquee-duration, 40s) linear infinite;
+}
+.aa-landing .aa-marquee__track--reverse {
+  animation: aa-marquee-reverse var(--aa-marquee-duration, 40s) linear infinite;
+}
+.aa-landing .aa-marquee__group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: stretch;
+}
+/* Máscara en bordes (fade) — patrón Edition2025 de Spark */
+.aa-landing .aa-marquee--masked {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-marquee--masked { -webkit-mask-image: none; mask-image: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aa-landing .aa-marquee__track--forward,
+  .aa-landing .aa-marquee__track--reverse { animation: none; }
+}
+
+/* ─── Sección Aliados: tres strips portadas de ATOM ─────────────────────────────── */
+.aa-landing .aa-allies {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-xxl);
+}
+
+/* Strip 1 · intro centrado (patrón "La tesis") */
+.aa-landing .aa-allies-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--aa-gap-m);
+  /* em (no rem): cuelga del font-size de .aa-landing → independiente del root de WP.
+     Con rem, un tema con root 62.5% lo dejaba en ~480px y el heading se apretaba. */
+  max-width: 48em;
+  margin-inline: auto;
+}
+
+/* Strips 2-3 · dos columnas texto + media (patrón "El problema" / "La visión") */
+.aa-landing .aa-ally {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--aa-gap-xl);
+  align-items: center;
+}
+.aa-landing .aa-ally--media-left .aa-ally__media { order: -1; }
+.aa-landing .aa-ally__text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--aa-gap-m);
+}
+.aa-landing .aa-ally__role {
+  font-size: var(--aa-text-s);
+  font-weight: var(--aa-weight-semibold);
+  color: var(--aa-accent);
+}
+
+/* Lista con dots de acento (mismo patrón que el strip Problema) */
+.aa-landing .aa-ally__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-s);
+}
+.aa-landing .aa-ally__list li {
+  position: relative;
+  padding-left: 1.25em;
+  font-size: var(--aa-text-s);
+  line-height: var(--aa-leading-normal);
+  color: var(--aa-fg-muted);
+}
+.aa-landing .aa-ally__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 0.4em;
+  height: 0.4em;
+  border-radius: var(--aa-radius-pill);
+  background: var(--aa-accent);
+}
+
+/* Media placeholder (dashed) hasta tener las fotos reales */
+.aa-landing .aa-ally__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: clamp(16px, 2vw, 28px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--aa-fg) 8%, transparent);
+  border: 1px dashed color-mix(in srgb, var(--aa-fg) 25%, transparent);
+}
+.aa-landing .aa-ally__media-label {
+  font-family: var(--aa-font-mono);
+  font-size: var(--aa-text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--aa-fg-subtle);
+}
+.aa-landing .aa-ally__media:has(.aa-ally__img) {
+  background: none;
+  border: none;
+}
+.aa-landing .aa-ally__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-ally {
+    grid-template-columns: 1fr;
+    gap: var(--aa-gap-l);
+  }
+  .aa-landing .aa-ally--media-left .aa-ally__media { order: 0; }
+  .aa-landing .aa-ally__media { aspect-ratio: 4 / 5; }
+}
+

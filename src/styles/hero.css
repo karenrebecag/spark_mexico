@@ -1,0 +1,124 @@
+/* spark-mexico · hero (banner). Replica del HeroStrip de Spark: grid 2-col (1fr/1.4fr),
+   video bg + overlay. Spacing/padding referenciados de Spark (px-20/py-20, gap-12,
+   max-w 1400, min-h 70vh) y Relume Header3 (gap-x-20). Tokens --aa-*. */
+
+.aa-landing .aa-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  overflow: hidden;
+  isolation: isolate;
+  padding-block: calc(var(--aa-nav-height) + var(--aa-padding-l)) var(--aa-padding-xl);
+}
+
+/* Fondo: video loop muteado (object-cover, brightness .5) + overlay degradado. */
+.aa-landing .aa-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #000;
+}
+/* Video sobredimensionado (140% alto, 20% overflow por lado) para que el desplazamiento
+   parallax (±12% del propio alto ≈ 16.8% del hero) nunca revele el fondo negro. El offset
+   se posiciona con top (no transform) para no colisionar con el yPercent que aplica GSAP. */
+.aa-landing .aa-hero__video {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -20%;
+  width: 100%;
+  height: 140%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.5);
+  pointer-events: none;
+  will-change: transform;
+}
+/* Overlay: degradado vertical negro 15% → 45% (como el HeroStrip de Spark). */
+.aa-landing .aa-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.45));
+}
+
+/* Grid interno 2-col: texto (1fr) + media (1.4fr), centrado vertical. */
+.aa-landing .aa-hero__grid {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: var(--aa-padding-xxl);
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  align-items: center;
+  gap: var(--aa-gap-xl);
+}
+
+/* Columna izquierda: alineada al inicio en desktop. */
+.aa-landing .aa-hero__left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--aa-gap-xs);
+  text-align: left;
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.5);
+}
+.aa-landing .aa-hero__tag { margin-bottom: var(--aa-gap-xs); }
+
+.aa-landing .aa-hero__logo {
+  width: auto;
+  max-width: 260px;
+  height: auto;
+  margin-block: var(--aa-gap-xxs);
+}
+.aa-landing .aa-hero__where {
+  font-size: var(--aa-text-s);
+  line-height: var(--aa-leading-snug);
+  color: var(--aa-fg-muted);
+}
+.aa-landing .aa-hero__cta { margin-top: var(--aa-gap-m); }
+
+/* Columna derecha: el MediaPlayer ocupa el ancho de la columna. */
+.aa-landing .aa-hero__right {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SR-only: h1 oculto para SEO (el logo es el titular visual). */
+.aa-landing .aa-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Colapso a 1 columna (breakpoint del proyecto: 991) ── */
+@media screen and (max-width: 991px) {
+  .aa-landing .aa-hero__grid {
+    grid-template-columns: 1fr;
+    gap: var(--aa-gap-l);
+    padding-inline: var(--aa-container-pad);
+  }
+  .aa-landing .aa-hero__left {
+    align-items: center;
+    text-align: center;
+  }
+  .aa-landing .aa-hero__cta { width: 100%; }
+}
+
+/* Mobile: oculta el MediaPlayer — en pantallas chicas compite por espacio con el texto
+   y su peso (video/HLS) no se justifica cuando ya está debajo del fold. */
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-hero__right {
+    display: none;
+  }
+}

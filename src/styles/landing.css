@@ -1,0 +1,148 @@
+/* Spark Design System · Landing page (esbuild → single dist/landing.css)
+   Scoped to .aa-landing to avoid Elementor collisions. Themes: light (default),
+   dark (media query), dark-hc (data-theme="dark-hc"). Film grain + smooth transitions. */
+
+@import "./fonts.css";
+@import "./tokens.css";
+@import "./typography.css";
+@import "./layout.css";
+@import "./components.css";
+@import "./button036.css";
+@import "./navbar.css";
+@import "./topbar.css";
+@import "./scroll-progress.css";
+@import "./hero.css";
+@import "./sponsor-marquee.css";
+@import "./media-player.css";
+@import "./countdown.css";
+@import "./problem.css";
+@import "./problem-b.css";
+@import "./sections.css";
+@import "./info.css";
+@import "./rotating-text.css";
+@import "./speakers.css";
+@import "./speaker-accordion.css";
+@import "./speakers-b.css";
+@import "./flick-cards.css";
+@import "./edition.css";
+@import "./pillar-slider.css";
+@import "./radial-slider.css";
+@import "./contact.css";
+@import "./feature-card.css";
+@import "./globe.css";
+@import "./separator.css";
+@import "./cta-banner.css";
+@import "./slider.css";
+@import "./cursor.css";
+@import "./benefits.css";
+@import "./accordion.css";
+@import "./footer.css";
+@import "./form.css";
+@import "./odometer.css";
+@import "./section-theme.css";
+@import "./scroll-highlight.css";
+@import "./transition.css";
+
+/* Reset box-sizing: sin esto, width:100% + padding desbordan los contenedores y el
+   overflow-x: clip del root recorta el contenido por la derecha en todas las strips. */
+.aa-landing *,
+.aa-landing *::before,
+.aa-landing *::after {
+  box-sizing: border-box;
+}
+
+/* ─── Root wrapper ────────────────────────────────────────────────────────────── */
+.aa-landing {
+  font-family: var(--aa-font-sans);
+  font-size: var(--aa-size-font);
+  color: var(--aa-fg);
+  background-color: var(--aa-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+  isolation: isolate;
+  transition: var(--aa-transition-colors);
+}
+
+/* Film grain texture (visual polish, inspired by Portfolio2026) */
+.aa-landing::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Fixed background layer: color snow (--aa-snow-50) + textura topográfica (contour, de
+   ATOM) al 10%. La opacidad la da una veladura snow al 90% SOBRE la textura (background-
+   blend-mode no controla opacidad). Las strips light (transparentes) la dejan ver; las
+   dark la cubren con su color opaco → la textura aparece ÚNICAMENTE en light strips. */
+.aa-landing::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--aa-snow-50);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--aa-snow-50) 95%, transparent),
+                    color-mix(in srgb, var(--aa-snow-50) 95%, transparent)),
+    url('https://pub-c8d801a0ff204d758910633021fa302b.r2.dev/contour.jpg');
+  background-repeat: no-repeat, repeat;
+  background-size: auto, 620px auto;
+  pointer-events: none;
+}
+
+/* Reset de márgenes UA en texto: el ritmo vertical lo controlan los tokens (gap),
+   no los márgenes em-based del navegador (que en flex no colapsan y se acumulan). */
+.aa-landing :where(h1, h2, h3, h4, h5, h6, p) {
+  margin: 0;
+}
+
+/* Dark theme global + section themes (strips) viven en section-theme.css. */
+
+/* ─── Utilities ───────────────────────────────────────────────────────────────── */
+.aa-landing .aa-text-center  { text-align: center; }
+.aa-landing .aa-text-balance { text-wrap: balance; }
+.aa-landing .aa-text-accent  { color: var(--aa-accent); }
+/* Highlight de heading — gradiente de acento Spark (red→orange) clipeado al texto.
+   Solo para spans de highlight (no split, que rompería el clip). */
+.aa-landing .aa-text-gradient {
+  background: linear-gradient(135deg, var(--aa-grad-accent-from), var(--aa-grad-accent-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.aa-landing .aa-flex-col     { display: flex; flex-direction: column; }
+.aa-landing .aa-flex-center  { display: flex; align-items: center; justify-content: center; }
+.aa-landing .aa-gap-s        { gap: var(--aa-gap-s); }
+.aa-landing .aa-gap-m        { gap: var(--aa-gap-m); }
+.aa-landing .aa-gap-l        { gap: var(--aa-gap-l); }
+
+/* Textura topográfica (contour, extraída de ATOM Academy — servida desde su R2). SOLO
+   para superficies rosadas: el blend overlay tiñe las curvas sobre el color. isolation
+   contiene el blend al host; el host debe tener su propio color de fondo. */
+.aa-landing .aa-topo { position: relative; isolation: isolate; }
+.aa-landing .aa-topo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url('https://pub-c8d801a0ff204d758910633021fa302b.r2.dev/contour.jpg') repeat;
+  background-size: 620px auto;
+  mix-blend-mode: overlay;
+  opacity: 0.10;
+  pointer-events: none;
+}
+
+/* Fondo de marca: gradiente rosa (coral) → naranja (#e37c51). 1ª línea = fallback sRGB
+   (token); 2ª = interpolación oklch (perceptualmente uniforme) donde el navegador la
+   soporte. Pensado para superficies dark → parear con texto claro. */
+.aa-landing .aa-bg-gradient {
+  background: var(--aa-gradient-bg);
+  background: linear-gradient(135deg in oklch, var(--aa-coral-500) 0%, var(--aa-orange-400) 100%);
+}

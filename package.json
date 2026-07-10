@@ -1,0 +1,20 @@
+{
+  "name": "spark-mexico-lp",
+  "version": "1.0.0",
+  "description": "Landing page versionada de Spark AI Summit México. Lógica + estilos servidos vía jsDelivr; Elementor solo aporta un punto de montaje.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "watch": "node esbuild.config.mjs --watch",
+    "dev": "node esbuild.config.mjs --serve",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "gsap": "^3.13.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.23.0",
+    "typescript": "^5.5.4"
+  }
+}

@@ -1,0 +1,81 @@
+/* spark-mexico · accordion (FAQ) — ref. layout de SparkSummit2026: cada pregunta es su
+   propia card redondeada (bg-subtle), apiladas con gap chico en vez de filas subrayadas.
+   Técnica OSMO grid-template-rows 0fr → 1fr sin cambios, solo cambia el chrome visual. */
+
+.aa-landing .aa-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-xxs);
+}
+.aa-landing .aa-accordion__item {
+  border-radius: var(--aa-radius-l);
+  background: var(--aa-bg-subtle);
+  overflow: hidden;
+}
+
+.aa-landing .aa-accordion__head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--aa-gap-m);
+  padding: var(--aa-gap-m) var(--aa-gap-l);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+}
+.aa-landing .aa-accordion__q {
+  font-size: var(--aa-text-s);
+  font-weight: var(--aa-weight-bold);
+  line-height: var(--aa-leading-snug);
+  color: var(--aa-fg);
+}
+
+/* Icono: círculo con chevron — rota 180° al abrir (antes era +/− de dos barras). */
+.aa-landing .aa-accordion__icon {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2em;
+  height: 2em;
+  border-radius: var(--aa-radius-pill);
+  background: var(--aa-bg-hover);
+  color: var(--aa-fg);
+  transition: transform var(--aa-duration-m) var(--aa-ease);
+}
+.aa-landing .aa-accordion__icon::before {
+  content: '';
+  width: 0.5em;
+  height: 0.5em;
+  margin-top: -0.15em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+.aa-landing .aa-accordion__item[data-open] .aa-accordion__icon { transform: rotate(180deg); }
+
+/* Body colapsable */
+.aa-landing .aa-accordion__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--aa-duration-m) var(--aa-ease);
+}
+.aa-landing .aa-accordion__item[data-open] .aa-accordion__body { grid-template-rows: 1fr; }
+.aa-landing .aa-accordion__inner { overflow: hidden; min-height: 0; }
+.aa-landing .aa-accordion__a {
+  width: 100%;
+  max-width: none; /* la regla global p { max-width: 65ch } lo angostaba */
+  padding: 0 var(--aa-gap-l) var(--aa-gap-m);
+  color: var(--aa-fg-muted);
+  font-size: var(--aa-text-s);
+  line-height: var(--aa-leading-normal);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aa-landing .aa-accordion__body,
+  .aa-landing .aa-accordion__icon { transition: none !important; }
+}

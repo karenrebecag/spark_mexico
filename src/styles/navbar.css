@@ -1,0 +1,221 @@
+/* atfx-peru · navbar (logos ATFX · Blue Makers + CTA) + atoms (roll, pill, nav-cta). */
+
+/* ─── Roll (label vertical: dos copias apiladas, suben en hover) ───────────────── */
+.aa-landing .aa-roll {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 1.2em;
+  line-height: 1.2;
+  overflow: hidden;
+}
+.aa-landing .aa-roll__item {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  white-space: nowrap;
+  transition: transform var(--aa-duration-m) var(--aa-ease-out);
+}
+.aa-landing .aa-roll__item:nth-child(2) {
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+/* ─── Pill (eyebrow contenedor) ────────────────────────────────────────────────── */
+/* Tag/eyebrow — badge sólido de alto contraste (patrón .aa-eyebrow de ATOM). Flipea
+   con el tema: en light = navy sobre claro; en dark = blanco sobre navy. Interval mono. */
+.aa-landing .aa-pill {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.5em 1em;
+  font-family: var(--aa-font-mono);
+  font-size: var(--aa-text-xs);
+  font-weight: var(--aa-weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--aa-bg);
+  background: var(--aa-fg);
+  border-radius: var(--aa-radius-pill);
+}
+
+/* ─── NavCta (botón pill con roll + flecha) — usado en otros átomos ─────────────── */
+.aa-landing .aa-nav-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  height: 2.8em;
+  padding: 0 1.4em;
+  color: var(--aa-accent-fg);
+  border: 1px solid transparent;
+  border-radius: var(--aa-radius-pill);
+  background: var(--aa-gradient-bg); /* fondo de marca: rosa → naranja */
+  box-shadow: 0 8px 24px -6px rgba(8, 16, 29, 0.35);
+  font-weight: var(--aa-weight-bold);
+  font-size: var(--aa-text-xs);
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform var(--aa-duration-s) var(--aa-ease-out),
+    box-shadow var(--aa-duration-s) var(--aa-ease-out);
+}
+.aa-landing .aa-nav-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px -6px rgba(8, 16, 29, 0.45);
+}
+.aa-landing .aa-nav-cta:hover .aa-roll__item { transform: translateY(-100%); }
+
+.aa-landing .aa-nav-cta--standalone {
+  height: 3.375em;
+  padding-left: 1.75em;
+  padding-right: 0.5em;
+  width: auto;
+  justify-content: center;
+}
+.aa-landing .aa-nav-cta__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5em;
+  height: 2.5em;
+  flex: none;
+  border-radius: var(--aa-radius-pill);
+  border: 1px solid rgba(47, 176, 255, 0.2);
+  background: rgba(47, 176, 255, 0.12);
+}
+.aa-landing .aa-nav-cta__icon svg { width: 1em; height: 1em; color: var(--aa-color-blue); }
+
+/* ─── Navbar — logos (ATFX · sep · Blue Makers) + CTA, en space-between ─────────── */
+/* Fija bajo el topbar, fondo transparente. La barra no captura clicks (solo logos/CTA);
+   data-nav-theme lo setea initNavbar según la sección detrás → swap de versión de logo. */
+.aa-landing .aa-nav {
+  position: fixed;
+  top: var(--aa-topbar-height);
+  left: 0;
+  right: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--aa-gap-m);
+  padding: var(--aa-gap-s) var(--aa-container-pad);
+  pointer-events: none;
+  transition:
+    transform var(--aa-duration-m) var(--aa-ease-out),
+    opacity var(--aa-duration-s) var(--aa-ease-out);
+}
+/* Oculto: sube fuera de vista (scroll down / !top). Vuelve en top y scroll up. */
+.aa-landing .aa-nav--hidden {
+  transform: translateY(calc(-100% - var(--aa-topbar-height)));
+  opacity: 0;
+}
+
+/* Mobile: vignette dark→transparent detrás del navbar (cubre también el topbar arriba)
+   para que logos/CTA se lean sobre cualquier contenido claro/ruidoso. z-index -1 → detrás
+   del contenido del nav, encima de la página (el nav fijo crea su propio contexto). */
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-nav::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(-1 * var(--aa-topbar-height));
+    bottom: -1.75em;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(8, 16, 29, 0.55), rgba(8, 16, 29, 0));
+  }
+}
+.aa-landing .aa-nav__logos {
+  display: flex;
+  align-items: center;
+  gap: var(--aa-gap-m);
+  pointer-events: none; /* decorativos: dejan pasar el hit-test al detectar el tema */
+}
+.aa-landing .aa-nav__logo {
+  display: inline-flex;
+  align-items: center;
+}
+.aa-landing .aa-nav__logo-img {
+  display: block;
+  width: auto;
+}
+.aa-landing .aa-nav__logo--spark .aa-nav__logo-img { height: 1.6em; }
+
+/* Swap por tema: dark logos sobre secciones light; white logos sobre dark */
+.aa-landing .aa-nav__logo-img--dark { display: block; }
+.aa-landing .aa-nav__logo-img--white { display: none; }
+.aa-landing .aa-nav[data-nav-theme="dark"] .aa-nav__logo-img--dark { display: none; }
+.aa-landing .aa-nav[data-nav-theme="dark"] .aa-nav__logo-img--white { display: block; }
+
+/* Separador vertical (color por tema) */
+.aa-landing .aa-nav__sep {
+  width: 1px;
+  height: 1.9em;
+  flex: none;
+  background: rgba(8, 16, 29, 0.25);
+}
+.aa-landing .aa-nav[data-nav-theme="dark"] .aa-nav__sep { background: rgba(255, 255, 255, 0.3); }
+
+/* Cluster derecho — pill de links + CTA agrupados con gap (logos quedan solos a la
+   izquierda). Mobile: solo deja pasar el CTA (ver aa-nav__links abajo). */
+.aa-landing .aa-nav__right {
+  display: flex;
+  align-items: center;
+  gap: var(--aa-gap-s);
+}
+
+/* Links de sección — pill sólida: blanco sobre secciones claras, navy sobre secciones
+   oscuras (sin blur/blend — más simple y sin problemas de contraste). Solo a partir de
+   tablet (mobile se queda logos+CTA). */
+.aa-landing .aa-nav__links {
+  position: relative;
+  display: none;
+  align-items: center;
+  gap: var(--aa-gap-m);
+  padding: 0.6em 1.4em;
+  border: 1px solid var(--aa-border);
+  border-radius: var(--aa-radius-pill);
+  background: #ffffff;
+  pointer-events: auto;
+}
+
+.aa-landing .aa-nav[data-nav-theme="dark"] .aa-nav__links {
+  background: var(--aa-navy-950);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.aa-landing .aa-nav__link {
+  font-family: var(--aa-font-accent);
+  font-size: var(--aa-text-xxs);
+  font-weight: var(--aa-weight-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(8, 16, 29, 0.65);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--aa-duration-s) var(--aa-ease-out);
+}
+.aa-landing .aa-nav__link:hover { color: var(--aa-navy-950); }
+.aa-landing .aa-nav[data-nav-theme="dark"] .aa-nav__link { color: rgba(255, 255, 255, 0.65); }
+.aa-landing .aa-nav[data-nav-theme="dark"] .aa-nav__link:hover { color: #ffffff; }
+
+.aa-landing .aa-nav__cta {
+  pointer-events: auto;
+  flex: none;
+}
+
+@media screen and (min-width: 900px) {
+  .aa-landing .aa-nav__links { display: flex; }
+}
+
+@media screen and (max-width: 600px) {
+  .aa-landing .aa-nav { padding-block: var(--aa-gap-xs); }
+  .aa-landing .aa-nav__logos { gap: var(--aa-gap-s); }
+  .aa-landing .aa-nav__logo--spark .aa-nav__logo-img { height: 1.4em; }
+}

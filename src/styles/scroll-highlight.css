@@ -1,0 +1,19 @@
+/* Scroll highlight — marcador de acento que se llena al scroll. El barrido lo anima
+   ui/scroll-highlight.ts sobre background-size. Se usa un background-IMAGE (gradiente
+   plano del accent), no background-color: solo el image responde a background-size, así
+   el relleno realmente barre de izquierda a derecha. box-decoration-break clone → el
+   marcador envuelve limpio cuando la frase parte en varias líneas. */
+.aa-landing [data-aa-highlight] {
+  background-image: linear-gradient(
+    color-mix(in oklab, var(--aa-accent) 22%, transparent),
+    color-mix(in oklab, var(--aa-accent) 22%, transparent)
+  );
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  background-position: left center;
+  padding: 0.05em 0.15em;
+  margin: 0 -0.15em;
+  color: inherit;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}

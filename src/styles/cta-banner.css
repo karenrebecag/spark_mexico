@@ -1,0 +1,140 @@
+/* spark-mexico · CTA Banner (#bottom). Port del CtaBannerStrip de Spark con tokens del DS.
+   Strip dark → fg blanco, border white/12, etc. vía section-theme. */
+
+/* Sin min-height:90vh — con pill+marquee+heading+3 cards+botón el contenido ya es alto;
+   forzar 90vh solo agregaba aire de sobra (peor en mobile, donde el stack es más largo). */
+.aa-landing .aa-cta {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: var(--aa-padding-xl) var(--aa-container-pad);
+}
+
+/* Fondo: media sobredimensionado (parallax) + overlay navy diagonal. */
+.aa-landing .aa-cta__bg { position: absolute; inset: 0; z-index: -2; }
+.aa-landing .aa-cta__media {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -20%;
+  height: 140%;
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+/* Overlay reforzado: base navy uniforme para legibilidad + gradiente diagonal que
+   profundiza hacia abajo. La imagen (Ángel) es luminosa → hace falta más cobertura. */
+/* Sin z-index: por orden del DOM (media → overlay) queda ENCIMA de la imagen.
+   Con z-index negativo quedaba detrás del media y no oscurecía nada. */
+.aa-landing .aa-cta__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom right,
+      color-mix(in srgb, var(--aa-bg) 45%, transparent),
+      color-mix(in srgb, var(--aa-bg) 78%, transparent)
+    ),
+    color-mix(in srgb, var(--aa-bg) 30%, transparent);
+}
+
+/* Contenido centrado. */
+.aa-landing .aa-cta__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--aa-gap-m);
+  width: 100%;
+  max-width: var(--aa-container-max);
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* Marquee de palabras (Conecta ✦ Aprende ✦ Crece) — banda decorativa, por debajo del
+   heading en la jerarquía → text-m. Track relleno vía JS (ver initCtaMarquee en
+   cta-banner.ts) a velocidad constante, no duración fija. */
+.aa-landing .aa-cta__marquee {
+  overflow: hidden;
+  width: 100%;
+}
+.aa-landing .aa-cta__marquee-track {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: max-content;
+  white-space: nowrap;
+  will-change: transform;
+}
+/* padding-inline (no gap): cada palabra aporta la mitad de la separación a cada lado →
+   el hueco es siempre el mismo sin importar el orden en que fillTrack las clone. */
+.aa-landing .aa-cta__word {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--aa-gap-s);
+  padding-inline: var(--aa-gap-m);
+  font-size: var(--aa-text-m);
+  font-weight: var(--aa-weight-extrabold);
+  line-height: 1;
+  color: var(--aa-fg);
+  white-space: nowrap;
+}
+.aa-landing .aa-cta__spark-wrap {
+  display: inline-flex;
+  color: var(--aa-accent-secondary); /* electric coral (antes cyan) */
+}
+.aa-landing .aa-cta__spark { width: 0.5em; height: 0.5em; display: block; }
+
+/* Heading — mismo tamaño que los headings de sección (renderSectionHeader usa text-l).
+   Antes text-xl (tamaño hero) rompía la jerarquía declarada. */
+.aa-landing .aa-cta__heading {
+  max-width: 18em;
+  font-size: var(--aa-text-l);
+  font-weight: var(--aa-weight-extrabold);
+  line-height: var(--aa-leading-tight);
+  color: var(--aa-fg);
+}
+
+/* Glass cards (3-col → 1-col en móvil). */
+.aa-landing .aa-cta__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--aa-gap-s);
+  width: 100%;
+  margin-top: var(--aa-gap-s);
+}
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-cta__cards { grid-template-columns: 1fr; }
+}
+.aa-landing .aa-cta__card {
+  padding: var(--aa-padding-s);
+  text-align: left;
+  border: 1px solid var(--aa-border);
+  border-radius: var(--aa-radius-l);
+  background: color-mix(in srgb, var(--aa-fg) 5%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.aa-landing .aa-cta__card-h {
+  font-size: var(--aa-text-s);
+  font-weight: var(--aa-weight-extrabold);
+  color: var(--aa-fg);
+}
+.aa-landing .aa-cta__card-p {
+  margin-top: var(--aa-gap-xxs);
+  font-size: var(--aa-text-xs);
+  line-height: var(--aa-leading-normal);
+  color: var(--aa-fg-muted);
+}
+
+.aa-landing .aa-cta__action { margin-top: var(--aa-gap-s); }
+
+/* Mobile: el stack (pill+marquee+heading+3 cards+botón) ya es largo — menos padding
+   vertical del strip y menos gap entre bloques para que no se sienta interminable. */
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-cta { padding-block: var(--aa-padding-l); }
+  .aa-landing .aa-cta__inner { gap: var(--aa-gap-s); }
+  .aa-landing .aa-cta__card { padding: var(--aa-padding-xs); }
+}

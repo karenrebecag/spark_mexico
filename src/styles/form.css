@@ -1,0 +1,253 @@
+/* atom-academy · form (lista de espera). Inputs/checkbox/submit del newsletter de OSMO. */
+
+.aa-landing .aa-form {
+  display: flex;
+  flex-flow: column;
+  gap: var(--aa-gap-m);
+  width: 100%;
+  max-width: 40em;
+  margin-inline: auto;
+}
+
+/* Fila de campos — lado a lado en desktop, apilados en móvil (como OSMO) */
+.aa-landing .aa-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--aa-gap-s);
+}
+@media (max-width: 600px) {
+  .aa-landing .aa-form__row { grid-template-columns: 1fr; }
+}
+
+.aa-landing .aa-field {
+  display: flex;
+  flex-flow: column;
+  gap: var(--aa-gap-xxs);
+  min-width: 0;
+}
+
+/* Label — Haffer Mono uppercase de OSMO → font mono del DS */
+.aa-landing .aa-label {
+  font-family: var(--aa-font-mono);
+  font-size: var(--aa-text-xxs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--aa-fg-muted);
+}
+
+/* Input — bg sólido, border transparente que aparece en hover/focus (patrón OSMO) */
+.aa-landing .aa-input {
+  width: 100%;
+  box-sizing: border-box;
+  height: var(--aa-input-height);
+  padding: 0.75em 1em;
+  font: inherit;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--aa-fg);
+  background: var(--aa-input-bg);
+  border: 1px solid transparent;
+  border-radius: var(--aa-input-radius);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color var(--aa-duration-s) var(--aa-ease-out);
+}
+.aa-landing .aa-input::placeholder { color: var(--aa-fg-subtle); }
+.aa-landing .aa-input:hover { border-color: var(--aa-border); }
+.aa-landing .aa-input:focus { border-color: var(--aa-fg-subtle); }
+
+.aa-landing .aa-field.has-error .aa-input { border-color: var(--aa-color-coral); }
+
+.aa-landing .aa-error {
+  min-height: 1em;
+  font-size: var(--aa-text-xxs);
+  line-height: 1.3;
+  color: var(--aa-color-coral);
+  opacity: 0;
+  transition: opacity var(--aa-duration-s) ease;
+}
+.aa-landing .aa-error:not(:empty) { opacity: 1; }
+
+/* Checkbox — caja custom, accent al marcar (patrón radiocheck de OSMO) */
+.aa-landing .aa-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65em;
+  cursor: pointer;
+}
+.aa-landing .aa-check__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.aa-landing .aa-check__box {
+  flex: 0 0 auto;
+  width: 1.35em;
+  height: 1.35em;
+  margin-top: 0.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--aa-input-bg);
+  border: 1px solid var(--aa-border);
+  border-radius: calc(var(--aa-radius-s) * 0.75);
+  transition: background var(--aa-duration-xs) ease, border-color var(--aa-duration-xs) ease;
+}
+.aa-landing .aa-check__icon {
+  width: 0.7em;
+  height: 0.7em;
+  color: var(--aa-accent-fg);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity var(--aa-duration-xs) ease, transform var(--aa-duration-s) var(--aa-ease-spring);
+}
+.aa-landing .aa-check__icon svg { width: 100%; height: 100%; display: block; }
+.aa-landing .aa-check__input:checked + .aa-check__box {
+  background: var(--aa-accent);
+  border-color: var(--aa-accent);
+}
+.aa-landing .aa-check__input:checked + .aa-check__box .aa-check__icon {
+  opacity: 1;
+  transform: scale(1);
+}
+.aa-landing .aa-check__input:focus-visible + .aa-check__box {
+  border-color: var(--aa-focus-ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--aa-focus-ring) 40%, transparent);
+}
+.aa-landing .aa-field.has-error .aa-check__box { border-color: var(--aa-color-coral); }
+
+.aa-landing .aa-check__label {
+  font-size: var(--aa-text-xs);
+  line-height: 1.45;
+  color: var(--aa-fg-muted);
+}
+.aa-landing .aa-check__label a { color: var(--aa-fg); text-decoration: underline; }
+
+/* Submit */
+.aa-landing .aa-form__submit {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--aa-gap-xs);
+}
+.aa-landing .aa-form__submit .aa-button { width: 100%; max-width: 24em; }
+
+/* Notificación (éxito / error) */
+.aa-landing .aa-form__note {
+  min-height: 1.2em;
+  text-align: center;
+  font-size: var(--aa-text-xs);
+  color: var(--aa-fg-muted);
+}
+.aa-landing .aa-form__note.is--error   { color: var(--aa-color-coral); }
+.aa-landing .aa-form__note.is--success { color: var(--aa-fg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .aa-landing .aa-check__icon,
+  .aa-landing .aa-error { transition: none !important; }
+}
+
+/* ─── Form section — bloque de registro: countdown + card del widget atfx-forms ──── */
+/* Sección CLARA (snow); la card flota en superficie blanca con borde sutil y deja un
+   escalón de profundidad. Separada del countdown por padding-l. */
+.aa-landing .aa-form-section .aa-container--card {
+  background: var(--aa-bg-subtle);
+  border: 1px solid var(--aa-border);
+}
+/* Countdown compacto, debajo del copy (contexto de urgencia, no protagonista). Cajas
+   chicas en superficie clara recesada sobre la card; números medianos. */
+.aa-landing .aa-form-section__countdown {
+  margin-top: var(--aa-gap-s);
+  gap: var(--aa-gap-xs);
+}
+.aa-landing .aa-form-section .aa-countdown__unit {
+  min-width: 3.4em;
+  padding: var(--aa-gap-xs) var(--aa-gap-s);
+  gap: 2px;
+  background: var(--aa-input-bg);
+  border-color: var(--aa-border);
+}
+.aa-landing .aa-form-section .aa-countdown__num { font-size: var(--aa-text-m); }
+.aa-landing .aa-form-section .aa-countdown__label { font-size: 0.62em; }
+.aa-landing .aa-form-section__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-xl);
+}
+.aa-landing .aa-form-section__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--aa-gap-s);
+  max-width: 44em;
+  margin-inline: auto;
+}
+
+/* ─── Override del widget atfx-forms (externo, inyectado por jsDelivr) ─────────────── */
+/* Inputs planos al estilo de la página en lugar del efecto cristal (blur + glass inset +
+   bg translúcido). Mapea las vars --atfx-* a los tokens --aa-* del strip dark; mayor
+   especificidad que las reglas .atfx-* del widget. El acento (#22d3ee) ya coincide. */
+.aa-landing .aa-form-section .atfx-form {
+  --atfx-font:        var(--aa-font-sans); /* fuente base del DS (Inter) */
+  --atfx-bg:          var(--aa-input-bg);
+  --atfx-text:        var(--aa-fg);
+  --atfx-label:       var(--aa-fg-muted);
+  --atfx-placeholder: var(--aa-fg-subtle);
+  --atfx-border:      var(--aa-border);
+  --atfx-radius:      var(--aa-input-radius);
+  --atfx-glass-inset: none;          /* mata el realce de cristal (base y focus) */
+  --atfx-panel-bg:    var(--aa-bg-subtle);
+}
+/* Labels al estilo OSMO de la página (.aa-label): mono, uppercase, tracking — en vez
+   del sans sentence-case semibold del widget. */
+.aa-landing .aa-form-section .atfx-form .atfx-label {
+  font-family: var(--aa-font-mono);
+  font-size: var(--aa-text-xxs);
+  font-weight: var(--aa-weight-regular);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+/* Placeholders al mismo tratamiento que los labels (mono + uppercase + tracking).
+   Solo el estado vacío: los valores escritos/seleccionados se quedan en sans. */
+.aa-landing .aa-form-section .atfx-form .atfx-input::placeholder,
+.aa-landing .aa-form-section .atfx-form .atfx-combobox-search::placeholder,
+.aa-landing .aa-form-section .atfx-form .atfx-combobox-trigger[data-placeholder] .atfx-combobox-value {
+  font-family: var(--aa-font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+/* bg translúcido (color-mix) + backdrop-filter están hardcodeados: se anulan aquí. */
+.aa-landing .aa-form-section .atfx-form .atfx-input,
+.aa-landing .aa-form-section .atfx-form .atfx-select,
+.aa-landing .aa-form-section .atfx-form .atfx-combobox-trigger,
+.aa-landing .aa-form-section .atfx-form .atfx-combobox-search {
+  background: var(--aa-input-bg);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* Texto ESCRITO en los inputs: usa el fg del strip (oscuro sobre la card clara). Se fuerza
+   -webkit-text-fill-color porque un reset/autofill lo fija y gana sobre `color`.
+   Solo el valor real (no el placeholder del combobox, que se queda sutil). */
+.aa-landing .aa-form-section .atfx-form .atfx-input,
+.aa-landing .aa-form-section .atfx-form .atfx-select,
+.aa-landing .aa-form-section .atfx-form .atfx-combobox-search,
+.aa-landing .aa-form-section .atfx-form textarea,
+.aa-landing .aa-form-section .atfx-form .atfx-combobox-trigger:not([data-placeholder]) .atfx-combobox-value {
+  color: var(--aa-fg);
+  -webkit-text-fill-color: var(--aa-fg);
+}
+/* Autofill del navegador: mantiene el texto del strip y evita el bg amarillo. */
+.aa-landing .aa-form-section .atfx-form .atfx-input:-webkit-autofill,
+.aa-landing .aa-form-section .atfx-form .atfx-input:-webkit-autofill:hover,
+.aa-landing .aa-form-section .atfx-form .atfx-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--aa-fg);
+  transition: background-color 9999s ease-in-out 0s;
+}

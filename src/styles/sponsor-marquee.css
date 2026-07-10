@@ -1,0 +1,131 @@
+/* spark-mexico · marquee de logos (patrocinadores + marcas) — mismo mecanismo que el
+   topbar (track relleno vía JS + loop a velocidad constante, ver sponsor-marquee.ts) y
+   mismo truco de spacing (padding-inline en el item → separación pareja entre logos, no
+   depende del gap del marquee). Jerarquía por prominencia, no por color: la fila primary
+   (patrocinadores) lleva fondo + logos grandes; la secondary (marcas aliadas) va
+   transparente con logos discretos. El fondo va en la FILA (no en el wrap) para que la
+   distinción funcione también en mobile, donde ambos grupos comparten wrap. Se monta dos
+   veces: mobile-only tras el hero, desktop-only en dos strips separadas. */
+
+.aa-landing .aa-sponsor-marquee {
+  overflow: hidden;
+  padding-block: var(--aa-gap-l);
+  border-block: 1px solid var(--aa-border);
+}
+
+.aa-landing .aa-sponsor-marquee--mobile-only { display: none; }
+.aa-landing .aa-sponsor-marquee--desktop-only {
+  display: block;
+  padding-block: 0; /* cada fila ya aporta su propio padding-block */
+}
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-sponsor-marquee--mobile-only { display: block; }
+  .aa-landing .aa-sponsor-marquee--desktop-only { display: none; }
+  /* Sin padding superior/inferior del wrap en mobile (cada fila ya aporta el suyo). */
+  .aa-landing .aa-sponsor-marquee { padding-block: 0; }
+}
+
+.aa-landing .aa-sponsor-marquee__rows {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fila: label fijo (no scrollea) + viewport recortado con el track. Stroke sup/inf por
+   fila (no solo en el wrap) → se distingue la separación entre Patrocinadores/Marcas
+   aliadas, no solo el borde exterior de toda la banda. En mobile el label pasa arriba
+   (columna) — a ese ancho no cabe fijo al costado del track. */
+.aa-landing .aa-sponsor-marquee__row {
+  display: flex;
+  align-items: center;
+  gap: var(--aa-gap-l);
+  padding-inline-start: var(--aa-container-pad);
+  padding-block: var(--aa-gap-s);
+  border-block: 1px solid var(--aa-border);
+}
+.aa-landing .aa-sponsor-marquee__row + .aa-sponsor-marquee__row {
+  border-top: none; /* evita el doble trazo entre filas contiguas */
+}
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-sponsor-marquee__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--aa-gap-xs);
+  }
+  /* En columna, el flex:1 del viewport aplica al eje vertical y —con overflow:hidden, que
+     fuerza min-height:0— colapsa el alto recortando los logos. Se dimensiona a su contenido. */
+  .aa-landing .aa-sponsor-marquee__viewport { flex: none; }
+}
+
+/* Tier primary (patrocinadores): banda con fondo + logos grandes + label más marcado.
+   Tier secondary (marcas aliadas): sin fondo (hereda el de la página) + logos discretos. */
+.aa-landing .aa-sponsor-marquee__row--primary {
+  --aa-sponsor-logo-h: 2.25em;
+  background: var(--aa-bg-subtle);
+}
+.aa-landing .aa-sponsor-marquee__row--primary .aa-sponsor-marquee__label {
+  color: var(--aa-fg-muted);
+}
+.aa-landing .aa-sponsor-marquee__row--secondary {
+  --aa-sponsor-logo-h: 1.6em;
+}
+.aa-landing .aa-sponsor-marquee__row--secondary .aa-sponsor-marquee__logo {
+  opacity: 0.8;
+}
+
+.aa-landing .aa-sponsor-marquee__label {
+  flex: none;
+  font-family: var(--aa-font-mono);
+  font-size: var(--aa-text-xxs);
+  font-weight: var(--aa-weight-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--aa-fg-subtle);
+}
+
+.aa-landing .aa-sponsor-marquee__viewport {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+}
+.aa-landing .aa-sponsor-marquee__track {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: max-content;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+/* padding-inline (no gap) en el item: cada logo aporta la mitad de la separación a cada
+   lado → el hueco entre logos es siempre el mismo, sin importar el orden en que
+   fillTrack los clone. */
+.aa-landing .aa-sponsor-marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--aa-gap-m);
+  padding-inline: var(--aa-gap-m);
+}
+.aa-landing .aa-sponsor-marquee__logo {
+  display: block;
+  height: var(--aa-sponsor-logo-h, 2em); /* la fila (tier) define el alto */
+  width: auto;
+  min-width: 3em; /* reserva espacio razonable mientras carga / si el asset falla */
+  max-width: 8em;
+  object-fit: contain;
+}
+.aa-landing .aa-sponsor-marquee__spark-wrap {
+  display: inline-flex;
+  flex: none;
+  color: var(--aa-accent-secondary);
+}
+.aa-landing .aa-sponsor-marquee__spark {
+  width: 0.5em;
+  height: 0.5em;
+  display: block;
+}
+
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-sponsor-marquee__row--primary { --aa-sponsor-logo-h: 1.9em; }
+  .aa-landing .aa-sponsor-marquee__row--secondary { --aa-sponsor-logo-h: 1.45em; }
+}

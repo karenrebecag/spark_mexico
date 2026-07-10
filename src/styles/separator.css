@@ -1,0 +1,37 @@
+/* spark-mexico · separador full-bleed con imagen de fondo en parallax. Banda decorativa
+   entre secciones; overlay navy para cohesión de marca. */
+
+.aa-landing .aa-separator {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  /* Mitad del alto anterior (clamp(20rem,55vh,40rem)) → banda más contenida. */
+  height: clamp(10rem, 27.5vh, 20rem);
+}
+
+/* Media (target del parallax): sobredimensionado para el recorrido sin revelar bordes. */
+.aa-landing .aa-separator__media {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -20%;
+  height: 140%;
+  z-index: -2;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+
+/* Overlay navy: profundidad + cohesión con la paleta (no un tinte plano fuerte). */
+.aa-landing .aa-separator__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to bottom, rgba(8, 16, 29, 0.35), rgba(8, 16, 29, 0.5));
+  pointer-events: none;
+}
+
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-separator { height: clamp(7rem, 20vh, 12rem); }
+}

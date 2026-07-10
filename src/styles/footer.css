@@ -1,0 +1,127 @@
+/* Footer Spark AI Summit México (logo + redes + línea legal). Tokens --aa-*. */
+
+/* Textura topográfica sobre el navy sólido del footer. El overlay al 10% de .aa-topo está
+   pensado para superficies claras/coral y sobre navy queda invisible → aquí se sube la
+   opacidad y se usa soft-light (que sí aclara las curvas sobre un fondo oscuro) para que
+   la textura se lea claramente ENCIMA del color sólido. */
+.aa-landing .aa-footer.aa-topo::before {
+  mix-blend-mode: soft-light;
+  opacity: 0.175;
+}
+
+.aa-landing .aa-footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-xl);
+}
+
+.aa-landing .aa-footer__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+/* Conjunto de logos (mismos tamaños que el navbar) */
+.aa-landing .aa-footer__logos {
+  display: flex;
+  align-items: center;
+  gap: var(--aa-gap-m);
+}
+.aa-landing .aa-footer__logo {
+  display: block;
+  width: auto;
+}
+.aa-landing .aa-footer__logo--spark { height: 1.6em; }
+/* Separador vertical (footer dark → línea clara, como el navbar en dark) */
+.aa-landing .aa-footer__logo-sep {
+  width: 1px;
+  height: 1.9em;
+  flex: none;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Columnas: Legal / Sobre Nosotros / Redes */
+.aa-landing .aa-footer__cols {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--aa-gap-l);
+}
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-footer__cols { flex-direction: column; }
+}
+.aa-landing .aa-footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-m);
+  flex: 1;
+}
+
+.aa-landing .aa-footer__eyebrow {
+  margin: 0;
+  font-size: var(--aa-text-xxs);
+  font-weight: var(--aa-weight-bold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--aa-accent);
+}
+
+.aa-landing .aa-footer__links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35em;
+}
+.aa-landing .aa-footer__link {
+  color: var(--aa-fg);
+  font-size: var(--aa-text-s);
+  font-weight: var(--aa-weight-semibold);
+  line-height: 1.25;
+  text-decoration: none;
+  transition: color var(--aa-duration-s);
+}
+.aa-landing .aa-footer__link:hover { color: var(--aa-accent); }
+
+/* Redes */
+.aa-landing .aa-footer__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--aa-gap-xs);
+}
+.aa-landing .aa-footer__social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75em;
+  height: 2.75em;
+  flex-shrink: 0;
+  border-radius: var(--aa-radius-pill);
+  border: 1px solid var(--aa-border);
+  color: var(--aa-fg);
+  transition: color var(--aa-duration-s), border-color var(--aa-duration-s);
+}
+.aa-landing .aa-footer__social:hover {
+  color: var(--aa-accent);
+  border-color: var(--aa-accent);
+}
+.aa-landing .aa-footer__social svg { width: 1.1em; height: 1.1em; }
+
+/* Redes: ATFX y Blue Makers apilados con jerarquía equivalente (colab) */
+.aa-landing .aa-footer__col--socials {
+  gap: var(--aa-gap-l);
+}
+.aa-landing .aa-footer__social-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-m);
+}
+
+/* Disclaimer legal */
+.aa-landing .aa-footer__legal {
+  padding-top: var(--aa-padding-m);
+  border-top: 1px solid var(--aa-border);
+}
+.aa-landing .aa-footer__legal p {
+  margin: 0;
+  font-size: var(--aa-text-xxs);
+  line-height: var(--aa-leading-normal);
+  color: var(--aa-fg-subtle);
+}

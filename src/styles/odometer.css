@@ -1,0 +1,27 @@
+/* atfx-peru · Number Odometer (port). Estructura generada por odometer.ts: cada dígito
+   es un roller (tira vertical 0-9) dentro de un mask que recorta a una celda. */
+
+.aa-landing [data-odometer-element] {
+  display: inline-flex;
+  align-items: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.aa-landing [data-odometer-part="mask"],
+.aa-landing [data-odometer-part="static"] {
+  display: inline-block;
+  overflow: clip;
+  padding: 0.05em;
+  margin: -0.05em;
+}
+
+.aa-landing [data-odometer-part="roller"] {
+  display: block;
+  white-space: pre;
+  text-align: center;
+  will-change: transform;
+}
+
+.aa-landing [data-odometer-part="static"] {
+  display: inline-block;
+}
