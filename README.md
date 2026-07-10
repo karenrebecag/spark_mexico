@@ -1,4 +1,4 @@
-# SparkMexico
+# spark_mexico
 
 Landing page versionada de **Spark AI Summit México**. La lógica y los estilos se sirven vía
 **jsDelivr**; **Elementor solo aporta un punto de montaje**.
@@ -18,7 +18,7 @@ Pega esto en un widget **HTML** (no en el widget Form de Elementor):
 <div data-aa-mount data-aa-theme="light" data-aa-lang="es"></div>
 
 <script data-cfasync="false"
-  src="https://cdn.jsdelivr.net/gh/karenrebecag/SparkMexico@latest/loader.js"></script>
+  src="https://cdn.jsdelivr.net/gh/karenrebecag/spark_mexico@latest/loader.js"></script>
 ```
 
 Atributos del mount:

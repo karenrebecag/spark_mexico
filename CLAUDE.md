@@ -21,14 +21,12 @@ contenido de Spark AI Summit México.
 
 | Campo | Valor |
 |---|---|
-| Repo | `karenrebecag/SparkMexico` (PROVISIONAL — repo aún no creado; debe ser público) |
-| Remote | _TBD_ (crear repo público en GitHub) |
-| CDN loader | `https://cdn.jsdelivr.net/gh/karenrebecag/SparkMexico@latest/loader.js` |
+| Repo | `karenrebecag/spark_mexico` (público) |
+| Remote | `git@github.com:karenrebecag/spark_mexico.git` |
+| CDN loader | `https://cdn.jsdelivr.net/gh/karenrebecag/spark_mexico@latest/loader.js` |
 | Bundle JS | `dist/landing.js` |
 | Bundle CSS | `dist/landing.css` |
 
-> Refs de repo (`loader.js`, `src/index.ts`, `.github/workflows/release.yml`) apuntan a
-> `karenrebecag/SparkMexico` como placeholder. Ajustar al crear el repo definitivo.
 > Prefijos `--aa-*` / `.aa-*` se conservan (scoping ya probado); el trabajo del DS remapea
 > los **valores** de los tokens.
 
@@ -39,7 +37,7 @@ Widget **HTML** con el mount + loader:
 ```html
 <div data-aa-mount data-aa-theme="light" data-aa-lang="es"></div>
 <script data-cfasync="false"
-  src="https://cdn.jsdelivr.net/gh/karenrebecag/SparkMexico@latest/loader.js"></script>
+  src="https://cdn.jsdelivr.net/gh/karenrebecag/spark_mexico@latest/loader.js"></script>
 ```
 
 Atributos: `data-aa-theme` (`light|dark`, default `light`) · `data-aa-lang` (`es|en`, default `es`).
@@ -57,7 +55,7 @@ que eximir el loader del plugin de delay. Para **WP Meteor** basta el atributo:
 
 ```html
 <script data-cfasync="false" data-wpmeteor-nooptimize="true"
-  src="https://cdn.jsdelivr.net/gh/karenrebecag/SparkMexico@latest/loader.js"></script>
+  src="https://cdn.jsdelivr.net/gh/karenrebecag/spark_mexico@latest/loader.js"></script>
 ```
 
 Para otros plugins (WP Rocket, Perfmatters, Flying Scripts), excluir la URL del loader

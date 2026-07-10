@@ -4,8 +4,8 @@
 //        data-aa-lang="es|en"></div>
 //
 //   <script data-cfasync="false"
-//     src="https://cdn.jsdelivr.net/gh/karenrebecag/SparkMexico@latest/loader.js"></script>
-const _v = document.querySelector<HTMLScriptElement>('script[src*="SparkMexico@"]')?.src.match(/SparkMexico@([^/]+)/)?.[1] ?? 'dev';
+//     src="https://cdn.jsdelivr.net/gh/karenrebecag/spark_mexico@latest/loader.js"></script>
+const _v = document.querySelector<HTMLScriptElement>('script[src*="spark_mexico@"]')?.src.match(/spark_mexico@([^/]+)/)?.[1] ?? 'dev';
 console.log(`[spark-mexico-lp] v${_v} loaded`);
 
 import { type Theme, type Lang } from './core/types';

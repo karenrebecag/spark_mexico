@@ -3,7 +3,7 @@
 // apuntando al tag inmutable correcto, evitando el cache agresivo de assets en @latest.
 (function () {
   var v = "1.0.12";
-  var base = "https://cdn.jsdelivr.net/gh/karenrebecag/SparkMexico";
+  var base = "https://cdn.jsdelivr.net/gh/karenrebecag/spark_mexico";
 
   var css = document.createElement("link");
   css.rel = "stylesheet";
