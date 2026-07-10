@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spark AI Summit México — Preview</title>
+  <!-- Version fija: sirve el bundle commiteado en /dist (no jsDelivr @latest). -->
+  <link rel="stylesheet" href="/dist/landing.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mount de la landing -->
+  <div id="mount-container" data-aa-mount data-aa-theme="light" data-aa-lang="es"></div>
+
+  <!-- Bundle commiteado (mismo dist que sirve jsDelivr en produccion) -->
+  <script type="module" src="/dist/landing.js"></script>
+</body>
+</html>
