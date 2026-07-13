@@ -2,7 +2,8 @@
 // marquee que sí funciona bien en el proyecto): track relleno dinámicamente hasta superar
 // el viewport (fillTrack) + loop a velocidad constante en px/s. Una fila por grupo, cada
 // una con su label fijo (no scrollea) + sparkle como separador entre logos (mismo glyph
-// que el marquee de palabras de #bottom). En mobile el label pasa a estar arriba del track
+// que el marquee de palabras de #bottom). El label es además el CTA que ancla a la fila
+// correspondiente de #patrocinios. En mobile el label pasa a estar arriba del track
 // (ver sponsor-marquee.css). En desktop los grupos se montan como strips separadas en
 // distintos puntos de la página (ver index.ts); en mobile van juntos tras el hero.
 
@@ -43,9 +44,16 @@ function buildRow(
   const row = document.createElement('div');
   row.className = `aa-sponsor-marquee__row aa-sponsor-marquee__row--${direction} aa-sponsor-marquee__row--${tier}`;
 
-  const label = document.createElement('span');
+  // El label ancla a su fila en #patrocinios (initAnchorScroll lo lleva con scroll suave):
+  // la franja es el teaser, la sección responde "quién está en qué nivel".
+  const label = document.createElement('a');
   label.className = 'aa-sponsor-marquee__label';
-  label.textContent = group.label;
+  label.href = group.href;
+  label.innerHTML =
+    `<span class="aa-sponsor-marquee__label-text">${group.label}</span>` +
+    '<svg class="aa-sponsor-marquee__label-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+    'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
 
   const viewport = document.createElement('div');
   viewport.className = 'aa-sponsor-marquee__viewport';

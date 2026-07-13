@@ -1,0 +1,121 @@
+/* spark-mexico · Patrocinios (#patrocinios). Layout combinado de Relume: los tiers de
+   patrocinio son el grid de tarjetas de Logo 6 (is--card) y las marcas participantes la
+   fila suelta de Logo 1 (is--plain). La jerarquía la dan tres señales a la vez: tarjeta,
+   nº de columnas y altura de logo. Los huecos .is--empty son maqueta mientras no lleguen
+   los assets. Tokens --aa-*. */
+
+.aa-landing .aa-sponsors__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-xl);
+}
+
+.aa-landing .aa-sponsors__tiers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aa-gap-l);
+}
+
+.aa-landing .aa-sponsors__tier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--aa-gap-s);
+  /* Destino de los CTAs del marquee: sin esto el navbar fijo tapa el label de la fila. */
+  scroll-margin-top: calc(var(--aa-nav-height) + var(--aa-gap-l));
+}
+
+.aa-landing .aa-sponsors__label {
+  margin: 0;
+  font-size: var(--aa-text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--aa-fg-subtle);
+}
+
+/* --aa-sponsors-cols y --aa-sponsors-slot-h los fija cada tier abajo. */
+.aa-landing .aa-sponsors__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--aa-sponsors-cols, 3), 1fr);
+  gap: var(--aa-gap-s);
+  width: 100%;
+}
+
+.aa-landing .aa-sponsors__slot {
+  --aa-sponsors-slot-h: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--aa-sponsors-slot-h);
+  padding: var(--aa-gap-s) var(--aa-gap-m);
+  border-radius: var(--aa-radius-l);
+}
+.aa-landing .aa-sponsors__logo {
+  max-height: var(--aa-sponsors-slot-h);
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Tiers de patrocinio (Logo 6): cada logo en su tarjeta sobre superficie. */
+.aa-landing .aa-sponsors__tier.is--card .aa-sponsors__slot {
+  background: var(--aa-bg-hover);
+}
+.aa-landing .aa-sponsors__tier.is--card .aa-sponsors__slot.is--empty {
+  border: 1px dashed var(--aa-border-hover);
+}
+
+/* Marcas participantes (Logo 1): sin tarjeta, fila suelta con wrap — contexto, no sponsor. */
+.aa-landing .aa-sponsors__tier.is--plain .aa-sponsors__grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--aa-gap-m) var(--aa-gap-xl);
+}
+.aa-landing .aa-sponsors__tier.is--plain .aa-sponsors__slot {
+  padding: 0;
+  min-width: calc(var(--aa-sponsors-slot-h) * 2.5); /* sostiene el hueco vacío sin tarjeta */
+}
+.aa-landing .aa-sponsors__tier.is--plain .aa-sponsors__slot.is--empty {
+  border-bottom: 1px dashed var(--aa-border-hover);
+}
+.aa-landing .aa-sponsors__tier.is--plain .aa-sponsors__logo {
+  opacity: 0.65; /* retrocede frente a los tiers pagados */
+  transition: opacity var(--aa-duration-s) var(--aa-ease-out);
+}
+.aa-landing .aa-sponsors__tier.is--plain .aa-sponsors__logo:hover { opacity: 1; }
+
+/* Escala por tier: menos columnas + logo más alto cuanto más alto el nivel. */
+.aa-landing .aa-sponsors__tier--diamante {
+  --aa-sponsors-cols: 2;
+}
+.aa-landing .aa-sponsors__tier--diamante .aa-sponsors__slot { --aa-sponsors-slot-h: 6rem; }
+
+.aa-landing .aa-sponsors__tier--oro {
+  --aa-sponsors-cols: 3;
+}
+.aa-landing .aa-sponsors__tier--oro .aa-sponsors__slot { --aa-sponsors-slot-h: 4.5rem; }
+
+.aa-landing .aa-sponsors__tier--plata {
+  --aa-sponsors-cols: 4;
+}
+.aa-landing .aa-sponsors__tier--plata .aa-sponsors__slot { --aa-sponsors-slot-h: 3.25rem; }
+
+.aa-landing .aa-sponsors__tier--participantes .aa-sponsors__slot { --aa-sponsors-slot-h: 2.5rem; }
+
+/* Mobile: 2 columnas para todo (Logo 6 baja a grid-cols-2) y logos más bajos. */
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-sponsors__tier--diamante,
+  .aa-landing .aa-sponsors__tier--oro,
+  .aa-landing .aa-sponsors__tier--plata {
+    --aa-sponsors-cols: 2;
+  }
+  .aa-landing .aa-sponsors__tier--diamante .aa-sponsors__slot { --aa-sponsors-slot-h: 4rem; }
+  .aa-landing .aa-sponsors__tier--oro .aa-sponsors__slot      { --aa-sponsors-slot-h: 3.25rem; }
+  .aa-landing .aa-sponsors__tier--plata .aa-sponsors__slot    { --aa-sponsors-slot-h: 2.75rem; }
+  .aa-landing .aa-sponsors__tier.is--plain .aa-sponsors__grid { gap: var(--aa-gap-s) var(--aa-gap-l); }
+  .aa-landing .aa-sponsors__slot { padding: var(--aa-gap-xs) var(--aa-gap-s); }
+}

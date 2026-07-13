@@ -32,8 +32,9 @@
 
 /* Fila: label fijo (no scrollea) + viewport recortado con el track. Stroke sup/inf por
    fila (no solo en el wrap) → se distingue la separación entre Patrocinadores/Marcas
-   aliadas, no solo el borde exterior de toda la banda. En mobile el label pasa arriba
-   (columna) — a ese ancho no cabe fijo al costado del track. */
+   participantes, no solo el borde exterior de toda la banda. El label se mantiene en fila
+   también en mobile (antes se apilaba encima del track): como CTA de acento tiene que
+   leerse a la altura de los logos, y el espacio se gana encogiéndolos a ellos. */
 .aa-landing .aa-sponsor-marquee__row {
   display: flex;
   align-items: center;
@@ -47,23 +48,18 @@
 }
 @media screen and (max-width: 767px) {
   .aa-landing .aa-sponsor-marquee__row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--aa-gap-xs);
+    gap: var(--aa-gap-s);
+    padding-inline-start: var(--aa-gap-s);
+    padding-block: var(--aa-gap-xs);
   }
-  /* En columna, el flex:1 del viewport aplica al eje vertical y —con overflow:hidden, que
-     fuerza min-height:0— colapsa el alto recortando los logos. Se dimensiona a su contenido. */
-  .aa-landing .aa-sponsor-marquee__viewport { flex: none; }
 }
 
-/* Tier primary (patrocinadores): banda con fondo + logos grandes + label más marcado.
-   Tier secondary (marcas aliadas): sin fondo (hereda el de la página) + logos discretos. */
+/* Tier primary (patrocinadores): banda con fondo + logos grandes.
+   Tier secondary (marcas participantes): sin fondo (hereda el de la página) + logos discretos.
+   El color del label ya no se sobreescribe por fila: es un pill de acento en ambas (ver abajo). */
 .aa-landing .aa-sponsor-marquee__row--primary {
   --aa-sponsor-logo-h: 2.25em;
   background: var(--aa-bg-subtle);
-}
-.aa-landing .aa-sponsor-marquee__row--primary .aa-sponsor-marquee__label {
-  color: var(--aa-fg-muted);
 }
 .aa-landing .aa-sponsor-marquee__row--secondary {
   --aa-sponsor-logo-h: 1.6em;
@@ -72,14 +68,71 @@
   opacity: 0.8;
 }
 
+/* El label es un CTA al tier correspondiente de #patrocinios. Pill de acento (misma paleta
+   que el control del radial slider: --aa-accent sobre --aa-accent-fg) porque compite con
+   una fila de logos en movimiento: en reposo tiene que ganar el ojo, no esperar al hover.
+   El movimiento idle vive en la flecha y en un halo que late; el texto queda quieto para
+   no castigar la legibilidad. */
 .aa-landing .aa-sponsor-marquee__label {
   flex: none;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  height: 2.75em;
+  padding: 0 1.25em;
   font-family: var(--aa-font-mono);
   font-size: var(--aa-text-xxs);
   font-weight: var(--aa-weight-semibold);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--aa-fg-subtle);
+  color: var(--aa-accent-fg);
+  background-color: var(--aa-accent);
+  border-radius: var(--aa-radius-pill);
+  text-decoration: none;
+  white-space: nowrap;
+  /* Anillo que late hacia afuera. Va como box-shadow y no como pseudo-elemento: la fila
+     primary tiene fondo propio, y un ::before con z-index negativo se pinta detrás del
+     fondo del ancestro (quedaría invisible justo ahí). */
+  animation: aa-sponsor-label-pulse 2.4s var(--aa-ease-out) infinite;
+  transition: transform var(--aa-duration-s) var(--aa-ease-out);
+}
+.aa-landing .aa-sponsor-marquee__label:hover {
+  transform: scale(1.06);
+  animation: none; /* en hover manda el estado sólido, no el latido */
+  box-shadow: 0 8px 24px -8px var(--aa-accent);
+}
+
+.aa-landing .aa-sponsor-marquee__label-arrow {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+  animation: aa-sponsor-label-nudge 2.4s var(--aa-ease-out) infinite;
+  transition: transform var(--aa-duration-s) var(--aa-ease-out);
+}
+/* En hover manda el desplazamiento fijo: la animación idle se apaga para que no compitan. */
+.aa-landing .aa-sponsor-marquee__label:hover .aa-sponsor-marquee__label-arrow {
+  animation: none;
+  transform: translateX(0.2em);
+}
+
+@keyframes aa-sponsor-label-pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--aa-accent) 55%, transparent); }
+  70%  { box-shadow: 0 0 0 0.75em color-mix(in srgb, var(--aa-accent) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--aa-accent) 0%, transparent); }
+}
+@keyframes aa-sponsor-label-nudge {
+  0%, 60%, 100% { transform: translateX(0); }
+  30%           { transform: translateX(0.25em); }
+}
+
+/* El resto de la landing ya respeta reduced-motion (GSAP); el idle es CSS y hay que
+   apagarlo aquí a mano. */
+@media (prefers-reduced-motion: reduce) {
+  .aa-landing .aa-sponsor-marquee__label,
+  .aa-landing .aa-sponsor-marquee__label-arrow {
+    animation: none;
+  }
 }
 
 .aa-landing .aa-sponsor-marquee__viewport {
@@ -103,15 +156,15 @@
 .aa-landing .aa-sponsor-marquee__item {
   display: inline-flex;
   align-items: center;
-  gap: var(--aa-gap-m);
-  padding-inline: var(--aa-gap-m);
+  gap: var(--aa-gap-s);
+  padding-inline: var(--aa-gap-s);
 }
 .aa-landing .aa-sponsor-marquee__logo {
   display: block;
   height: var(--aa-sponsor-logo-h, 2em); /* la fila (tier) define el alto */
   width: auto;
-  min-width: 3em; /* reserva espacio razonable mientras carga / si el asset falla */
-  max-width: 8em;
+  min-width: 2em; /* reserva espacio razonable mientras carga / si el asset falla */
+  max-width: 6em;
   object-fit: contain;
 }
 .aa-landing .aa-sponsor-marquee__spark-wrap {
@@ -125,7 +178,22 @@
   display: block;
 }
 
+/* Mobile: el pill convive con el track en la misma fila, así que se encoge (y los logos
+   con él) para que quepan los dos sin recortar el marquee. */
 @media screen and (max-width: 767px) {
-  .aa-landing .aa-sponsor-marquee__row--primary { --aa-sponsor-logo-h: 1.9em; }
-  .aa-landing .aa-sponsor-marquee__row--secondary { --aa-sponsor-logo-h: 1.45em; }
+  .aa-landing .aa-sponsor-marquee__row--primary { --aa-sponsor-logo-h: 1.5em; }
+  .aa-landing .aa-sponsor-marquee__row--secondary { --aa-sponsor-logo-h: 1.2em; }
+  .aa-landing .aa-sponsor-marquee__item {
+    gap: var(--aa-gap-xs);
+    padding-inline: var(--aa-gap-xs);
+  }
+  .aa-landing .aa-sponsor-marquee__label {
+    height: 2.25em;
+    padding: 0 0.875em;
+    gap: 0.35em;
+  }
+  .aa-landing .aa-sponsor-marquee__label-arrow {
+    width: 1em;
+    height: 1em;
+  }
 }

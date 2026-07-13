@@ -26,6 +26,7 @@ import { initDriftGallery } from './ui/drift-gallery'; // MWG 094 — galería d
 // import { renderSpeakersSection } from './sections/speakers'; // strip A (marquee) OCULTA temporalmente
 import { renderSpeakersVariantSection } from './sections/speakers-b'; // variante B — flick slider (elegida)
 import { initFlickCards } from './ui/flick-cards';
+import { renderSponsorsSection } from './sections/sponsors'; // #patrocinios — tiers (placeholders)
 import { renderFaqSection } from './sections/faq';
 import { renderFooterSection } from './sections/footer';
 import { initAccordion } from './ui/accordion';
@@ -97,6 +98,7 @@ function boot(): void {
     renderEditionSection(root);
     // renderSpeakersSection(root); // strip A (marquee) OCULTA temporalmente (ganó la variante B)
     renderSpeakersVariantSection(root); // #speakers-b — flick slider (variante elegida)
+    renderSponsorsSection(root); // #patrocinios — tiers, complementa las franjas del marquee
     renderFaqSection(root);
     renderCtaBanner(root); // #bottom — banner final (imagen + marquee + cards + CTA)
     renderFooterSection(root);
