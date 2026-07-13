@@ -5,7 +5,7 @@
 import { renderContainer } from '../ui/layout';
 import { renderSectionHeader } from '../ui/section-header';
 import { renderAccordion } from '../ui/accordion';
-// import { renderButton036 } from '../ui/atoms/button036'; // CTA OCULTO temporalmente
+import { renderButton036 } from '../ui/atoms/button036';
 import { FAQS } from '../constants/content';
 
 export function renderFaqSection(root: Element): void {
@@ -24,10 +24,16 @@ export function renderFaqSection(root: Element): void {
   const acc = renderAccordion(FAQS);
   acc.setAttribute('data-aa-fade', '');
 
-  // CTA OCULTO temporalmente (antes: renderButton036 "Solicitar inscripción").
+  // CTA a WhatsApp (agente de Q&A). PENDIENTE: el link wa.me aún no está definido — queda
+  // apuntando a la propia sección para no publicar un destino roto.
+  const cta = document.createElement('div');
+  cta.className = 'aa-faq__cta';
+  cta.setAttribute('data-aa-fade', '');
+  cta.appendChild(renderButton036({ href: '#faq', label: '¿Otra duda? Escríbenos por WhatsApp' }));
+
   const inner = document.createElement('div');
   inner.className = 'aa-faq__inner';
-  inner.append(header, acc);
+  inner.append(header, acc, cta);
 
   section.appendChild(renderContainer({ size: 'm', children: [inner] }));
   root.appendChild(section);
