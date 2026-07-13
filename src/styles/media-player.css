@@ -1,5 +1,5 @@
-/* spark-mexico · MediaPlayer 16:9 (port del reproductor de Spark). Frame redondeado con
-   poster, scrim y botón play centrado (patrón Relume Header3). Tokens --aa-*. */
+/* spark-mexico · MediaPlayer 16:9 (port del reproductor de Spark). Frame redondeado que
+   autoreproduce muteado; el sonido queda tras un botón en la esquina. Tokens --aa-*. */
 
 .aa-landing .aa-mediaplayer {
   position: relative;
@@ -29,35 +29,49 @@
   transition: opacity var(--aa-duration-s) var(--aa-ease-out);
 }
 
-/* Botón play: círculo de acento, escala en hover. */
-.aa-landing .aa-mediaplayer__play {
+/* Botón de sonido: pill de acento en la esquina. El video ya corre muteado detrás, así
+   que el control no puede tapar la imagen (a diferencia del play centrado anterior). */
+.aa-landing .aa-mediaplayer__sound {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  right: var(--aa-gap-s);
+  bottom: var(--aa-gap-s);
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 4.5em;
-  height: 4.5em;
-  padding: 0;
+  gap: 0.5em;
+  padding: 0.7em 1.1em;
   border: 0;
   border-radius: var(--aa-radius-pill);
   background: var(--aa-accent);
   color: var(--aa-accent-fg);
+  font-family: inherit;
+  font-size: var(--aa-text-s);
+  font-weight: 600;
+  line-height: 1;
   cursor: pointer;
-  transition: transform var(--aa-duration-s) var(--aa-ease-out);
+  transition:
+    transform var(--aa-duration-s) var(--aa-ease-out),
+    opacity var(--aa-duration-s) var(--aa-ease-out);
 }
-.aa-landing .aa-mediaplayer__play:hover { transform: translate(-50%, -50%) scale(1.08); }
-.aa-landing .aa-mediaplayer__play svg {
-  width: 1.75em;
-  height: 1.75em;
-  margin-left: 0.15em; /* centrado óptico del triángulo */
+.aa-landing .aa-mediaplayer__sound:hover { transform: scale(1.05); }
+.aa-landing .aa-mediaplayer__sound svg {
+  width: 1.15em;
+  height: 1.15em;
 }
 
-/* Reproduciendo: oculta scrim + botón, deja los controles nativos. */
-.aa-landing .aa-mediaplayer.is-playing .aa-mediaplayer__scrim,
-.aa-landing .aa-mediaplayer.is-playing .aa-mediaplayer__play {
+/* Reproduciendo (muteado): despeja el scrim del poster. */
+.aa-landing .aa-mediaplayer.is-playing .aa-mediaplayer__scrim {
   opacity: 0;
   pointer-events: none;
+}
+
+/* Con sonido activo: el control de volumen pasa a los controles nativos. */
+.aa-landing .aa-mediaplayer.is-unmuted .aa-mediaplayer__sound {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Mobile: solo el ícono (el label no cabe junto a los controles nativos). */
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-mediaplayer__sound { padding: 0.75em; }
+  .aa-landing .aa-mediaplayer__sound-label { display: none; }
 }
