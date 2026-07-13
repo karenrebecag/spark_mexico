@@ -32,7 +32,6 @@ import { initAccordion } from './ui/accordion';
 import { initPillarSlider } from './ui/pillar-slider';
 import { initRotatingText } from './ui/rotating-text';
 import { initScrollHighlight } from './ui/scroll-highlight';
-import { initCursor } from './ui/cursor';
 import { initMomentumHover } from './ui/momentum-hover';
 import { initButton004 } from './ui/button004';
 import { initNumberOdometer } from './ui/odometer';
@@ -124,7 +123,6 @@ function boot(): void {
     initPillarSlider(root);
     initRotatingText(root);
     initScrollHighlight(root);
-    initCursor(root);
     initMomentumHover(root);
     initButton004(root);
     initNumberOdometer();
