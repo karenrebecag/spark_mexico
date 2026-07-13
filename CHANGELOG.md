@@ -6,6 +6,29 @@ Versionado: el CI de release etiqueta `vX.Y.Z` por push a `main` (cuando se cone
 ## [Unreleased]
 
 ### Added
+- Sección de patrocinios (`sections/sponsors.ts` + `styles/sponsors.css`, `#patrocinios`):
+  logos agrupados por tier (Diamante/Oro/Plata/Participantes). Layout combinado de Relume
+  —tarjetas de Logo 6 para los tiers de patrocinio, fila suelta de Logo 1 para las marcas
+  participantes— porque ninguna de sus 6 secciones de logos contempla tiers. La jerarquía
+  se lee por tarjeta + nº de columnas + altura de logo, sin anunciar precios. Feedback del
+  cliente: las franjas del marquee se quedan, pero faltaba una sección dedicada. Contenido
+  pendiente — placeholders hasta que lleguen los tiers reales y los archivos de logo
+  (`SPONSOR_TIERS` en `constants/sponsors.ts`).
+- CTA de WhatsApp en `#faq` (agente de Q&A). El link `wa.me` aún no está definido: el botón
+  apunta a `#faq` para no publicar un destino roto.
+
+### Changed
+- Labels del marquee de logos → CTAs: "Patrocinadores" y "Marcas participantes" anclan a su
+  fila de `#patrocinios` (ids `patrocinios-<tier>`). Evita dos fuentes de verdad sobre el
+  nivel de cada marca: la franja hace de teaser y la sección responde quién está en cuál.
+  "Marcas aliadas" pasa a "Marcas participantes" para que link y destino se llamen igual.
+- MediaPlayer del hero: autoreproduce muteado y en loop al entrar al viewport; el sonido
+  pasa a un botón explícito en la esquina. Antes exigía click y arrancaba con volumen alto.
+- `#edicion-2025` → `#ediciones-anteriores`: cubre Panamá 2025 + Bogotá 2026 (pill, heading
+  a "Más de 1000 líderes", párrafo nuevo y label del navbar). Pendiente: fotos y logos de
+  marcas de ambas ediciones en la tira (hoy placeholders por el coste de compositar en el pin).
+
+### Added
 - Scroll highlight (`ui/scroll-highlight.ts` + `styles/scroll-highlight.css`): marcador de
   acento coral que se llena bajo las palabras marcadas con `[data-aa-highlight]` al scroll
   (background-size scrubbeado). Nueva opción `mark` en `renderParagraph`; aplicado en los
