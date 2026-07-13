@@ -1,4 +1,4 @@
-// Edición 2025 — efecto MWG 094 (drift gallery): sección pinneada con el texto (label +
+// Anteriores ediciones — efecto MWG 094 (drift gallery): sección pinneada con el texto (label +
 // heading + sub) centrado fijo, mientras una tira de fotos reales del evento deriva
 // alrededor del centro al scrollear. Init en ui/drift-gallery.ts. Estilos .aa-drift* en
 // sections.css. Usa el set estable EDITION_PHOTOS (R2), no las LinkedIn que expiran.
@@ -10,7 +10,7 @@ import { EDITION_PHOTOS } from '../constants/edition';
 export function renderEditionSection(root: Element): void {
   const section = document.createElement('section');
   section.className = 'aa-drift';
-  section.id = 'edicion-2025';
+  section.id = 'ediciones-anteriores';
   section.setAttribute('data-aa-section-theme', 'light');
   section.setAttribute('data-aa-nav-anchor', '');
 
@@ -21,18 +21,18 @@ export function renderEditionSection(root: Element): void {
   const text = document.createElement('div');
   text.className = 'aa-drift__text';
 
-  const pill = renderPill('Edición 2025');
+  const pill = renderPill('Anteriores ediciones');
 
   const heading = renderHeading({
     size: 'l',
     tag: 'h2',
-    text: '400+ líderes ya vivieron Spark AI Summit',
+    text: 'Más de 1000 líderes ya vivieron Spark AI Summit',
     highlight: 'Spark AI Summit',
   });
 
   const sub = renderParagraph({
     size: 'l',
-    text: 'En julio de 2025, directores de marketing, gerentes de ventas y CTOs de empresas como Banco Finandina y Casa Toro se reunieron durante 8 horas para ver, en vivo, cómo la inteligencia artificial ya está cambiando la forma de vender, atender y retener clientes en la región.',
+    text: 'En julio de 2025 en Panamá y junio de 2026 en Bogotá, directores de marketing, gerentes de ventas y CTOs se dieron cita para ver en vivo cómo la inteligencia artificial ya está cambiando la forma de vender, atender y retener clientes en la región.',
     // Sin reveal por líneas: el split de este párrafo largo fija cortes de renglón
     // erróneos (queda partido a media frase). Se muestra estático.
     reveal: false,

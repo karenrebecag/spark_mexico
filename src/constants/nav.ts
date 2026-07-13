@@ -8,8 +8,9 @@ export interface NavLink {
 
 export const NAV_LINKS: NavLink[] = [
   { label: 'Para quién', href: '#problema' },
-  { label: 'Edición 2025', href: '#edicion-2025' },
+  { label: 'Ediciones anteriores', href: '#ediciones-anteriores' },
   { label: 'Speakers', href: '#speakers' },
+  { label: 'Patrocinios', href: '#patrocinios' },
   { label: 'FAQ', href: '#faq' },
 ];
 
