@@ -6,6 +6,25 @@ Versionado: el CI de release etiqueta `vX.Y.Z` por push a `main` (cuando se cone
 ## [Unreleased]
 
 ### Added
+- Registro vía Lu.ma: embed oficial del evento (`evt-JdsdhnKGS92S1vt`) incrustado en
+  `#contacto`, reemplazando el placeholder del form atfx. Todos los CTAs "Reservar mi lugar"
+  llevan ahí. La sección pasa de "Contacto" a bloque de registro (pill/heading/sub nuevos).
+- Subtítulo de producto en el hero: "Voz, chat e imagen para revolucionar." (brief §3).
+- Speakers CDMX: cards "por anunciar" que llenan el abanico del slider mientras el line-up
+  se revela (1 oct); iniciales cuando la card no tiene foto.
+
+### Changed (alineación de copy al brief CDMX 2026)
+- Fecha del evento → **jueves 29 de octubre de 2026, 14:00–17:00** (CDMX, UTC-6): `constants/event.ts`,
+  pill del hero y pill del CTA banner. Antes había tres fechas distintas (incl. `2026-07-14` de Lima).
+- Trayectoria: `EDITION_STATS` `+5000` → `+6000` asistentes.
+- `#ediciones-anteriores`: heading a "Más de 6,000 líderes"; párrafo a Bogotá 2026 (sold out)
+  con marcas enterprise (Mastercard, BBVA, Davivienda, Casa Toro). Se elimina "Panamá 2025".
+- Speakers (`constants/speakers.ts`): line-up reducido al único confirmado (Mario Suárez, Atom);
+  subheading actualizado (reveal 1 oct).
+- Navbar: CTA "Reservar lugar" → `#contacto` (el `#registro` del form atfx está oculto);
+  link "Speakers" → `#speakers-b` (ancla real de la sección).
+
+### Added — previo
 - Sección de patrocinios (`sections/sponsors.ts` + `styles/sponsors.css`, `#patrocinios`):
   logos agrupados por tier (Diamante/Oro/Plata/Participantes). Layout combinado de Relume
   —tarjetas de Logo 6 para los tiers de patrocinio, fila suelta de Logo 1 para las marcas
