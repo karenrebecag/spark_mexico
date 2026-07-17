@@ -9,12 +9,13 @@ export interface NavLink {
 export const NAV_LINKS: NavLink[] = [
   { label: 'Para quién', href: '#problema' },
   { label: 'Ediciones anteriores', href: '#ediciones-anteriores' },
-  { label: 'Speakers', href: '#speakers' },
+  { label: 'Speakers', href: '#speakers-b' },
   { label: 'Patrocinios', href: '#patrocinios' },
   { label: 'FAQ', href: '#faq' },
 ];
 
+// Todos los CTAs de la LP llevan al embed de Lu.ma en #contacto (el form atfx está oculto).
 export const NAV_CTA = {
   label: 'Reservar lugar',
-  href: '#registro',
+  href: '#contacto',
 };

@@ -62,13 +62,28 @@
   max-width: 34em;
 }
 
-/* Placeholder del form (mientras se reintegra el widget): caja punteada full-width. */
-.aa-landing .aa-contact__form--placeholder {
-  max-width: none; /* ocupa todo el ancho del inner (no el 34em legible del form real) */
-  aspect-ratio: 16 / 9;
-  border: 1px dashed var(--aa-border);
+/* Embed de Lu.ma: card de registro full-width. Anula el 34em legible de .aa-contact__form.
+   La proporción de la card interna (.zm-container .card-wrapper) la controla el CSS de Luma
+   dentro del iframe: es cross-origin, no podemos estilarla desde aquí. Solo dimensionamos el
+   iframe → ancho completo + altura que deja a Luma acomodar su layout horizontal sin recorte. */
+.aa-landing .aa-contact__luma {
+  max-width: none;
+  width: 100%;
+}
+.aa-landing .aa-contact__luma-frame {
+  display: block;
+  width: 100%;
+  height: 480px;
+  border: 1px solid var(--aa-border);
   border-radius: var(--aa-radius-l);
-  background: var(--aa-bg-subtle);
+}
+/* Mobile: la card de Luma pasa a layout vertical (más alto). Sin altura suficiente, el
+   iframe recorta y aparece scroll interno → min-height que la deja entrar completa. */
+@media screen and (max-width: 767px) {
+  .aa-landing .aa-contact__luma-frame {
+    height: auto;
+    min-height: 760px;
+  }
 }
 
 /* Theming del widget atfx-forms vía sus custom props → tokens del DS (inputs planos,

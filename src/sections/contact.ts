@@ -1,8 +1,12 @@
-// Sección de contacto — intro (heading + subheading) para el form de contacto (pendiente).
+// Sección de registro — intro (heading + subheading) + embed de Lu.ma (plataforma oficial
+// de inscripción del evento). Destino de todos los CTAs "Reservar mi lugar" (#contacto).
 // Deliberadamente MUY espaciada y minimalista: baja la carga cognitiva, mucho aire vertical.
 
 import { renderHeading, renderParagraph } from '../ui/text';
 import { renderPill } from '../ui/atoms/pill';
+
+// Embed "simple" del evento en Lu.ma (card de registro compacta). Ver iframe original del brief.
+const LUMA_EMBED = 'https://luma.com/embed/event/evt-JdsdhnKGS92S1vt/simple';
 
 export function renderContactSection(root: Element): void {
   const section = document.createElement('section');
@@ -14,7 +18,7 @@ export function renderContactSection(root: Element): void {
   const intro = document.createElement('div');
   intro.className = 'aa-contact__intro';
 
-  const eyebrow = renderPill('Contacto');
+  const eyebrow = renderPill('Registro · Cupos limitados');
 
   // Heading + subheading en un wrapper row (lado a lado), alineados a la izquierda.
   const headRow = document.createElement('div');
@@ -23,25 +27,33 @@ export function renderContactSection(root: Element): void {
     renderHeading({
       size: 'l',
       tag: 'h2',
-      text: '¿Tienes preguntas? Hablemos.',
-      highlight: 'Hablemos.',
+      text: 'Asegura tu lugar.',
+      highlight: 'tu lugar.',
       className: 'aa-text-balance',
     }),
     renderParagraph({
       size: 'l',
-      text: 'Déjanos tus datos y te contactamos para resolver cualquier duda sobre Spark AI Summit México.',
-      mark: 'resolver cualquier duda',
+      text: 'Regístrate en Spark AI Summit México. El acceso es por aprobación con correo corporativo y recibirás la confirmación por correo.',
+      mark: 'acceso es por aprobación',
       className: 'aa-contact__sub',
     }),
   );
 
   intro.append(eyebrow, headRow);
 
-  // Placeholder del form (el widget atfx-forms se reintegra después). Div vacío estilado
-  // — el init del widget queda desactivado en index.ts mientras tanto.
+  // Embed de Lu.ma: card de registro oficial del evento. El iframe se sirve desde luma.com
+  // (permitido; no es un asset del bundle). Alto fijo del embed "simple"; ancho fluido.
   const mount = document.createElement('div');
-  mount.className = 'aa-contact__form aa-contact__form--placeholder';
-  mount.setAttribute('aria-hidden', 'true');
+  mount.className = 'aa-contact__form aa-contact__luma';
+
+  const frame = document.createElement('iframe');
+  frame.className = 'aa-contact__luma-frame';
+  frame.src = LUMA_EMBED;
+  frame.title = 'Registro · Spark AI Summit México';
+  frame.setAttribute('frameborder', '0');
+  frame.setAttribute('allow', 'fullscreen; payment');
+  frame.setAttribute('loading', 'lazy');
+  mount.appendChild(frame);
 
   // Separador horizontal centrado (no full-width) que marca la transición radial → contacto.
   const rule = document.createElement('div');
