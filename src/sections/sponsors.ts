@@ -73,9 +73,16 @@ export function renderSponsorsSection(root: Element): void {
   tiers.className = 'aa-sponsors__tiers';
   SPONSOR_TIERS.forEach((tier) => tiers.appendChild(renderTier(tier)));
 
+  // Tiers sin confirmar: se conservan en el DOM (oculto vía CSS: .aa-sponsors__tiers) y en
+  // su lugar va un placeholder "Por Anunciar" hasta que lleguen niveles y logos reales.
+  const reveal = document.createElement('div');
+  reveal.className = 'aa-sponsors__reveal';
+  reveal.setAttribute('data-aa-fade', '');
+  reveal.textContent = 'Por Anunciar';
+
   const inner = document.createElement('div');
   inner.className = 'aa-sponsors__inner';
-  inner.append(header, tiers);
+  inner.append(header, tiers, reveal);
 
   section.appendChild(renderContainer({ size: 'm', children: [inner] }));
   root.appendChild(section);

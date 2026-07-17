@@ -38,6 +38,32 @@
   min-width: 0;
 }
 
+/* Line-up sin revelar: se oculta el slider (NO se elimina — se reactiva en el reveal del
+   1 oct) y en su lugar va un square "Por anunciar" centrado en el área del abanico. */
+.aa-landing .aa-speakers-b .aa-flick__list { display: none; }
+
+.aa-landing .aa-speakers-b__reveal {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px dashed color-mix(in srgb, #ffffff 30%, transparent);
+  border-radius: 1em;
+  background-color: var(--aa-navy-950);
+  color: color-mix(in srgb, #ffffff 85%, transparent);
+  font-family: var(--aa-font-accent);
+  font-size: var(--aa-text-l);
+  font-weight: var(--aa-weight-bold);
+  letter-spacing: 0.02em;
+  box-shadow: 0 1.2em 3em -1.2em rgba(0, 0, 0, 0.6);
+}
+
 @media screen and (max-width: 991px) {
   .aa-landing .aa-speakers-b__grid {
     grid-template-columns: 1fr;

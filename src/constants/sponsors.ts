@@ -16,14 +16,15 @@ export interface SponsorGroup {
   logos: SponsorLogo[];
 }
 
-const R2 = 'https://pub-09dc8675a13e4b6d9ff1f7e15d49ade2.r2.dev';
-const OPRES: SponsorLogo = { src: `${R2}/Opres_Logo_Sestylin_Verde0%20(1).webp`, alt: 'Opres' };
+// Placeholder mientras se confirman marcas: sin logo (src vacío) → el marquee pinta un chip
+// de texto "Por Confirmar" en lugar de una imagen (ver sponsor-marquee.ts buildItem).
+const TBD: SponsorLogo = { src: '', alt: 'Por Confirmar' };
 
 export const SPONSOR_GROUPS: SponsorGroup[] = [
-  { label: 'Patrocinadores', href: '#patrocinios', logos: Array(8).fill(OPRES) },
+  { label: 'Patrocinadores', href: '#patrocinios', logos: Array(8).fill(TBD) },
   // "Marcas participantes" (no "aliadas"): el label es un CTA a su fila de la sección y el
   // destino tiene que llamarse igual que el link, o el salto se siente roto.
-  { label: 'Marcas participantes', href: '#patrocinios-participantes', logos: Array(8).fill(OPRES) },
+  { label: 'Marcas participantes', href: '#patrocinios-participantes', logos: Array(8).fill(TBD) },
 ];
 
 // ── Sección de patrocinios por tier (#patrocinios) ────────────────────────────────

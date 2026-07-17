@@ -167,6 +167,23 @@
   max-width: 6em;
   object-fit: contain;
 }
+/* Chip "Por Confirmar" (marca aún sin confirmar): ocupa el lugar del logo con el mismo
+   alto de fila. Texto mono discreto — se lee como estado, no compite con el label CTA. */
+.aa-landing .aa-sponsor-marquee__placeholder {
+  display: inline-flex;
+  align-items: center;
+  height: var(--aa-sponsor-logo-h, 2em);
+  padding-inline: 0.75em;
+  font-family: var(--aa-font-mono);
+  font-size: var(--aa-text-xxs);
+  font-weight: var(--aa-weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--aa-fg-muted);
+  border: 1px dashed var(--aa-border);
+  border-radius: var(--aa-radius-pill);
+}
 .aa-landing .aa-sponsor-marquee__spark-wrap {
   display: inline-flex;
   flex: none;

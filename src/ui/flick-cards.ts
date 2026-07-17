@@ -40,12 +40,18 @@ function cardEl(c: FlickCard): HTMLElement {
 
   const img = document.createElement('img');
   img.className = 'aa-flick-card__img';
-  img.src = c.image;
   img.alt = c.name;
   img.loading = 'lazy';
   img.decoding = 'async';
   img.draggable = false;
-  img.addEventListener('error', () => img.classList.add('is--broken'));
+  // Sin foto (card "por anunciar"): revela las iniciales de una vez — un src vacío no
+  // dispara `error` de forma fiable. Con foto, el fallback queda en el listener.
+  if (c.image) {
+    img.src = c.image;
+    img.addEventListener('error', () => img.classList.add('is--broken'));
+  } else {
+    img.classList.add('is--broken');
+  }
   avatar.appendChild(img);
 
   const scrim = document.createElement('div');

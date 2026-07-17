@@ -20,19 +20,26 @@ function buildItem(logo: SponsorLogo): HTMLElement {
   const item = document.createElement('span');
   item.className = 'aa-sponsor-marquee__item';
 
-  const img = document.createElement('img');
-  img.className = 'aa-sponsor-marquee__logo';
-  img.src = logo.src;
-  img.alt = logo.alt;
-  img.loading = 'lazy';
-  img.decoding = 'async';
+  // Sin src: la marca aún no está confirmada → chip de texto en vez de logo.
+  const media: HTMLElement = logo.src ? document.createElement('img') : document.createElement('span');
+  if (logo.src) {
+    const img = media as HTMLImageElement;
+    img.className = 'aa-sponsor-marquee__logo';
+    img.src = logo.src;
+    img.alt = logo.alt;
+    img.loading = 'lazy';
+    img.decoding = 'async';
+  } else {
+    media.className = 'aa-sponsor-marquee__placeholder';
+    media.textContent = logo.alt;
+  }
 
   const spark = document.createElement('span');
   spark.className = 'aa-sponsor-marquee__spark-wrap';
   spark.setAttribute('aria-hidden', 'true');
   spark.innerHTML = SPARKLE;
 
-  item.append(img, spark);
+  item.append(media, spark);
   return item;
 }
 

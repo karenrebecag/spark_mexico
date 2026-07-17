@@ -16,6 +16,27 @@
   gap: var(--aa-gap-l);
 }
 
+/* Tiers sin confirmar: se ocultan (NO se eliminan — se reactivan cuando lleguen niveles y
+   logos) y en su lugar va un placeholder "Por Anunciar" con el mismo lenguaje de los huecos
+   de maqueta (.is--empty): superficie sutil + borde punteado. */
+.aa-landing .aa-sponsors__tiers { display: none; }
+.aa-landing .aa-sponsors__reveal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 12em;
+  padding: var(--aa-gap-l);
+  text-align: center;
+  border: 1px dashed var(--aa-border);
+  border-radius: var(--aa-radius-l);
+  background: var(--aa-bg-subtle);
+  font-size: var(--aa-text-l);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--aa-fg-subtle);
+}
+
 .aa-landing .aa-sponsors__tier {
   display: flex;
   flex-direction: column;

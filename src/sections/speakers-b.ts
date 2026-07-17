@@ -33,7 +33,7 @@ export function renderSpeakersVariantSection(root: Element): void {
 
   const sub = renderParagraph({
     size: 'l',
-    text: 'Líderes de marketing, ventas y tecnología de las marcas que ya están aplicando IA para vender, atender y crecer en la región.',
+    text: 'El line-up se revela el 1 de octubre: líderes de marketing, ventas y tecnología que ya aplican IA para vender, atender y crecer en la región.',
     className: 'aa-speakers-b__sub',
   });
   sub.setAttribute('data-aa-fade', '');
@@ -55,7 +55,16 @@ export function renderSpeakersVariantSection(root: Element): void {
 
   const slider = document.createElement('div');
   slider.className = 'aa-speakers-b__slider';
-  slider.appendChild(renderFlickCards(cards));
+  // El slider se conserva en el DOM (line-up real, oculto vía CSS: .aa-flick__list) para
+  // reactivarlo en el reveal del 1 oct sin reconstruirlo. Mientras tanto se muestra un
+  // square "Por anunciar" en su lugar.
+  const flick = renderFlickCards(cards);
+  const reveal = document.createElement('div');
+  reveal.className = 'aa-speakers-b__reveal';
+  reveal.setAttribute('data-aa-fade', '');
+  reveal.textContent = 'Por anunciar';
+  flick.appendChild(reveal);
+  slider.appendChild(flick);
 
   const grid = document.createElement('div');
   grid.className = 'aa-speakers-b__grid';
