@@ -73,6 +73,12 @@
   height: auto;
   margin-block: var(--aa-gap-xxs);
 }
+.aa-landing .aa-hero__subtitle {
+  font-size: var(--aa-text-l);
+  line-height: var(--aa-leading-snug);
+  color: var(--aa-fg);
+  max-width: 22ch;
+}
 .aa-landing .aa-hero__where {
   font-size: var(--aa-text-s);
   line-height: var(--aa-leading-snug);

@@ -93,7 +93,7 @@ export const FAQS: FaqItem[] = [
   {
     question: '¿Cuándo y dónde es el evento?',
     answer:
-      'Spark AI Summit México se realiza de forma presencial en la Ciudad de México. La fecha y la sede exactas se confirman próximamente; la información de sala y acceso se envía tras validar tu inscripción.',
+      'Spark AI Summit México se realiza el jueves 29 de octubre de 2026, de 14:00 a 17:00, de forma presencial en la Ciudad de México. La sede se confirma próximamente; la información de sala y acceso se envía tras validar tu inscripción.',
   },
   {
     question: '¿Por qué el acceso requiere aprobación?',

@@ -26,13 +26,13 @@ export function renderEditionSection(root: Element): void {
   const heading = renderHeading({
     size: 'l',
     tag: 'h2',
-    text: 'Más de 1000 líderes ya vivieron Spark AI Summit',
+    text: 'Más de 6,000 líderes ya vivieron Spark AI Summit',
     highlight: 'Spark AI Summit',
   });
 
   const sub = renderParagraph({
     size: 'l',
-    text: 'En julio de 2025 en Panamá y junio de 2026 en Bogotá, directores de marketing, gerentes de ventas y CTOs se dieron cita para ver en vivo cómo la inteligencia artificial ya está cambiando la forma de vender, atender y retener clientes en la región.',
+    text: 'En junio de 2026, en Bogotá (sold out), directores de marketing, gerentes de ventas y CTOs de empresas como Mastercard, BBVA, Davivienda y Casa Toro se dieron cita para ver en vivo cómo la inteligencia artificial ya está cambiando la forma de vender, atender y retener clientes en la región.',
     // Sin reveal por líneas: el split de este párrafo largo fija cortes de renglón
     // erróneos (queda partido a media frase). Se muestra estático.
     reveal: false,

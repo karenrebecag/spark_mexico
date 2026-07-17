@@ -58,7 +58,7 @@ export function renderHero(root: Element): void {
   left.className = 'aa-hero__left';
   left.setAttribute('data-hero-left', '');
 
-  const tag = renderPill('Próximamente · México');
+  const tag = renderPill('Jueves 29 de Octubre 2026 · CDMX');
   tag.classList.add('aa-hero__tag');
   tag.setAttribute('data-aa-fade', '');
   left.appendChild(tag);
@@ -77,6 +77,13 @@ export function renderHero(root: Element): void {
   logo.height = 80;
   logo.setAttribute('data-aa-fade', '');
   left.appendChild(logo);
+
+  // Subtítulo de producto (brief §3): voz, chat e imagen. Bajo el logo, sobre la sede.
+  const subtitle = document.createElement('p');
+  subtitle.className = 'aa-hero__subtitle';
+  subtitle.setAttribute('data-aa-fade', '');
+  subtitle.textContent = 'Voz, chat e imagen para revolucionar.';
+  left.appendChild(subtitle);
 
   const where = document.createElement('p');
   where.className = 'aa-hero__where';

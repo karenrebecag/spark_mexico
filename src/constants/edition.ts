@@ -40,6 +40,6 @@ interface EditionStat {
 
 export const EDITION_STATS: EditionStat[] = [
   { number: '+80', label: 'eventos' },
-  { number: '+5000', label: 'asistentes' },
+  { number: '+6000', label: 'asistentes' },
   { number: '+500', label: 'empresas' },
 ];

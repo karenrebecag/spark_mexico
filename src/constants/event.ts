@@ -1,3 +1,3 @@
-// Datos del evento. Lima = UTC-5.
+// Datos del evento. CDMX = UTC-6.
 
-export const EVENT_DATE = new Date('2026-07-14T09:00:00-05:00');
+export const EVENT_DATE = new Date('2026-10-29T14:00:00-06:00');

@@ -91,7 +91,7 @@ export function renderCtaBanner(root: Element): void {
   const inner = document.createElement('div');
   inner.className = 'aa-cta__inner';
 
-  const pill = renderPill('25 de Junio 2026 · Ciudad de México');
+  const pill = renderPill('29 de Octubre 2026 · Ciudad de México');
   pill.setAttribute('data-aa-fade', '');
 
   // Track relleno vía JS + loop a velocidad constante (initCtaMarquee) — la duración fija
