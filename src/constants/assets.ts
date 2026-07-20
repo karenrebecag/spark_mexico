@@ -9,7 +9,7 @@ export const ASSETS = {
   heroVideo:   `${CDN}/mexico-city-aerial.mp4`,   // fondo del hero (loop muteado)
   meshBg:      `${CDN}/image-mesh-gradient%20(1).webp`,
   ctaBg:       `${CDN}/bogota-skyline-in-colombia-2026-03-26-06-09-24-utc.webp`,
-  playerSrc:   `${CDN}/ES_ADS_1920x1080_Spark-Junio-2026_Awareness_Generico_04_05_26%20(2).mp4`,
+  playerSrc:   `${CDN}/spark-summit-recap-2026-lite.mp4`,
   playerPoster:`${CDN}/image-mesh-gradient%20(1).webp`,
   // Vacío = el hero usa el <video> bg en vez de una escena Spline.
   splineScene: '',
