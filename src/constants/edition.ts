@@ -21,16 +21,23 @@ export const EDITION_PHOTOS: string[] = [
   `${CDN}/DSC04556.webp`,
 ];
 
-// ⚠️ URLs firmadas de media.licdn.com (feedshare-image) — expiran el 30 de julio de 2026
-// (parámetro `e=` de la query string). Pasada esa fecha estas 5 URLs devuelven 403/404.
-// Hay que re-subirlas a un bucket propio (R2, como el resto de assets del proyecto) antes
-// de esa fecha. Usadas solo por la galería de #edicion-2025 (no por #problema).
-export const EDITION_LINKEDIN_PHOTOS: string[] = [
-  'https://media.licdn.com/dms/image/v2/D4D22AQGbkbLgitfbtQ/feedshare-image-high-res/B4DZ8FJOSCGYAU-/0/1782497733319?e=1785369600&v=beta&t=rmttXVf8cbYp1DygLUGEHsPZ8QqLCyc3ytRlwIq6To0',
-  'https://media.licdn.com/dms/image/v2/D4D22AQFU-Ds3KNrojA/feedshare-image-high-res/B4DZ8FJN2pI4Ac-/0/1782497730772?e=1785369600&v=beta&t=1sfhHmrcgJ3xKsRyhGRN3KnBw5pXx2uAEX504sFDcHY',
-  'https://media.licdn.com/dms/image/v2/D4D22AQGlb0lqVW72ZA/feedshare-image-high-res/B4DZ8FJOpSGkAU-/0/1782497733965?e=1785369600&v=beta&t=r7Zfd9_XzrdFciDTGRs4j0Ezv4NJqTyTPZmwxc16MKc',
-  'https://media.licdn.com/dms/image/v2/D4D22AQGXi72QMkJl-g/feedshare-image-high-res/B4DZ8FJOfuIYAY-/0/1782497733322?e=1785369600&v=beta&t=knPeq0sPiAmkcVx8TpT-L-N0sohSwNfyVdI598P1OTQ',
-  'https://media.licdn.com/dms/image/v2/D4D22AQGfSdONDQ-LVQ/feedshare-shrink_1280/B4DZ8FJODQJAAM-/0/1782497732031?e=1785369600&v=beta&t=-FrhivScJnIjacuXPD-SMpmXCnVoMInBnwGnCvcQXVQ',
+// Fotos reales del drift gallery en #ediciones-anteriores. Re-subidas a R2 (ya no
+// dependen de URLs firmadas de LinkedIn que expiraban).
+export const EDITION_GALLERY_PHOTOS: string[] = [
+  `${CDN}/DSC02609-reduced.webp`,
+  `${CDN}/DSC02618-reduced.webp`,
+  `${CDN}/DSC02621-reduced.webp`,
+  `${CDN}/DSC02633-reduced.webp`,
+  `${CDN}/DSC02653-reduced.webp`,
+  `${CDN}/DSC02665-reduced.webp`,
+  `${CDN}/DSC02713-reduced.webp`,
+  `${CDN}/DSC02747-reduced.webp`,
+  `${CDN}/DSC02749-reduced.webp`,
+  `${CDN}/DSC02787-reduced.webp`,
+  `${CDN}/DSC02835-reduced.webp`,
+  `${CDN}/DSC02931-reduced.webp`,
+  `${CDN}/DSC02942-reduced.webp`,
+  `${CDN}/DSC02968-reduced.webp`,
 ];
 
 interface EditionStat {

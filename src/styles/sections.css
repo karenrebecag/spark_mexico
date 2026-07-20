@@ -143,8 +143,7 @@
   object-fit: cover;
   border-radius: var(--aa-radius-m);
   will-change: transform;
-  /* Placeholder: fill de token (sin imagen → barato de compositar en el pin). Alternancia
-     sutil para dar ritmo a la tira mientras deriva. */
+  /* Fill de token como color de carga (visible mientras la imagen decodifica). */
   background: var(--aa-bg-hover);
 }
 .aa-landing .aa-drift__card:nth-child(even) { background: var(--aa-snow-200); }

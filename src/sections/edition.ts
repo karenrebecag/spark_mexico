@@ -1,11 +1,11 @@
 // Anteriores ediciones — efecto MWG 094 (drift gallery): sección pinneada con el texto (label +
 // heading + sub) centrado fijo, mientras una tira de fotos reales del evento deriva
 // alrededor del centro al scrollear. Init en ui/drift-gallery.ts. Estilos .aa-drift* en
-// sections.css. Usa el set estable EDITION_PHOTOS (R2), no las LinkedIn que expiran.
+// sections.css. Usa EDITION_GALLERY_PHOTOS (R2), set propio del drift gallery.
 
 import { renderHeading, renderParagraph } from '../ui/text';
 import { renderPill } from '../ui/atoms/pill';
-import { EDITION_PHOTOS } from '../constants/edition';
+import { EDITION_GALLERY_PHOTOS } from '../constants/edition';
 
 export function renderEditionSection(root: Element): void {
   const section = document.createElement('section');
@@ -41,16 +41,15 @@ export function renderEditionSection(root: Element): void {
 
   text.append(pill, heading, sub);
 
-  // Tira horizontal de placeholders (GSAP la traslada en X durante el pin). Placeholders
-  // (divs con bg de token) en vez de las fotos reales: 14 imágenes DSC full-res animándose
-  // con scale+rotación en el pin saturan el compositor y laguean el scroll. Se sustituyen
-  // por assets optimizados (thumbnails ligeros) antes de publicar. Se conserva el count de
-  // EDITION_PHOTOS para no alterar la geometría de la tira.
+  // Tira horizontal de fotos reales (GSAP la traslada en X durante el pin).
   const cards = document.createElement('div');
   cards.className = 'aa-drift__cards';
-  EDITION_PHOTOS.forEach(() => {
-    const card = document.createElement('div');
+  EDITION_GALLERY_PHOTOS.forEach((src) => {
+    const card = document.createElement('img');
     card.className = 'aa-drift__card';
+    card.src = src;
+    card.alt = '';
+    card.loading = 'lazy';
     card.setAttribute('aria-hidden', 'true');
     cards.appendChild(card);
   });
