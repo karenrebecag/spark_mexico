@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Barra de estado en mobile: sin esto Safari samplea el fondo del documento (blanco)
+       y la barra corta contra el topbar navy que queda justo debajo. -->
+  <meta name="theme-color" content="#08101d" />
   <title>Spark AI Summit México — Preview</title>
   <!-- Favicons (extraidos del sitio Spark): .ico multi-tamano + .svg vectorial. -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -21,6 +24,9 @@
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      /* El rubber-band de iOS descubre el fondo del documento por arriba y por abajo;
+         en navy no hay flash blanco contra el topbar ni contra el footer. */
+      background: #08101d;
     }
   </style>
 </head>
