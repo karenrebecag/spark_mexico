@@ -43,11 +43,17 @@ export function renderRadialSection(root: Element): void {
     sub: 'Spark AI Summit México es el evento clave en LATAM para líderes que quieren transformar la forma en que conectan con sus prospectos y clientes.',
   });
 
-  const cards = CARDS.map((c) => renderFeatureCard(c));
+  // Dos presentaciones de las mismas cards: rueda (desktop) y columna (<768px). Ambas
+  // viven en el DOM y el switch lo hace CSS — así el cambio de breakpoint no re-renderiza.
+  // Las instancias no se pueden compartir: un nodo solo existe en un punto del DOM.
+  const stack = document.createElement('div');
+  stack.className = 'aa-radial-section__stack';
+  CARDS.forEach((c) => stack.appendChild(renderFeatureCard(c)));
 
   section.append(
     renderContainer({ size: 'default', className: 'aa-radial-section__head', children: [header] }),
-    renderRadialSlider(cards),
+    renderRadialSlider(CARDS.map((c) => renderFeatureCard(c))),
+    renderContainer({ size: 'default', children: [stack] }),
   );
   root.appendChild(section);
 }

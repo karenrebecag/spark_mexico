@@ -89,15 +89,28 @@
   transform-origin: 50% var(--slider-radius);
 }
 
+/* ─── Switch por breakpoint: rueda (desktop) ↔ columna (<768px) ────────────────
+   La órbita necesita ancho para leerse; por debajo de 768px las cards laterales caen
+   fuera del viewport y el drag compite con el scroll vertical. Ahí se apilan. Ambas
+   presentaciones están en el DOM y solo cambia la visibilidad: sin re-render al rotar
+   el dispositivo. */
+.aa-landing .aa-radial-section__stack { display: none; }
+
 @media screen and (max-width: 767px) {
-  .aa-landing .aa-radial-slider {
-    --slider-rotate: 12deg;
-    --slider-radius: 475%;
+  .aa-landing .aa-radial-slider { display: none; }
+
+  .aa-landing .aa-radial-section__stack {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--aa-gap-m);
+    padding-top: var(--aa-padding-l);
   }
-  /* 15em dejaba el texto (tags+heading+párrafo) al límite del card (altura ligada al
-     ancho vía aspect-ratio 130% en .aa-fcard::before) — se recortaba abajo. Se ensancha
-     el card, no la tipografía: más alto (proporcional) y menos wrap por línea. */
-  .aa-landing .aa-radial-slider__item { width: 19em; }
+  /* Sin órbita no hay razón para el retrato forzado: a ancho completo el spacer 130%
+     deja mucho aire muerto. La altura la define el contenido. */
+  .aa-landing .aa-radial-section__stack .aa-fcard::before { display: none; }
+  .aa-landing .aa-radial-section__stack .aa-fcard__inner { position: static; }
+  /* En la rueda el underline se revela al quedar activo; apiladas no hay estado activo. */
+  .aa-landing .aa-radial-section__stack .aa-fcard__underline { transform: scaleX(1); }
 }
 
 /* La card usada dentro del slider es el componente FeatureCard (ver feature-card.css). */

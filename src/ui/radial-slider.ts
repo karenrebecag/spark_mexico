@@ -90,6 +90,11 @@ function buildSlider(container: RadialContainer): void {
     container._radialSliderAuto = null;
   }
 
+  // Bajo 768px el CSS oculta la rueda (se usa el stack). Montarla ahí mediría todo en 0
+  // y dejaría el auto-advance corriendo sin nada visible; el resize handler la reconstruye
+  // al volver a desktop.
+  if (!container.getClientRects().length) return;
+
   const collection = container.querySelector<HTMLElement>('[data-radial-slider-collection]');
   const track = container.querySelector<HTMLElement>('[data-radial-slider-list]');
   if (!collection || !track) return;

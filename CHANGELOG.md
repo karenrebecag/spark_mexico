@@ -5,6 +5,13 @@ Versionado: el CI de release etiqueta `vX.Y.Z` por push a `main` (cuando se cone
 
 ## [Unreleased]
 
+### Changed
+- Radial slider (`#` strip de value prop): UI adaptativa por breakpoint. Bajo 768px la rueda
+  se oculta y las mismas FeatureCards se apilan en columna (`.aa-radial-section__stack`);
+  la órbita necesita ancho para leerse y su drag competía con el scroll vertical. Ambas
+  presentaciones viven en el DOM (switch por CSS, sin re-render). `buildSlider` aborta si el
+  contenedor está oculto, para no medir en 0 ni dejar el auto-advance corriendo en mobile.
+
 ### Added
 - Registro vía Lu.ma: embed oficial del evento (`evt-JdsdhnKGS92S1vt`) incrustado en
   `#contacto`, reemplazando el placeholder del form atfx. Todos los CTAs "Reservar mi lugar"
